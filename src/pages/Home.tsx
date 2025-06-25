@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, Heart, User, Home as HomeIcon, Clock, Shield, CheckCircle, Star, ArrowUpRight, Phone, Share, X, Quote, Syringe } from 'lucide-react';
+import { ArrowRight, Heart, User, Home as HomeIcon, Clock, Shield, CheckCircle, Star, ArrowUpRight, Phone, Share, X, Quote } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import SectionHeading from '@/components/common/SectionHeading';
@@ -316,10 +316,7 @@ const services = [{
                   <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start mb-8 animate-fade-in delay-[400ms]">
                     <Button asChild className="group relative overflow-hidden rounded-xl px-6 py-3 bg-white/15 hover:bg-white/25 border border-white/30 hover:border-white/50 backdrop-blur-sm text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg text-sm sm:text-base">
                       <Link to="/services/aide-soignant" className="flex items-center justify-center gap-2">
-                        <svg width="28" height="28" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="transition-transform duration-300 group-hover:scale-110">
-                          <path d="M24 13c-1.7-2-5-2-6.5 0-1.5 2 0 4 1.5 5l5 5 5-5c1.5-1 3-3 1.5-5-1.5-2.1-4.8-2.1-6.5 0z" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-                          <path d="M12 32c0-2 1.5-3 3.5-3h6c.7 0 1.4.2 2 .5l4 2c1 .5 2.5.5 3.5 0l2-1c1-.5 2-.5 2.5.5.5 1-.5 2-1.5 2.5l-6 3c-1.5.7-3.5.7-5 0l-6-3c-1-.5-2-1.5-1.5-2.5z" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
+                        <Heart size={18} className="transition-transform duration-300 group-hover:scale-110" />
                         <span>AIDE-SOIGNANT(E) À DOMICILE</span>
                         <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
                       </Link>
@@ -327,7 +324,7 @@ const services = [{
                     
                     <Button asChild className="group relative overflow-hidden rounded-xl px-6 py-3 bg-white/15 hover:bg-white/25 border border-white/30 hover:border-white/50 backdrop-blur-sm text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg text-sm sm:text-base">
                       <Link to="/services/infirmier" className="flex items-center justify-center gap-2">
-                        <Syringe size={18} className="transition-transform duration-300 group-hover:scale-110" />
+                        <Shield size={18} className="transition-transform duration-300 group-hover:scale-110" />
                         <span>INFIRMIER(ÈRE) À DOMICILE</span>
                         <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
                       </Link>
