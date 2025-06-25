@@ -21,13 +21,14 @@ import PolitiqueConfidentialite from "./pages/PolitiqueConfidentialite";
 import MotDuPresident from "./pages/MotDuPresident";
 import NotFound from "./pages/NotFound";
 import { initEmailJS } from "./utils/emailjs";
-import { initializeFaviconManager, cleanURLFragments } from "./utils/faviconManager";
+import { initializeSimpleFavicons } from "./utils/simpleFaviconManager";
 import CookieConsentManager from "./components/cookies/CookieConsentManager";
 import SecurityDashboard from "./components/security/SecurityDashboard";
 import { securitySession } from "./utils/securitySession";
-import { advancedPerformanceMonitor } from "./utils/advancedPerformanceMonitor";
+import { lightweightPerformanceMonitor } from "./utils/lightweightPerformanceMonitor";
 import { inlineCriticalCSS, deferNonCriticalCSS, preloadCriticalResources } from "./utils/criticalCssOptimizer";
-import { optimizeDOM, reduceReflows } from "./utils/domOptimizer";
+import { iosSafeOptimizeDOM, iosSafeReduceReflows } from "./utils/iosSafeDomOptimizer";
+import { iosCompatibilityInit, iosPerformanceOptimization } from "./utils/iosCompatibility";
 import "./styles/global.css";
 
 // Optimized QueryClient configuration
@@ -37,39 +38,57 @@ const queryClient = new QueryClient({
       staleTime: 5 * 60 * 1000,
       gcTime: 10 * 60 * 1000,
       refetchOnWindowFocus: false,
-      retry: 1, // Reduce retries for faster failure
+      retry: 1,
     },
   },
 });
 
 const App: React.FC = () => {
   useEffect(() => {
-    console.log('🚀 Initializing performance-optimized Mylli Services...');
+    console.log('🚀 Initializing iOS-optimized Mylli Services...');
     
-    // PHASE 1: Critical performance optimizations (immediate)
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    console.log(`📱 Platform detected: ${isIOS ? 'iOS' : 'Other'}`);
+    
+    // PHASE 1: Critical iOS compatibility fixes (immediate)
+    if (isIOS) {
+      iosCompatibilityInit();
+      iosPerformanceOptimization();
+    }
+    
+    // PHASE 2: Critical performance optimizations
     inlineCriticalCSS();
     preloadCriticalResources();
-    advancedPerformanceMonitor.init();
     
-    // PHASE 2: Security and cleanup (high priority)
+    // PHASE 3: Platform-specific optimizations
+    initializeSimpleFavicons();
+    lightweightPerformanceMonitor.init();
+    
+    // PHASE 4: Security and cleanup (high priority)
     securitySession.initializeSession();
-    cleanURLFragments();
     
-    // PHASE 3: DOM optimizations (requestIdleCallback)
-    requestIdleCallback(() => {
-      optimizeDOM();
-      reduceReflows();
-      deferNonCriticalCSS();
-    }, { timeout: 1000 });
+    // PHASE 5: DOM optimizations (requestIdleCallback)
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(() => {
+        iosSafeOptimizeDOM();
+        iosSafeReduceReflows();
+        deferNonCriticalCSS();
+      }, { timeout: 2000 });
+    } else {
+      // Fallback for older browsers
+      setTimeout(() => {
+        iosSafeOptimizeDOM();
+        iosSafeReduceReflows();
+        deferNonCriticalCSS();
+      }, 1000);
+    }
     
-    // PHASE 4: Non-critical resources (low priority)
-    requestIdleCallback(() => {
-      initializeFaviconManager();
-      
-      // Register optimized service worker
+    // PHASE 6: Non-critical resources (low priority)
+    const initNonCritical = () => {
+      // Register iOS-optimized service worker
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/sw-optimized.js')
-          .then(() => console.log('✅ Optimized Service Worker registered'))
+        navigator.serviceWorker.register('/sw-ios-optimized.js')
+          .then(() => console.log('✅ iOS-optimized Service Worker registered'))
           .catch(() => console.log('ℹ️ Service Worker registration failed'));
       }
       
@@ -79,17 +98,21 @@ const App: React.FC = () => {
       } catch (error) {
         console.error("❌ EmailJS failed:", error);
       }
-    }, { timeout: 2000 });
+    };
+
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(initNonCritical, { timeout: 3000 });
+    } else {
+      setTimeout(initNonCritical, 2000);
+    }
     
-    // PHASE 5: Performance monitoring (delayed)
+    // PHASE 7: Performance monitoring (delayed)
     setTimeout(() => {
-      const report = advancedPerformanceMonitor.generateReport();
-      if (report.performance < 80) {
-        console.warn('⚠️ Performance below target, check metrics');
-      }
+      const report = lightweightPerformanceMonitor.generateReport();
+      console.log('📊 Performance report:', report);
     }, 5000);
 
-    console.log('✅ All performance optimizations initialized');
+    console.log('✅ iOS-optimized initialization complete');
   }, []);
 
   return (
