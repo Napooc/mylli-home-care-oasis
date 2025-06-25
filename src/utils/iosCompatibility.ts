@@ -1,5 +1,14 @@
-
 // iOS Safari compatibility fixes and optimizations
+
+// Extend TouchEvent interface to include scale property
+interface TouchEventWithScale extends TouchEvent {
+  scale?: number;
+}
+
+// Extend CSSStyleDeclaration interface to include webkitOverflowScrolling
+interface CSSStyleDeclarationWithWebkit extends CSSStyleDeclaration {
+  webkitOverflowScrolling?: string;
+}
 
 export class IOSCompatibility {
   private static instance: IOSCompatibility;
@@ -54,7 +63,8 @@ export class IOSCompatibility {
 
     // Prevent iOS Safari bounce effect
     document.addEventListener('touchmove', (e) => {
-      if (e.scale !== 1) {
+      const touchEvent = e as TouchEventWithScale;
+      if (touchEvent.scale !== 1) {
         e.preventDefault();
       }
     }, { passive: false });
@@ -93,7 +103,7 @@ export class IOSCompatibility {
     document.head.appendChild(style);
 
     // Optimize scrolling for iOS
-    document.body.style.webkitOverflowScrolling = 'touch';
+    (document.body.style as CSSStyleDeclarationWithWebkit).webkitOverflowScrolling = 'touch';
   }
 
   // Fix iOS memory management
@@ -102,14 +112,14 @@ export class IOSCompatibility {
 
     // Clear unused timers and intervals
     let maxTimerId = setTimeout(() => {}, 0);
-    for (let i = 1; i <= maxTimerId; i++) {
+    for (let i = 1; i <= (maxTimerId as number); i++) {
       clearTimeout(i);
     }
 
     // Optimize garbage collection for iOS
-    if (window.gc) {
+    if ((window as any).gc) {
       setInterval(() => {
-        window.gc();
+        (window as any).gc();
       }, 30000);
     }
   }
@@ -133,11 +143,11 @@ export class IOSCompatibility {
     } as any;
 
     // Fix iOS Promise issues
-    if (!window.Promise.prototype.finally) {
-      window.Promise.prototype.finally = function(callback: () => void) {
+    if (!(window.Promise.prototype as any).finally) {
+      (window.Promise.prototype as any).finally = function(callback: () => void) {
         return this.then(
-          (value) => Promise.resolve(callback()).then(() => value),
-          (reason) => Promise.resolve(callback()).then(() => { throw reason; })
+          (value: any) => Promise.resolve(callback()).then(() => value),
+          (reason: any) => Promise.resolve(callback()).then(() => { throw reason; })
         );
       };
     }
