@@ -38,8 +38,9 @@ export const optimizeDOM = () => {
     // Add will-change hints for animations - with null checks
     const animatedElements = document.querySelectorAll('[class*="animate-"], [class*="transition-"]');
     animatedElements.forEach(element => {
-      if (element && element.style && !element.style.willChange) {
-        element.style.willChange = 'transform, opacity';
+      const htmlElement = element as HTMLElement;
+      if (htmlElement && htmlElement.style && !htmlElement.style.willChange) {
+        htmlElement.style.willChange = 'transform, opacity';
       }
     });
 
@@ -86,9 +87,10 @@ export const optimizeForIOS = () => {
     // Prevent iOS scroll bounce
     document.body.style.overscrollBehavior = 'none';
     
-    // Optimize touch events for iOS
-    document.body.style.webkitTouchCallout = 'none';
-    document.body.style.webkitUserSelect = 'none';
+    // Optimize touch events for iOS - using proper webkit property access
+    const bodyStyle = document.body.style as any;
+    bodyStyle.webkitTouchCallout = 'none';
+    bodyStyle.webkitUserSelect = 'none';
     
     // Fix iOS viewport issues
     const viewport = document.querySelector('meta[name="viewport"]');
