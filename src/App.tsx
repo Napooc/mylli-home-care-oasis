@@ -28,16 +28,23 @@ import { securitySession } from "./utils/securitySession";
 import { advancedPerformanceMonitor } from "./utils/advancedPerformanceMonitor";
 import { inlineCriticalCSS, deferNonCriticalCSS, preloadCriticalResources } from "./utils/criticalCssOptimizer";
 import { optimizeDOM, reduceReflows } from "./utils/domOptimizer";
+import { iosCompatibility } from "./utils/iosCompatibility";
+import { iosServiceWorkerManager } from "./utils/iosOptimizedServiceWorker";
 import "./styles/global.css";
+import "./styles/ios-fixes.css";
 
-// Optimized QueryClient configuration
+// Optimized QueryClient configuration with iOS-specific settings
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       staleTime: 5 * 60 * 1000,
       gcTime: 10 * 60 * 1000,
       refetchOnWindowFocus: false,
-      retry: 1, // Reduce retries for faster failure
+      retry: (failureCount, error) => {
+        // Reduce retries on iOS to save battery and memory
+        const maxRetries = iosCompatibility.isIOS() ? 1 : 2;
+        return failureCount < maxRetries;
+      },
     },
   },
 });
@@ -46,31 +53,44 @@ const App: React.FC = () => {
   useEffect(() => {
     console.log('🚀 Initializing performance-optimized Mylli Services...');
     
-    // PHASE 1: Critical performance optimizations (immediate)
+    // PHASE 1: iOS compatibility fixes (highest priority)
+    if (iosCompatibility.isIOS()) {
+      console.log('🍎 iOS device detected, applying iOS-specific optimizations...');
+      iosCompatibility.initializeIOSFixes();
+    }
+    
+    // PHASE 2: Critical performance optimizations (immediate)
     inlineCriticalCSS();
     preloadCriticalResources();
     advancedPerformanceMonitor.init();
     
-    // PHASE 2: Security and cleanup (high priority)
+    // PHASE 3: Security and cleanup (high priority)
     securitySession.initializeSession();
     cleanURLFragments();
     
-    // PHASE 3: DOM optimizations (requestIdleCallback)
-    requestIdleCallback(() => {
+    // PHASE 4: DOM optimizations (requestIdleCallback for iOS performance)
+    const domOptimizationCallback = () => {
       optimizeDOM();
       reduceReflows();
       deferNonCriticalCSS();
-    }, { timeout: 1000 });
+    };
     
-    // PHASE 4: Non-critical resources (low priority)
-    requestIdleCallback(() => {
+    if (iosCompatibility.isIOS()) {
+      // Use setTimeout for iOS Safari compatibility
+      setTimeout(domOptimizationCallback, 500);
+    } else {
+      requestIdleCallback(domOptimizationCallback, { timeout: 1000 });
+    }
+    
+    // PHASE 5: Non-critical resources (low priority)
+    const initNonCriticalResources = () => {
       initializeFaviconManager();
       
-      // Register optimized service worker
+      // Register iOS-optimized service worker
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/sw-optimized.js')
-          .then(() => console.log('✅ Optimized Service Worker registered'))
-          .catch(() => console.log('ℹ️ Service Worker registration failed'));
+        iosServiceWorkerManager.registerIOSOptimizedServiceWorker()
+          .then(() => console.log('✅ iOS-optimized Service Worker registered'))
+          .catch((error) => console.log('ℹ️ Service Worker registration failed:', error));
       }
       
       try {
@@ -79,15 +99,31 @@ const App: React.FC = () => {
       } catch (error) {
         console.error("❌ EmailJS failed:", error);
       }
-    }, { timeout: 2000 });
+    };
     
-    // PHASE 5: Performance monitoring (delayed)
+    if (iosCompatibility.isIOS()) {
+      // Delay non-critical resources more on iOS to prevent memory issues
+      setTimeout(initNonCriticalResources, 3000);
+    } else {
+      requestIdleCallback(initNonCriticalResources, { timeout: 2000 });
+    }
+    
+    // PHASE 6: Performance monitoring (delayed, iOS-optimized)
+    const performanceMonitoringDelay = iosCompatibility.isIOS() ? 8000 : 5000;
     setTimeout(() => {
       const report = advancedPerformanceMonitor.generateReport();
       if (report.performance < 80) {
         console.warn('⚠️ Performance below target, check metrics');
       }
-    }, 5000);
+      
+      if (iosCompatibility.isIOS()) {
+        console.log('🍎 iOS performance report:', {
+          device: 'iOS',
+          version: iosCompatibility.getIOSVersion(),
+          performance: report.performance
+        });
+      }
+    }, performanceMonitoringDelay);
 
     console.log('✅ All performance optimizations initialized');
   }, []);

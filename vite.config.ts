@@ -66,11 +66,11 @@ export default defineConfig(({ mode }) => ({
         collapse_vars: true
       },
       mangle: {
-        safari10: true,
+        // Removed safari10 option to fix build error
         toplevel: true
       },
       format: {
-        safari10: true,
+        // Removed safari10 option to fix build error
         comments: false
       }
     },
@@ -78,7 +78,7 @@ export default defineConfig(({ mode }) => ({
     chunkSizeWarningLimit: 500,
     assetsInlineLimit: 2048,
     reportCompressedSize: false,
-    target: 'es2020'
+    target: ['es2020', 'safari14'] // Specific iOS Safari target
   },
   css: {
     devSourcemap: false,
@@ -92,6 +92,7 @@ export default defineConfig(({ mode }) => ({
     legalComments: 'none',
     minifyIdentifiers: true,
     minifySyntax: true,
-    minifyWhitespace: true
+    minifyWhitespace: true,
+    target: 'safari14' // iOS Safari compatibility
   }
 }));
