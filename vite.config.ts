@@ -60,16 +60,12 @@ export default defineConfig(({ mode }) => ({
         unused: true,
         if_return: true,
         join_vars: true,
-        collapse_vars: true,
-        // iOS Safari compatibility
-        safari10: true
+        collapse_vars: true
       },
       mangle: {
-        safari10: true,
         toplevel: true
       },
       format: {
-        safari10: true,
         comments: false
       }
     },
