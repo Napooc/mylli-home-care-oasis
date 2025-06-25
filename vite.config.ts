@@ -66,9 +66,11 @@ export default defineConfig(({ mode }) => ({
         collapse_vars: true
       },
       mangle: {
+        safari10: true,
         toplevel: true
       },
       format: {
+        safari10: true,
         comments: false
       }
     },
@@ -76,7 +78,7 @@ export default defineConfig(({ mode }) => ({
     chunkSizeWarningLimit: 500,
     assetsInlineLimit: 2048,
     reportCompressedSize: false,
-    target: ['es2020', 'safari12']
+    target: 'es2020'
   },
   css: {
     devSourcemap: false,
@@ -90,7 +92,6 @@ export default defineConfig(({ mode }) => ({
     legalComments: 'none',
     minifyIdentifiers: true,
     minifySyntax: true,
-    minifyWhitespace: true,
-    target: ['es2020', 'safari12']
+    minifyWhitespace: true
   }
 }));
