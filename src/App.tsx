@@ -28,6 +28,7 @@ import { securitySession } from "./utils/securitySession";
 import { lightweightPerformanceMonitor } from "./utils/lightweightPerformanceMonitor";
 import { inlineCriticalCSS, deferNonCriticalCSS, preloadCriticalResources } from "./utils/criticalCssOptimizer";
 import { iosSafeOptimizeDOM, iosSafeReduceReflows } from "./utils/iosSafeDomOptimizer";
+import { iosCompatibilityInit, iosPerformanceOptimization } from "./utils/iosCompatibility";
 import "./styles/global.css";
 
 // Optimized QueryClient configuration
@@ -49,27 +50,24 @@ const App: React.FC = () => {
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
     console.log(`📱 Platform detected: ${isIOS ? 'iOS' : 'Other'}`);
     
-    // PHASE 1: Critical performance optimizations (immediate)
+    // PHASE 1: Critical iOS compatibility fixes (immediate)
+    if (isIOS) {
+      iosCompatibilityInit();
+      iosPerformanceOptimization();
+    }
+    
+    // PHASE 2: Critical performance optimizations
     inlineCriticalCSS();
     preloadCriticalResources();
     
-    // PHASE 2: Platform-specific optimizations
-    if (isIOS) {
-      // iOS-specific initialization
-      console.log('🍎 Applying iOS-specific optimizations...');
-      initializeSimpleFavicons();
-      lightweightPerformanceMonitor.init();
-    } else {
-      // Full features for other platforms
-      console.log('🖥️ Applying full platform optimizations...');
-      lightweightPerformanceMonitor.init();
-      initializeSimpleFavicons();
-    }
+    // PHASE 3: Platform-specific optimizations
+    initializeSimpleFavicons();
+    lightweightPerformanceMonitor.init();
     
-    // PHASE 3: Security and cleanup (high priority)
+    // PHASE 4: Security and cleanup (high priority)
     securitySession.initializeSession();
     
-    // PHASE 4: DOM optimizations (requestIdleCallback)
+    // PHASE 5: DOM optimizations (requestIdleCallback)
     if ('requestIdleCallback' in window) {
       requestIdleCallback(() => {
         iosSafeOptimizeDOM();
@@ -85,10 +83,10 @@ const App: React.FC = () => {
       }, 1000);
     }
     
-    // PHASE 5: Non-critical resources (low priority)
+    // PHASE 6: Non-critical resources (low priority)
     const initNonCritical = () => {
       // Register iOS-optimized service worker
-      if ('serviceWorker' in navigator && (!isIOS || 'requestIdleCallback' in window)) {
+      if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('/sw-ios-optimized.js')
           .then(() => console.log('✅ iOS-optimized Service Worker registered'))
           .catch(() => console.log('ℹ️ Service Worker registration failed'));
@@ -108,7 +106,7 @@ const App: React.FC = () => {
       setTimeout(initNonCritical, 2000);
     }
     
-    // PHASE 6: Performance monitoring (delayed)
+    // PHASE 7: Performance monitoring (delayed)
     setTimeout(() => {
       const report = lightweightPerformanceMonitor.generateReport();
       console.log('📊 Performance report:', report);
