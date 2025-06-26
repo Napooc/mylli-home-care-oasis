@@ -29,13 +29,15 @@ export class IOSCompatibilityFixes {
       return elements;
     };
 
-    // Patch NodeList forEach to handle undefined elements
+    // Patch NodeList forEach to handle undefined elements with proper typing
     if (NodeList.prototype.forEach) {
       const originalForEach = NodeList.prototype.forEach;
       NodeList.prototype.forEach = function(callback, thisArg) {
         Array.from(this).forEach((element, index) => {
-          if (element && element.classList !== undefined) {
-            callback.call(thisArg, element, index, this);
+          // Proper type casting to Element to access classList
+          const domElement = element as Element;
+          if (domElement && domElement.classList !== undefined) {
+            callback.call(thisArg, domElement, index, this);
           }
         });
       };
@@ -120,12 +122,13 @@ export class IOSCompatibilityFixes {
       };
     }
 
-    // Fix requestIdleCallback for iOS Safari
+    // Fix requestIdleCallback for iOS Safari with proper typing
     if (!window.requestIdleCallback) {
       window.requestIdleCallback = function(callback, options = {}) {
         const timeout = options.timeout || 0;
         const startTime = Date.now();
         
+        // Cast setTimeout return value to number to match interface
         return setTimeout(() => {
           callback({
             didTimeout: false,
@@ -133,11 +136,11 @@ export class IOSCompatibilityFixes {
               return Math.max(0, 50 - (Date.now() - startTime));
             }
           });
-        }, timeout);
+        }, timeout) as unknown as number;
       };
       
       window.cancelIdleCallback = function(id) {
-        clearTimeout(id);
+        clearTimeout(id as unknown as NodeJS.Timeout);
       };
     }
   }
