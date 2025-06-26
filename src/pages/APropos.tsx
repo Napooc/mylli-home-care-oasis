@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import PageBanner from '@/components/common/PageBanner';
 import SectionHeading from '@/components/common/SectionHeading';
 import ParallaxSection from '@/components/common/ParallaxSection';
-
 const AProposPage = () => {
   // Why choose us data
   const reasons = [{
@@ -33,34 +32,24 @@ const AProposPage = () => {
     icon: Users,
     color: "from-mylli-primary to-mylli-accent"
   }];
-
-  return (
-    <div>
-      <PageBanner 
-        title="À Propos de Mylli Services" 
-        subtitle="PLUS DE 10 ANS D'EXPÉRIENCE AU SERVICE DES PERSONNES FRAGILISÉES À LEUR DOMICILE" 
-      />
+  return <div>
+      <PageBanner title="À Propos de Mylli Services" subtitle="PLUS DE 10 ANS D'EXPÉRIENCE AU SERVICE DES PERSONNES FRAGILISÉES À LEUR DOMICILE" />
       
       {/* Enhanced Mission Section with mobile-first responsive design */}
       <section className="py-12 sm:py-16 lg:py-24 bg-gradient-to-br from-slate-50 via-white to-blue-50/30 relative overflow-hidden">
         {/* Background decorative elements - hidden on mobile for performance */}
         <div className="absolute inset-0 opacity-5 hidden lg:block">
           <div className="absolute top-20 left-20 w-64 h-64 rounded-full border-2 border-mylli-primary animate-spin-slow" style={{
-            animationDuration: '30s'
-          }}></div>
+          animationDuration: '30s'
+        }}></div>
           <div className="absolute bottom-32 right-32 w-48 h-48 rounded-full border border-mylli-secondary animate-spin-slow" style={{
-            animationDuration: '25s',
-            animationDirection: 'reverse'
-          }}></div>
+          animationDuration: '25s',
+          animationDirection: 'reverse'
+        }}></div>
         </div>
         
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <SectionHeading 
-            title="Notre Mission" 
-            subtitle="Permettre aux personnes en perte d'autonomie de rester chez elles dans les meilleures conditions possibles" 
-            variant="gradient" 
-            className="mb-12 lg:mb-20" 
-          />
+          <SectionHeading title="Notre Mission" subtitle="Permettre aux personnes en perte d'autonomie de rester chez elles dans les meilleures conditions possibles" variant="gradient" className="mb-12 lg:mb-20" />
           
           <div className="max-w-7xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center">
@@ -74,11 +63,7 @@ const AProposPage = () => {
                   {/* Main image container */}
                   <div className="relative bg-white rounded-2xl lg:rounded-3xl p-3 lg:p-4 shadow-xl lg:shadow-2xl transform group-hover:scale-105 transition-all duration-700 border border-gray-100">
                     <div className="relative overflow-hidden rounded-xl lg:rounded-2xl">
-                      <img 
-                        src="/lovable-uploads/4518a561-bb46-401c-97bf-1fcc8a183433.png" 
-                        alt="Équipe médicale prodiguant des soins à domicile avec compassion et professionnalisme" 
-                        className="w-full h-64 sm:h-80 lg:h-96 object-cover transform group-hover:scale-110 transition-transform duration-700" 
-                      />
+                      <img src="/lovable-uploads/4518a561-bb46-401c-97bf-1fcc8a183433.png" alt="Équipe médicale prodiguant des soins à domicile avec compassion et professionnalisme" className="w-full h-64 sm:h-80 lg:h-96 object-cover transform group-hover:scale-110 transition-transform duration-700" />
                       
                       {/* Overlay gradients */}
                       <div className="absolute inset-0 bg-gradient-to-t from-mylli-dark/20 via-transparent to-transparent"></div>
@@ -88,19 +73,17 @@ const AProposPage = () => {
                     {/* Mission statement overlay - responsive positioning */}
                     <div className="absolute -bottom-4 sm:-bottom-6 lg:-bottom-8 left-1/2 transform -translate-x-1/2 bg-white/95 backdrop-blur-xl rounded-xl lg:rounded-2xl shadow-xl lg:shadow-2xl px-4 sm:px-6 lg:px-8 py-3 sm:py-4 lg:py-6 border border-white/20 w-11/12 sm:w-auto max-w-xs sm:max-w-md">
                       <div className="text-center">
-                        <Quote size={16} className="text-mylli-primary mx-auto mb-2" />
-                        <p className="text-mylli-dark font-semibold text-xs sm:text-sm leading-relaxed">
-                          "Accompagner avec dignité et compassion"
-                        </p>
-                        <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-12 sm:w-16 h-1 bg-gradient-to-r from-mylli-primary to-mylli-secondary rounded-full"></div>
+                        
+                        
+                        
                       </div>
                     </div>
                   </div>
                   
                   {/* Floating stats - responsive sizing and positioning */}
                   <div className="absolute -top-2 -left-2 sm:-top-4 sm:-left-4 bg-gradient-to-br from-mylli-primary to-mylli-secondary rounded-xl lg:rounded-2xl p-2 sm:p-3 lg:p-4 shadow-lg lg:shadow-xl animate-float" style={{
-                    animationDelay: '1s'
-                  }}>
+                  animationDelay: '1s'
+                }}>
                     <div className="text-center">
                       <div className="text-lg sm:text-xl lg:text-2xl font-bold text-white">10+</div>
                       <div className="text-xs text-white/80">Années</div>
@@ -184,26 +167,16 @@ const AProposPage = () => {
         </div>
         
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <SectionHeading 
-            title="Pourquoi Choisir Mylli Services" 
-            subtitle="Des raisons solides de nous confier votre bien-être ou celui de vos proches" 
-            variant="animated" 
-            highlightText="Mylli Services" 
-          />
+          <SectionHeading title="Pourquoi Choisir Mylli Services" subtitle="Des raisons solides de nous confier votre bien-être ou celui de vos proches" variant="animated" highlightText="Mylli Services" />
           
           <div className="max-w-6xl mx-auto">
             {/* Mobile-first responsive grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
               {reasons.map((reason, index) => {
-                const IconComponent = reason.icon;
-                return (
-                  <div 
-                    key={index} 
-                    className="group relative transform transition-all duration-700 hover:translate-y-[-5px] lg:hover:translate-y-[-10px] hover:scale-105" 
-                    style={{
-                      animationDelay: `${index * 0.1}s`
-                    }}
-                  >
+              const IconComponent = reason.icon;
+              return <div key={index} className="group relative transform transition-all duration-700 hover:translate-y-[-5px] lg:hover:translate-y-[-10px] hover:scale-105" style={{
+                animationDelay: `${index * 0.1}s`
+              }}>
                     {/* Simplified glow for mobile */}
                     <div className={`absolute -inset-1 bg-gradient-to-r ${reason.color} rounded-xl lg:rounded-2xl blur opacity-0 group-hover:opacity-20 lg:group-hover:opacity-30 transition-all duration-500`}></div>
                     
@@ -243,26 +216,12 @@ const AProposPage = () => {
                         {/* Interactive bottom section - mobile optimized */}
                         <div className="flex items-center justify-between pt-3 sm:pt-4 border-t border-gray-100 group-hover:border-mylli-primary/20 transition-colors duration-500">
                           <div className="flex space-x-1">
-                            {[...Array(5)].map((_, i) => (
-                              <Star 
-                                key={i} 
-                                size={10} 
-                                className="sm:hidden text-yellow-400 fill-current opacity-0 group-hover:opacity-100 transition-opacity duration-500" 
-                                style={{
-                                  transitionDelay: `${i * 0.1}s`
-                                }} 
-                              />
-                            ))}
-                            {[...Array(5)].map((_, i) => (
-                              <Star 
-                                key={i} 
-                                size={12} 
-                                className="hidden sm:block text-yellow-400 fill-current opacity-0 group-hover:opacity-100 transition-opacity duration-500" 
-                                style={{
-                                  transitionDelay: `${i * 0.1}s`
-                                }} 
-                              />
-                            ))}
+                            {[...Array(5)].map((_, i) => <Star key={i} size={10} className="sm:hidden text-yellow-400 fill-current opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{
+                          transitionDelay: `${i * 0.1}s`
+                        }} />)}
+                            {[...Array(5)].map((_, i) => <Star key={i} size={12} className="hidden sm:block text-yellow-400 fill-current opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{
+                          transitionDelay: `${i * 0.1}s`
+                        }} />)}
                           </div>
                           
                           {/* Animated arrow - responsive sizing */}
@@ -277,9 +236,8 @@ const AProposPage = () => {
                       {/* Hover effect overlay */}
                       <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-mylli-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
                     </div>
-                  </div>
-                );
-              })}
+                  </div>;
+            })}
             </div>
             
             {/* Call to action section - mobile optimized */}
@@ -302,8 +260,6 @@ const AProposPage = () => {
           </div>
         </div>
       </section>
-    </div>
-  );
+    </div>;
 };
-
 export default AProposPage;
