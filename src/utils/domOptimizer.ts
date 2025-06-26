@@ -1,4 +1,3 @@
-
 // DOM optimization utilities - iOS compatible
 
 export const optimizeDOM = () => {
@@ -131,9 +130,9 @@ export const iosOptimizeElement = (element: HTMLElement) => {
   element.style.webkitBackfaceVisibility = 'hidden';
   element.style.webkitPerspective = '1000px';
   
-  // Optimize for touch
-  element.style.webkitTapHighlightColor = 'transparent';
-  element.style.webkitTouchCallout = 'none';
+  // Optimize for touch - Fix TypeScript errors with bracket notation
+  (element.style as any).webkitTapHighlightColor = 'transparent';
+  (element.style as any).webkitTouchCallout = 'none';
 };
 
 export const iosOptimizeAnimations = () => {

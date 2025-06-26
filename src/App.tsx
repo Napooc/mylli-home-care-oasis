@@ -59,9 +59,9 @@ const initIOSOptimizations = () => {
     document.documentElement.style.setProperty('--vh', `${vh}px`);
   };
   
-  // iOS scroll optimization
+  // iOS scroll optimization - Fix TypeScript error
   const optimizeIOSScroll = () => {
-    document.body.style.webkitOverflowScrolling = 'touch';
+    (document.body.style as any).webkitOverflowScrolling = 'touch';
     document.body.style.overscrollBehaviorY = 'contain';
   };
   
