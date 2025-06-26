@@ -1,8 +1,9 @@
+
 <!DOCTYPE html>
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
     
     <!-- ULTIMATE TITLE TAG - 55 characters max -->
     <title>Soins à Domicile Casablanca | #1 Infirmier Aide-Soignant 24h | Mylli Services</title>
@@ -15,10 +16,6 @@
 
     <!-- AUTHOR -->
     <meta name="author" content="Mylli Services" />
-
-    <!-- iOS Safari Compatibility -->
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 
     <!-- Open Graph / Facebook - UPDATED WITH NEW LOGO -->
     <meta property="og:type" content="website" />
@@ -73,6 +70,8 @@
     <link rel="shortcut icon" href="/lovable-uploads/554676d0-4988-4b83-864c-15c32ee349a2.png">
 
     <!-- iOS-Specific Web App Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <meta name="apple-mobile-web-app-title" content="Mylli Services" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="application-name" content="Mylli Services" />
@@ -293,29 +292,5 @@
     <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
     <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
     <script type="module" src="/src/main.tsx"></script>
-    
-    <!-- iOS Compatibility JavaScript -->
-    <script>
-      // iOS viewport height fix
-      function setIOSViewport() {
-        if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
-          const vh = window.innerHeight * 0.01;
-          document.documentElement.style.setProperty('--vh', vh + 'px');
-        }
-      }
-
-      // iOS scroll fix
-      function fixIOSScroll() {
-        if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
-          document.body.style.webkitOverflowScrolling = 'touch';
-        }
-      }
-
-      // Run fixes on load and resize
-      window.addEventListener('load', setIOSViewport);
-      window.addEventListener('resize', setIOSViewport);
-      window.addEventListener('orientationchange', setIOSViewport);
-      document.addEventListener('DOMContentLoaded', fixIOSScroll);
-    </script>
   </body>
 </html>
