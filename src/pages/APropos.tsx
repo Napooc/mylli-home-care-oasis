@@ -1,68 +1,55 @@
-
 import { Link } from 'react-router-dom';
 import { CheckCircle, Heart, Award, Clock, Users, Calendar, Building, Phone, Quote, Shield, Star, Zap, Target } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import PageBanner from '@/components/common/PageBanner';
 import SectionHeading from '@/components/common/SectionHeading';
 import ParallaxSection from '@/components/common/ParallaxSection';
-
 const AProposPage = () => {
   // Why choose us data
-  const reasons = [
-    {
-      title: "Plus de 10 ans d'expérience spécifique",
-      description: "Notre expertise s'est construite au fil du temps, nous permettant d'anticiper les besoins et d'offrir des solutions éprouvées.",
-      icon: Award,
-      color: "from-mylli-primary to-mylli-secondary"
-    },
-    {
-      title: "Une relation contractuelle claire et transparente",
-      description: "Nous vous garantissons une transparence totale sur nos services, nos tarifs et nos engagements.",
-      icon: Shield,
-      color: "from-mylli-secondary to-mylli-accent"
-    },
-    {
-      title: "Des exigences déontologiques très élevées",
-      description: "Nos intervenants respectent une charte éthique stricte garantissant le respect et la dignité de chaque patient.",
-      icon: Star,
-      color: "from-mylli-accent to-mylli-quaternary"
-    },
-    {
-      title: "Une personnalisation des prestations",
-      description: "Nous adaptons nos services à votre situation unique, en tenant compte de vos habitudes et préférences.",
-      icon: Target,
-      color: "from-mylli-quaternary to-mylli-primary"
-    },
-    {
-      title: "Un suivi individualisé",
-      description: "Votre conseiller personnel assure un suivi régulier pour garantir votre satisfaction et ajuster nos services si nécessaire.",
-      icon: Users,
-      color: "from-mylli-primary to-mylli-accent"
-    }
-  ];
-
-  return (
-    <div>
-      <PageBanner 
-        title="À Propos de Mylli Services" 
-        subtitle="PLUS DE 10 ANS D'EXPÉRIENCE AU SERVICE DES PERSONNES FRAGILISÉES À LEUR DOMICILE" 
-      />
+  const reasons = [{
+    title: "Plus de 10 ans d'expérience spécifique",
+    description: "Notre expertise s'est construite au fil du temps, nous permettant d'anticiper les besoins et d'offrir des solutions éprouvées.",
+    icon: Award,
+    color: "from-mylli-primary to-mylli-secondary"
+  }, {
+    title: "Une relation contractuelle claire et transparente",
+    description: "Nous vous garantissons une transparence totale sur nos services, nos tarifs et nos engagements.",
+    icon: Shield,
+    color: "from-mylli-secondary to-mylli-accent"
+  }, {
+    title: "Des exigences déontologiques très élevées",
+    description: "Nos intervenants respectent une charte éthique stricte garantissant le respect et la dignité de chaque patient.",
+    icon: Star,
+    color: "from-mylli-accent to-mylli-quaternary"
+  }, {
+    title: "Une personnalisation des prestations",
+    description: "Nous adaptons nos services à votre situation unique, en tenant compte de vos habitudes et préférences.",
+    icon: Target,
+    color: "from-mylli-quaternary to-mylli-primary"
+  }, {
+    title: "Un suivi individualisé",
+    description: "Votre conseiller personnel assure un suivi régulier pour garantir votre satisfaction et ajuster nos services si nécessaire.",
+    icon: Users,
+    color: "from-mylli-primary to-mylli-accent"
+  }];
+  return <div>
+      <PageBanner title="À Propos de Mylli Services" subtitle="PLUS DE 10 ANS D'EXPÉRIENCE AU SERVICE DES PERSONNES FRAGILISÉES À LEUR DOMICILE" />
       
       {/* Enhanced Mission Section with new image and interactive design */}
       <section className="py-24 bg-gradient-to-br from-slate-50 via-white to-blue-50/30 relative overflow-hidden">
         {/* Background decorative elements */}
         <div className="absolute inset-0 opacity-5">
-          <div className="absolute top-20 left-20 w-64 h-64 rounded-full border-2 border-mylli-primary animate-spin-slow" style={{ animationDuration: '30s' }}></div>
-          <div className="absolute bottom-32 right-32 w-48 h-48 rounded-full border border-mylli-secondary animate-spin-slow" style={{ animationDuration: '25s', animationDirection: 'reverse' }}></div>
+          <div className="absolute top-20 left-20 w-64 h-64 rounded-full border-2 border-mylli-primary animate-spin-slow" style={{
+          animationDuration: '30s'
+        }}></div>
+          <div className="absolute bottom-32 right-32 w-48 h-48 rounded-full border border-mylli-secondary animate-spin-slow" style={{
+          animationDuration: '25s',
+          animationDirection: 'reverse'
+        }}></div>
         </div>
         
         <div className="container-custom relative z-10">
-          <SectionHeading 
-            title="Notre Mission" 
-            subtitle="Permettre aux personnes en perte d'autonomie de rester chez elles dans les meilleures conditions possibles"
-            variant="gradient" 
-            className="mb-20"
-          />
+          <SectionHeading title="Notre Mission" subtitle="Permettre aux personnes en perte d'autonomie de rester chez elles dans les meilleures conditions possibles" variant="gradient" className="mb-20" />
           
           <div className="max-w-7xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
@@ -77,23 +64,15 @@ const AProposPage = () => {
                   {/* Main image container with 3D transform */}
                   <div className="relative bg-white rounded-3xl p-4 shadow-2xl transform group-hover:scale-105 group-hover:rotate-y-3 transition-all duration-700 border border-gray-100">
                     <div className="relative overflow-hidden rounded-2xl">
-                      <img 
-                        src="/lovable-uploads/4518a561-bb46-401c-97bf-1fcc8a183433.png" 
-                        alt="Équipe médicale prodiguant des soins à domicile avec compassion et professionnalisme" 
-                        className="w-full h-96 object-cover transform group-hover:scale-110 transition-transform duration-700"
-                      />
+                      <img src="/lovable-uploads/4518a561-bb46-401c-97bf-1fcc8a183433.png" alt="Équipe médicale prodiguant des soins à domicile avec compassion et professionnalisme" className="w-full h-96 object-cover transform group-hover:scale-110 transition-transform duration-700" />
                       
                       {/* Sophisticated overlay gradients */}
                       <div className="absolute inset-0 bg-gradient-to-t from-mylli-dark/20 via-transparent to-transparent"></div>
                       <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-mylli-primary/10"></div>
                       
                       {/* Interactive floating elements */}
-                      <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-full p-3 shadow-lg animate-float">
-                        <Heart size={24} className="text-mylli-primary" />
-                      </div>
-                      <div className="absolute bottom-4 left-4 bg-gradient-to-r from-mylli-secondary to-mylli-accent rounded-full p-3 shadow-lg animate-bounce-subtle">
-                        <Shield size={20} className="text-white" />
-                      </div>
+                      
+                      
                     </div>
                     
                     {/* Enhanced mission statement overlay */}
@@ -109,7 +88,9 @@ const AProposPage = () => {
                   </div>
                   
                   {/* Floating stats */}
-                  <div className="absolute -top-4 -left-4 bg-gradient-to-br from-mylli-primary to-mylli-secondary rounded-2xl p-4 shadow-xl animate-float" style={{ animationDelay: '1s' }}>
+                  <div className="absolute -top-4 -left-4 bg-gradient-to-br from-mylli-primary to-mylli-secondary rounded-2xl p-4 shadow-xl animate-float" style={{
+                  animationDelay: '1s'
+                }}>
                     <div className="text-center">
                       <div className="text-2xl font-bold text-white">10+</div>
                       <div className="text-xs text-white/80">Années</div>
@@ -191,23 +172,15 @@ const AProposPage = () => {
         </div>
         
         <div className="container-custom relative z-10">
-          <SectionHeading 
-            title="Pourquoi Choisir Mylli Services" 
-            subtitle="Des raisons solides de nous confier votre bien-être ou celui de vos proches" 
-            variant="animated"
-            highlightText="Mylli Services"
-          />
+          <SectionHeading title="Pourquoi Choisir Mylli Services" subtitle="Des raisons solides de nous confier votre bien-être ou celui de vos proches" variant="animated" highlightText="Mylli Services" />
           
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {reasons.map((reason, index) => {
-                const IconComponent = reason.icon;
-                return (
-                  <div 
-                    key={index} 
-                    className="group relative transform transition-all duration-700 hover:translate-y-[-10px] hover:scale-105"
-                    style={{ animationDelay: `${index * 0.1}s` }}
-                  >
+              const IconComponent = reason.icon;
+              return <div key={index} className="group relative transform transition-all duration-700 hover:translate-y-[-10px] hover:scale-105" style={{
+                animationDelay: `${index * 0.1}s`
+              }}>
                     {/* Animated background glow */}
                     <div className={`absolute -inset-1 bg-gradient-to-r ${reason.color} rounded-2xl blur opacity-0 group-hover:opacity-30 transition-all duration-500`}></div>
                     
@@ -245,14 +218,9 @@ const AProposPage = () => {
                         {/* Interactive bottom section */}
                         <div className="flex items-center justify-between pt-4 border-t border-gray-100 group-hover:border-mylli-primary/20 transition-colors duration-500">
                           <div className="flex space-x-1">
-                            {[...Array(5)].map((_, i) => (
-                              <Star 
-                                key={i} 
-                                size={12} 
-                                className="text-yellow-400 fill-current opacity-0 group-hover:opacity-100 transition-opacity duration-500" 
-                                style={{ transitionDelay: `${i * 0.1}s` }}
-                              />
-                            ))}
+                            {[...Array(5)].map((_, i) => <Star key={i} size={12} className="text-yellow-400 fill-current opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{
+                          transitionDelay: `${i * 0.1}s`
+                        }} />)}
                           </div>
                           
                           {/* Animated arrow */}
@@ -265,9 +233,8 @@ const AProposPage = () => {
                       {/* Hover effect overlay */}
                       <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-mylli-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
                     </div>
-                  </div>
-                );
-              })}
+                  </div>;
+            })}
             </div>
             
             {/* Call to action section */}
@@ -290,8 +257,6 @@ const AProposPage = () => {
           </div>
         </div>
       </section>
-    </div>
-  );
+    </div>;
 };
-
 export default AProposPage;
