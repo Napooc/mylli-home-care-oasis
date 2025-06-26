@@ -68,7 +68,7 @@ const InfirmierPage = () => {
         variant="modern" 
       />
       
-      {/* Modern Redesigned Introduction Section - Same as AideSoignant */}
+      {/* Modern Redesigned Introduction Section */}
       <section className="py-16 relative overflow-hidden bg-white">
         {/* Artistic background elements */}
         <div className="absolute inset-0">
@@ -114,40 +114,45 @@ const InfirmierPage = () => {
                     </div>
                   </div>
                   
-                  <div className="group bg-white/80 backdrop-blur-sm rounded-2xl p-5 shadow-lg border border-mylli-accent/10 hover:shadow-xl hover:border-mylli-accent/30 transition-all duration-500">
-                    <div className="flex items-start space-x-4">
-                      <div className="w-2 h-2 bg-mylli-accent rounded-full mt-3 group-hover:scale-150 transition-transform duration-300"></div>
-                      <p className="text-base text-mylli-gray leading-relaxed">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="group bg-gradient-to-br from-mylli-primary/5 to-mylli-secondary/5 rounded-xl p-5 border border-mylli-primary/10 hover:shadow-lg transition-all duration-300">
+                      <div className="flex items-center mb-3">
+                        <File className="text-mylli-primary mr-3 group-hover:scale-110 transition-transform duration-300" size={20} />
+                        <h4 className="font-semibold text-mylli-dark">Prescription médicale</h4>
+                      </div>
+                      <p className="text-sm text-mylli-gray">
                         Les soins infirmiers à domicile se font toujours suite à une prescription d'un médecin, sauf pour les soins d'hygiène.
                       </p>
                     </div>
-                  </div>
-                  
-                  <div className="group bg-white/80 backdrop-blur-sm rounded-2xl p-5 shadow-lg border border-mylli-secondary/10 hover:shadow-xl hover:border-mylli-secondary/30 transition-all duration-500">
-                    <div className="flex items-start space-x-4">
-                      <div className="w-2 h-2 bg-mylli-secondary rounded-full mt-3 group-hover:scale-150 transition-transform duration-300"></div>
-                      <p className="text-base text-mylli-gray leading-relaxed">
-                        L'infirmier à domicile doit rédiger et tenir à jour un dossier pour chaque patient pour assurer un suivi optimal des soins prodigués.
+                    
+                    <div className="group bg-gradient-to-br from-mylli-secondary/5 to-mylli-primary/5 rounded-xl p-5 border border-mylli-secondary/10 hover:shadow-lg transition-all duration-300">
+                      <div className="flex items-center mb-3">
+                        <Clipboard className="text-mylli-secondary mr-3 group-hover:scale-110 transition-transform duration-300" size={20} />
+                        <h4 className="font-semibold text-mylli-dark">Dossier patient</h4>
+                      </div>
+                      <p className="text-sm text-mylli-gray">
+                        L'infirmier à domicile doit rédiger et tenir à jour un dossier pour chaque patient.
                       </p>
                     </div>
                   </div>
-                </div>
 
-                {/* Service Schedule Highlight */}
-                <div className="relative">
-                  <div className="absolute inset-0 bg-gradient-to-r from-mylli-primary/20 to-mylli-secondary/20 rounded-2xl blur-sm"></div>
-                  <div className="relative bg-white/90 backdrop-blur-sm rounded-2xl p-6 border border-mylli-primary/20 shadow-xl">
-                    <div className="text-center space-y-3">
-                      <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-br from-mylli-primary to-mylli-secondary mb-3">
-                        <Clock size={24} className="text-white" />
+                  {/* Service Schedule Highlight */}
+                  <div className="relative">
+                    <div className="absolute inset-0 bg-gradient-to-r from-mylli-primary/20 to-mylli-secondary/20 rounded-2xl blur-sm"></div>
+                    <div className="relative bg-white/90 backdrop-blur-sm rounded-2xl p-6 border border-mylli-primary/20 shadow-xl">
+                      <div className="text-center space-y-3">
+                        <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-br from-mylli-primary to-mylli-secondary mb-3">
+                          <Clock size={24} className="text-white" />
+                        </div>
+                        <p className="text-xl text-mylli-dark font-bold leading-tight">
+                          Notre équipe d'infirmiers qualifiés assure une présence adaptée à vos besoins, avec des gardes de{' '}
+                          <span className="text-mylli-primary font-black">jour</span>, de{' '}
+                          <span className="text-mylli-secondary font-black">nuit</span>
+                          {' '}ou{' '}
+                          <span className="text-mylli-accent font-black">continues</span>{' '}
+                          selon vos besoins médicaux.
+                        </p>
                       </div>
-                      <p className="text-xl text-mylli-dark font-bold leading-tight">
-                        Notre équipe d'infirmiers qualifiés assure une présence{' '}
-                        <span className="text-mylli-primary font-black">24h/24</span>, avec des gardes de{' '}
-                        <span className="text-mylli-secondary font-black">jour</span>, de{' '}
-                        <span className="text-mylli-accent font-black">nuit</span>
-                        {' '}ou continues selon vos besoins médicaux.
-                      </p>
                     </div>
                   </div>
                 </div>
