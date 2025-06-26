@@ -1,4 +1,3 @@
-
 import { Link } from 'react-router-dom';
 import { Heart, Clock, File, Phone, Clipboard, Syringe, Hospital, Calendar, CheckCircle, User, MessageSquare } from 'lucide-react';
 import { Button } from "@/components/ui/button";
@@ -69,108 +68,127 @@ const InfirmierPage = () => {
         variant="modern" 
       />
       
-      {/* Redesigned Description Section */}
-      <section className="py-24 bg-gradient-to-br from-gray-50 via-white to-mylli-light/20 relative overflow-hidden">
-        <div className="container-custom">
+      {/* Modern Redesigned Introduction Section - Same as AideSoignant */}
+      <section className="py-16 relative overflow-hidden bg-white">
+        {/* Artistic background elements */}
+        <div className="absolute inset-0">
+          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-mylli-light/5 via-transparent to-mylli-primary/5"></div>
+          <div className="absolute top-20 right-10 w-96 h-96 bg-gradient-to-br from-mylli-primary/8 to-mylli-secondary/8 rounded-full blur-3xl animate-float"></div>
+          <div className="absolute bottom-20 left-10 w-80 h-80 bg-gradient-to-tl from-mylli-accent/8 to-mylli-quaternary/8 rounded-full blur-3xl animate-float" style={{animationDelay: '2s'}}></div>
+        </div>
+        
+        <div className="container-custom relative z-10">
           <div className="max-w-7xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-              {/* Content Side */}
-              <div className="space-y-8 lg:pr-8">
-                <div className="space-y-6">
-                  <SectionHeading 
-                    title="Soins infirmiers à domicile" 
-                    subtitle="Alternative moderne à l'hospitalisation" 
-                    align="left" 
-                    variant="gradient" 
-                  />
+            
+            {/* Modern Split Layout Design */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              
+              {/* Left Side - Content */}
+              <div className="space-y-6">
+                {/* Main Heading */}
+                <div className="space-y-4">
+                  <h2 className="text-4xl lg:text-5xl font-bold leading-tight">
+                    <span className="bg-gradient-to-r from-mylli-primary via-mylli-secondary to-mylli-accent bg-clip-text text-transparent">
+                      Soins infirmiers
+                    </span>
+                    <br />
+                    <span className="text-mylli-dark">à domicile</span>
+                    <br />
+                    <span className="relative inline-block">
+                      <span className="bg-gradient-to-r from-mylli-secondary to-mylli-accent bg-clip-text text-transparent">
+                        professionnels
+                      </span>
+                      <div className="absolute -bottom-3 left-0 w-full h-1 bg-gradient-to-r from-mylli-secondary to-mylli-accent rounded-full transform scale-x-0 animate-scale-in" style={{animationDelay: '1s', animationFillMode: 'forwards'}}></div>
+                    </span>
+                  </h2>
                 </div>
-                
-                <div className="space-y-6">
-                  <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-mylli-primary/10 hover:border-mylli-primary/30 transition-all duration-300">
-                    <p className="text-lg text-mylli-gray leading-relaxed">
-                      Alternative à l'hospitalisation, la prise en charge des soins à domicile est aujourd'hui effective pour un nombre croissant de pathologies comme les cancers, les maladies respiratoires ou des situations de dépendance comme le handicap.
-                    </p>
+
+                {/* Content Cards */}
+                <div className="space-y-4">
+                  <div className="group bg-white/80 backdrop-blur-sm rounded-2xl p-5 shadow-lg border border-mylli-primary/10 hover:shadow-xl hover:border-mylli-primary/30 transition-all duration-500">
+                    <div className="flex items-start space-x-4">
+                      <div className="w-2 h-2 bg-mylli-primary rounded-full mt-3 group-hover:scale-150 transition-transform duration-300"></div>
+                      <p className="text-base text-mylli-gray leading-relaxed">
+                        Alternative à l'hospitalisation, la prise en charge des soins à domicile est aujourd'hui effective pour un nombre croissant de pathologies comme les cancers, les maladies respiratoires ou des situations de dépendance comme le handicap.
+                      </p>
+                    </div>
                   </div>
                   
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="bg-gradient-to-br from-mylli-primary/5 to-mylli-secondary/5 rounded-xl p-5 border border-mylli-primary/10">
-                      <div className="flex items-center mb-3">
-                        <File className="text-mylli-primary mr-3" size={20} />
-                        <h4 className="font-semibold text-mylli-dark">Prescription médicale</h4>
-                      </div>
-                      <p className="text-sm text-mylli-gray">
+                  <div className="group bg-white/80 backdrop-blur-sm rounded-2xl p-5 shadow-lg border border-mylli-accent/10 hover:shadow-xl hover:border-mylli-accent/30 transition-all duration-500">
+                    <div className="flex items-start space-x-4">
+                      <div className="w-2 h-2 bg-mylli-accent rounded-full mt-3 group-hover:scale-150 transition-transform duration-300"></div>
+                      <p className="text-base text-mylli-gray leading-relaxed">
                         Les soins infirmiers à domicile se font toujours suite à une prescription d'un médecin, sauf pour les soins d'hygiène.
                       </p>
                     </div>
-                    
-                    <div className="bg-gradient-to-br from-mylli-secondary/5 to-mylli-primary/5 rounded-xl p-5 border border-mylli-secondary/10">
-                      <div className="flex items-center mb-3">
-                        <Clipboard className="text-mylli-secondary mr-3" size={20} />
-                        <h4 className="font-semibold text-mylli-dark">Dossier patient</h4>
-                      </div>
-                      <p className="text-sm text-mylli-gray">
-                        L'infirmier à domicile doit rédiger et tenir à jour un dossier pour chaque patient.
+                  </div>
+                  
+                  <div className="group bg-white/80 backdrop-blur-sm rounded-2xl p-5 shadow-lg border border-mylli-secondary/10 hover:shadow-xl hover:border-mylli-secondary/30 transition-all duration-500">
+                    <div className="flex items-start space-x-4">
+                      <div className="w-2 h-2 bg-mylli-secondary rounded-full mt-3 group-hover:scale-150 transition-transform duration-300"></div>
+                      <p className="text-base text-mylli-gray leading-relaxed">
+                        L'infirmier à domicile doit rédiger et tenir à jour un dossier pour chaque patient pour assurer un suivi optimal des soins prodigués.
                       </p>
                     </div>
                   </div>
-                  
-                  <div className="bg-gradient-to-r from-mylli-primary to-mylli-secondary text-white rounded-2xl p-6 shadow-xl relative overflow-hidden">
-                    <div className="relative z-10">
-                      <div className="flex items-center mb-4">
-                        <Clock size={28} className="mr-4" />
-                        <h4 className="font-bold text-xl">Service continu 24h/24</h4>
+                </div>
+
+                {/* Service Schedule Highlight */}
+                <div className="relative">
+                  <div className="absolute inset-0 bg-gradient-to-r from-mylli-primary/20 to-mylli-secondary/20 rounded-2xl blur-sm"></div>
+                  <div className="relative bg-white/90 backdrop-blur-sm rounded-2xl p-6 border border-mylli-primary/20 shadow-xl">
+                    <div className="text-center space-y-3">
+                      <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-br from-mylli-primary to-mylli-secondary mb-3">
+                        <Clock size={24} className="text-white" />
                       </div>
-                      <p className="text-white/95 text-lg">
-                        Notre équipe d'infirmiers qualifiés assure une présence adaptée à vos besoins, avec des gardes de jour, de nuit ou continues selon vos besoins médicaux.
+                      <p className="text-xl text-mylli-dark font-bold leading-tight">
+                        Notre équipe d'infirmiers qualifiés assure une présence{' '}
+                        <span className="text-mylli-primary font-black">24h/24</span>, avec des gardes de{' '}
+                        <span className="text-mylli-secondary font-black">jour</span>, de{' '}
+                        <span className="text-mylli-accent font-black">nuit</span>
+                        {' '}ou continues selon vos besoins médicaux.
                       </p>
                     </div>
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full transform translate-x-16 -translate-y-16"></div>
-                    <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-full transform -translate-x-12 translate-y-12"></div>
                   </div>
                 </div>
               </div>
               
-              {/* Image Side */}
+              {/* Right Side - Hero Image */}
               <div className="relative">
-                <div className="relative z-10">
-                  {/* Main image container with modern styling */}
-                  <div className="relative bg-white rounded-3xl shadow-2xl overflow-hidden border border-mylli-primary/10">
-                    <div className="absolute inset-0 bg-gradient-to-br from-mylli-primary/5 to-mylli-secondary/5"></div>
-                    <div className="relative p-8">
+                {/* Decorative elements */}
+                <div className="absolute -top-4 -left-4 w-16 h-16 bg-mylli-primary/10 rounded-full blur-xl animate-pulse"></div>
+                <div className="absolute -bottom-4 -right-4 w-20 h-20 bg-mylli-secondary/10 rounded-full blur-xl animate-pulse" style={{animationDelay: '1s'}}></div>
+                
+                {/* Main image container - more compact */}
+                <div className="relative group">
+                  <div className="absolute inset-0 bg-gradient-to-br from-mylli-primary/20 to-mylli-secondary/20 rounded-2xl transform rotate-2 group-hover:rotate-3 transition-transform duration-500 blur-sm"></div>
+                  <div className="relative bg-white rounded-2xl p-3 shadow-xl transform group-hover:-translate-y-1 transition-all duration-500">
+                    <div className="aspect-square overflow-hidden rounded-xl">
                       <OptimizedImage 
                         src="/lovable-uploads/9570e5be-c600-4267-a8d7-4ef12d722304.png" 
                         alt="Infirmière prodiguant des soins à domicile" 
-                        width={600} 
+                        width={400} 
                         height={400} 
-                        className="w-full h-auto rounded-2xl shadow-lg transform hover:scale-105 transition-transform duration-500" 
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
                       />
                     </div>
-                  </div>
-                  
-                  {/* Floating stats cards */}
-                  <div className="absolute -top-6 -left-6 bg-white rounded-2xl shadow-xl p-4 border border-mylli-primary/20 animate-float">
-                    <div className="text-center">
-                      <div className="text-2xl font-bold text-mylli-primary mb-1">24/7</div>
-                      <div className="text-xs text-mylli-gray font-medium">Service continu</div>
+                    
+                    {/* Floating stats - smaller */}
+                    <div className="absolute top-6 right-6 bg-white/95 backdrop-blur-sm rounded-xl p-3 shadow-lg border border-mylli-primary/20 transform group-hover:scale-110 transition-all duration-500">
+                      <div className="text-center">
+                        <div className="text-lg font-bold text-mylli-primary">24/7</div>
+                        <div className="text-xs text-mylli-gray">Service continu</div>
+                      </div>
                     </div>
-                  </div>
-                  
-                  <div className="absolute -bottom-6 -right-6 bg-white rounded-2xl shadow-xl p-4 border border-mylli-secondary/20 animate-float" style={{animationDelay: '1s'}}>
-                    <div className="text-center">
-                      <div className="text-2xl font-bold text-mylli-secondary mb-1">100%</div>
-                      <div className="text-xs text-mylli-gray font-medium">Professionnel</div>
+                    
+                    <div className="absolute bottom-6 left-6 bg-white/95 backdrop-blur-sm rounded-xl p-3 shadow-lg border border-mylli-secondary/20 transform group-hover:scale-110 transition-all duration-500">
+                      <div className="text-center">
+                        <div className="text-lg font-bold text-mylli-secondary">100%</div>
+                        <div className="text-xs text-mylli-gray">Professionnel</div>
+                      </div>
                     </div>
                   </div>
                 </div>
-                
-                {/* Background decorative elements */}
-                <div className="absolute inset-0 bg-gradient-to-r from-mylli-primary/10 to-mylli-secondary/10 rounded-3xl transform rotate-3 scale-105 -z-10"></div>
-                <div className="absolute inset-0 bg-gradient-to-l from-mylli-accent/5 to-transparent rounded-3xl transform -rotate-2 scale-110 -z-20"></div>
-                
-                {/* Floating particles */}
-                <div className="absolute top-10 right-10 w-4 h-4 bg-mylli-primary/20 rounded-full animate-pulse"></div>
-                <div className="absolute bottom-20 left-10 w-6 h-6 bg-mylli-secondary/20 rounded-full animate-pulse" style={{animationDelay: '0.5s'}}></div>
-                <div className="absolute top-1/2 right-0 w-3 h-3 bg-mylli-accent/20 rounded-full animate-pulse" style={{animationDelay: '1.5s'}}></div>
               </div>
             </div>
           </div>
