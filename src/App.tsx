@@ -21,75 +21,87 @@ import PolitiqueConfidentialite from "./pages/PolitiqueConfidentialite";
 import MotDuPresident from "./pages/MotDuPresident";
 import NotFound from "./pages/NotFound";
 import { initEmailJS } from "./utils/emailjs";
+import { preloadCriticalImages } from "./utils/imageOptimization";
 import { initializeFaviconManager, cleanURLFragments } from "./utils/faviconManager";
 import CookieConsentManager from "./components/cookies/CookieConsentManager";
 import SecurityDashboard from "./components/security/SecurityDashboard";
 import { securitySession } from "./utils/securitySession";
-import { advancedPerformanceMonitor } from "./utils/advancedPerformanceMonitor";
-import { inlineCriticalCSS, deferNonCriticalCSS, preloadCriticalResources } from "./utils/criticalCssOptimizer";
-import { optimizeDOM, reduceReflows } from "./utils/domOptimizer";
 import "./styles/global.css";
 
-// Optimized QueryClient configuration
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 5 * 60 * 1000,
-      gcTime: 10 * 60 * 1000,
-      refetchOnWindowFocus: false,
-      retry: 1, // Reduce retries for faster failure
+      staleTime: 5 * 60 * 1000, // 5 minutes
+      gcTime: 10 * 60 * 1000, // 10 minutes
     },
   },
 });
 
 const App: React.FC = () => {
   useEffect(() => {
-    console.log('🚀 Initializing performance-optimized Mylli Services...');
+    console.log('🚀 Initializing Mylli Services application with URL-safe favicon system...');
     
-    // PHASE 1: Critical performance optimizations (immediate)
-    inlineCriticalCSS();
-    preloadCriticalResources();
-    advancedPerformanceMonitor.init();
-    
-    // PHASE 2: Security and cleanup (high priority)
+    // Initialize security session
     securitySession.initializeSession();
+    
+    // STEP 1: EMERGENCY URL cleanup - Remove ALL broken fragments IMMEDIATELY
+    console.log('🆘 EMERGENCY: Cleaning broken URL fragments...');
     cleanURLFragments();
     
-    // PHASE 3: DOM optimizations (requestIdleCallback)
-    requestIdleCallback(() => {
-      optimizeDOM();
-      reduceReflows();
-      deferNonCriticalCSS();
-    }, { timeout: 1000 });
+    // Additional aggressive URL cleanup for accumulated fragments
+    const emergencyUrlCleanup = () => {
+      const currentUrl = window.location.href;
+      if (currentUrl.includes('#') || currentUrl.includes('%23') || currentUrl.includes('ios-favicon-refresh')) {
+        console.log('🚨 CRITICAL: Performing emergency URL cleanup...');
+        
+        // Extract clean base URL
+        let cleanUrl = currentUrl.split('#')[0];
+        cleanUrl = cleanUrl.replace(/%23[^&]*/g, '');
+        cleanUrl = cleanUrl.replace(/ios-favicon-refresh/g, '');
+        cleanUrl = cleanUrl.replace(/[?&]v=[^&]*/g, '');
+        cleanUrl = cleanUrl.replace(/[?&]session=[^&]*/g, '');
+        cleanUrl = cleanUrl.replace(/[?&]ios=[^&]*/g, '');
+        
+        // Remove any trailing parameters
+        cleanUrl = cleanUrl.replace(/[?&]$/, '');
+        
+        window.history.replaceState(null, '', cleanUrl);
+        console.log('✅ EMERGENCY URL cleanup complete:', cleanUrl);
+      }
+    };
     
-    // PHASE 4: Non-critical resources (low priority)
-    requestIdleCallback(() => {
-      initializeFaviconManager();
-      
-      // Register optimized service worker
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/sw-optimized.js')
-          .then(() => console.log('✅ Optimized Service Worker registered'))
-          .catch(() => console.log('ℹ️ Service Worker registration failed'));
-      }
-      
-      try {
-        initEmailJS();
-        console.log("✅ EmailJS initialized");
-      } catch (error) {
-        console.error("❌ EmailJS failed:", error);
-      }
-    }, { timeout: 2000 });
+    emergencyUrlCleanup();
     
-    // PHASE 5: Performance monitoring (delayed)
-    setTimeout(() => {
-      const report = advancedPerformanceMonitor.generateReport();
-      if (report.performance < 80) {
-        console.warn('⚠️ Performance below target, check metrics');
-      }
-    }, 5000);
+    // STEP 2: Initialize the URL-safe favicon system
+    console.log('🍎 Launching URL-safe iOS favicon system...');
+    initializeFaviconManager();
+    
+    // STEP 3: Preload critical images
+    preloadCriticalImages();
 
-    console.log('✅ All performance optimizations initialized');
+    // STEP 4: Initialize EmailJS
+    try {
+      initEmailJS();
+      console.log("✅ EmailJS initialized successfully");
+    } catch (error) {
+      console.error("❌ Failed to initialize EmailJS:", error);
+    }
+
+    // STEP 5: Set up periodic URL cleanup to prevent fragment accumulation
+    const urlCleanupInterval = setInterval(() => {
+      const currentUrl = window.location.href;
+      if (currentUrl.includes('#ios-favicon-refresh') || currentUrl.includes('%23ios-favicon-refresh')) {
+        console.log('🧹 Periodic URL cleanup triggered...');
+        cleanURLFragments();
+      }
+    }, 30000); // Check every 30 seconds
+
+    console.log('✅ Application initialization complete with URL-safe favicon system');
+
+    // Cleanup interval on unmount
+    return () => {
+      clearInterval(urlCleanupInterval);
+    };
   }, []);
 
   return (

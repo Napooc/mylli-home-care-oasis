@@ -1,4 +1,3 @@
-
 import { Link } from 'react-router-dom';
 import { Heart, Clock, File, Phone, Clipboard, Syringe, Hospital, Calendar, CheckCircle, User, MessageSquare } from 'lucide-react';
 import { Button } from "@/components/ui/button";
@@ -7,7 +6,6 @@ import PageBanner from '@/components/common/PageBanner';
 import SectionHeading from '@/components/common/SectionHeading';
 import TestimonialCard from '@/components/common/TestimonialCard';
 import OptimizedImage from '@/components/seo/OptimizedImage';
-
 const InfirmierPage = () => {
   // Patient profiles
   const patientProfiles = [{
@@ -32,7 +30,7 @@ const InfirmierPage = () => {
   }, {
     title: "Poser et surveiller les sondes",
     description: "Installation et maintenance des sondes urinaires, nasogastriques et autres dispositifs médicaux invasifs.",
-    iconImage: "/lovable-uploads/b2e87121-b515-4974-9a0b-a96526525456.png"
+    iconImage: "/lovable-uploads/37fedd5b-3a3c-476d-89c3-c57957c696c5.png"
   }, {
     title: "Poser et surveiller une perfusion",
     description: "Mise en place et surveillance des perfusions pour l'hydratation, la nutrition et l'administration de médicaments.",
@@ -59,9 +57,7 @@ const InfirmierPage = () => {
     title: "Fils d'un patient",
     image: "/placeholder.svg"
   }];
-
-  return (
-    <div className="pb-12">
+  return <div className="pb-12">
       {/* Banner */}
       <PageBanner title="INFIRMIER(ÈRE) À DOMICILE" subtitle="Une alternative professionnelle à l'hospitalisation pour les patients nécessitant des soins médicaux réguliers" variant="modern" />
       
@@ -73,6 +69,8 @@ const InfirmierPage = () => {
               {/* Content Side */}
               <div className="space-y-8 lg:pr-8">
                 <div className="space-y-6">
+                  
+                  
                   <SectionHeading title="Soins infirmiers à domicile" subtitle="Alternative moderne à l'hospitalisation" align="left" variant="gradient" />
                 </div>
                 
@@ -128,13 +126,7 @@ const InfirmierPage = () => {
                   <div className="relative bg-white rounded-3xl shadow-2xl overflow-hidden border border-mylli-primary/10">
                     <div className="absolute inset-0 bg-gradient-to-br from-mylli-primary/5 to-mylli-secondary/5"></div>
                     <div className="relative p-8">
-                      <OptimizedImage 
-                        src="/lovable-uploads/37bd5ff1-c777-4e7a-8e89-1a842d33e618.png" 
-                        alt="Infirmière prodiguant des soins à domicile" 
-                        width={600} 
-                        height={400} 
-                        className="w-full h-auto rounded-2xl shadow-lg transform hover:scale-105 transition-transform duration-500" 
-                      />
+                      <OptimizedImage src="/lovable-uploads/4ec4bdf4-5ed1-42c3-ae8c-c578bfbab24a.png" alt="Infirmière prodiguant des soins à domicile" width={600} height={400} className="w-full h-auto rounded-2xl shadow-lg transform hover:scale-105 transition-transform duration-500" />
                     </div>
                   </div>
                   
@@ -146,7 +138,9 @@ const InfirmierPage = () => {
                     </div>
                   </div>
                   
-                  <div className="absolute -bottom-6 -right-6 bg-white rounded-2xl shadow-xl p-4 border border-mylli-secondary/20 animate-float" style={{ animationDelay: '1s' }}>
+                  <div className="absolute -bottom-6 -right-6 bg-white rounded-2xl shadow-xl p-4 border border-mylli-secondary/20 animate-float" style={{
+                  animationDelay: '1s'
+                }}>
                     <div className="text-center">
                       <div className="text-2xl font-bold text-mylli-secondary mb-1">100%</div>
                       <div className="text-xs text-mylli-gray font-medium">Professionnel</div>
@@ -160,12 +154,19 @@ const InfirmierPage = () => {
                 
                 {/* Floating particles */}
                 <div className="absolute top-10 right-10 w-4 h-4 bg-mylli-primary/20 rounded-full animate-pulse"></div>
-                <div className="absolute bottom-20 left-10 w-6 h-6 bg-mylli-secondary/20 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></div>
-                <div className="absolute top-1/2 right-0 w-3 h-3 bg-mylli-accent/20 rounded-full animate-pulse" style={{ animationDelay: '1.5s' }}></div>
+                <div className="absolute bottom-20 left-10 w-6 h-6 bg-mylli-secondary/20 rounded-full animate-pulse" style={{
+                animationDelay: '0.5s'
+              }}></div>
+                <div className="absolute top-1/2 right-0 w-3 h-3 bg-mylli-accent/20 rounded-full animate-pulse" style={{
+                animationDelay: '1.5s'
+              }}></div>
               </div>
             </div>
           </div>
         </div>
+        
+        {/* Background pattern */}
+        
       </section>
 
       {/* Patient Profiles */}
@@ -174,8 +175,7 @@ const InfirmierPage = () => {
           <SectionHeading title="Profils des patients concernés" subtitle="Nos services s'adaptent à différents besoins médicaux" align="center" />
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
-            {patientProfiles.map((profile, index) => (
-              <Card key={index} className="border-none shadow-card hover:shadow-hover transition-all duration-300 animate-fade-in h-full">
+            {patientProfiles.map((profile, index) => <Card key={index} className="border-none shadow-card hover:shadow-hover transition-all duration-300 animate-fade-in h-full">
                 <CardContent className="p-6">
                   <div className="flex flex-col items-center text-center">
                     <div className="mb-5 p-3 rounded-full bg-mylli-primary/10">
@@ -185,8 +185,7 @@ const InfirmierPage = () => {
                     <p className="text-mylli-gray">{profile.description}</p>
                   </div>
                 </CardContent>
-              </Card>
-            ))}
+              </Card>)}
           </div>
         </div>
       </section>
@@ -198,8 +197,7 @@ const InfirmierPage = () => {
           
           <div className="max-w-7xl mx-auto mt-16">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
-              {nurseRoles.map((role, index) => (
-                <div key={index} className="group relative">
+              {nurseRoles.map((role, index) => <div key={index} className="group relative">
                   <div className="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden transform transition-all duration-700 hover:-translate-y-6 hover:shadow-2xl hover:border-mylli-primary/30 group-hover:scale-105 h-80 flex flex-col">
                     {/* Image container with enhanced styling */}
                     <div className="relative p-8 pb-6 flex-grow flex flex-col items-center justify-center">
@@ -210,13 +208,7 @@ const InfirmierPage = () => {
                         
                         {/* Main image container */}
                         <div className="relative w-40 h-40 mx-auto rounded-3xl bg-gradient-to-br from-white to-mylli-light/30 flex items-center justify-center shadow-xl transform transition-all duration-500 group-hover:scale-110 group-hover:shadow-2xl border border-mylli-primary/10">
-                          <OptimizedImage 
-                            src={role.iconImage} 
-                            alt={role.title} 
-                            width={140} 
-                            height={140} 
-                            className="w-36 h-36 object-contain filter group-hover:brightness-110 transition-all duration-500" 
-                          />
+                          <OptimizedImage src={role.iconImage} alt={role.title} width={140} height={140} className="w-36 h-36 object-contain filter group-hover:brightness-110 transition-all duration-500" />
                         </div>
                         
                         {/* Additional decorative elements */}
@@ -242,14 +234,20 @@ const InfirmierPage = () => {
                   
                   {/* External glow effect */}
                   <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-mylli-primary/5 to-mylli-secondary/5 transform scale-0 group-hover:scale-110 transition-transform duration-700 -z-10 blur-xl"></div>
-                </div>
-              ))}
+                </div>)}
             </div>
           </div>
         </div>
       </section>
-    </div>
-  );
-};
 
+      {/* Schedules */}
+      
+      
+      {/* Testimonials */}
+      
+      
+      {/* Call to Action */}
+      
+    </div>;
+};
 export default InfirmierPage;

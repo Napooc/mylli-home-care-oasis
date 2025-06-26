@@ -32,17 +32,6 @@ const Header = () => {
   const toggleMenu = () => setIsOpen(!isOpen);
   const closeMenu = () => setIsOpen(false);
 
-  const handleLogoClick = (e: React.MouseEvent) => {
-    // If on homepage, scroll to top instead of navigating
-    if (location.pathname === '/') {
-      e.preventDefault();
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    }
-  };
-
   const navLinks = [
     {
       name: 'Accueil',
@@ -80,7 +69,7 @@ const Header = () => {
     <header className="fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-white shadow-md h-16">
       <div className="container-custom flex justify-between items-center h-full">
         {/* Logo - Made bigger and more visible */}
-        <Link to="/" className="flex items-center" onClick={handleLogoClick}>
+        <Link to="/" className="flex items-center">
           <img 
             alt="Mylli Services Logo" 
             className="h-14 w-auto sm:h-16 md:h-18" 

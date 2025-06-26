@@ -114,7 +114,7 @@ const services = [{
     <div className="absolute -bottom-3 -right-3 w-8 h-8 bg-gradient-to-bl from-mylli-accent/70 to-mylli-primary/70 rounded-full shadow-lg backdrop-blur-sm border border-white/40 group-hover:scale-110 group-hover:rotate-90 transition-all duration-1200"></div>
     <div className="absolute top-6 right-6 w-4 h-4 bg-gradient-to-bl from-white/60 to-white/30 rounded-full shadow-md group-hover:scale-150 transition-all duration-800"></div>
   </div>,
-  features: ["Soins post-opératoires", "Pansements et injections", "Surveillance glycémique", "Traitement Des escarres"],
+  features: ["Soins post-opératoires", "Pansements et injections", "Surveillance glycémique", "Chimiothérapie"],
   link: "/services/infirmier",
   gradient: "from-mylli-secondary via-mylli-tertiary to-mylli-accent"
 }];
@@ -339,14 +339,14 @@ const services = [{
                 <div className="mt-8 mb-10 grid grid-cols-3 gap-3 sm:gap-4 max-w-sm sm:max-w-md mx-auto lg:mx-0 animate-fade-in delay-[1200ms]">
                   <Link to="/apropos" className="text-center p-3 sm:p-4 backdrop-blur-sm bg-white/15 rounded-xl border border-white/30 hover:border-mylli-secondary/50 transition-all duration-300 hover:scale-105 cursor-pointer group">
                     <p className="text-xl sm:text-2xl md:text-3xl font-bold text-mylli-secondary group-hover:text-mylli-secondary">{isVisible ? '+10' : '0'}</p>
-                   <p className="text-xs sm:text-sm text-white leading-tight">années d'expérience</p>
+                    <p className="text-xs sm:text-sm text-white leading-tight">années d'expérience</p>
                   </Link>
                   <button onClick={() => scrollToSection('testimonials-heading')} className="text-center p-3 sm:p-4 backdrop-blur-sm bg-white/15 rounded-xl border border-white/30 hover:border-mylli-primary/50 transition-all duration-300 hover:scale-105 cursor-pointer group">
-                    <p className="text-lg sm:text-xl md:text-2xl font-bold text-white group-hover:text-mylli-primary">{isVisible ? '+6100' : '0'}</p>
+                    <p className="text-lg sm:text-xl md:text-2xl font-bold text-mylli-quaternary group-hover:text-mylli-primary">{isVisible ? '+6100' : '0'}</p>
                     <p className="text-xs sm:text-sm text-white leading-tight">Interventions</p>
                   </button>
                   <button onClick={triggerAvailabilityFeature} className="text-center p-3 sm:p-4 backdrop-blur-sm bg-white/15 rounded-xl border border-white/30 hover:border-mylli-quaternary/50 transition-all duration-300 hover:scale-105 cursor-pointer group">
-                    <p className="text-xl sm:text-2xl md:text-3xl font-bold text-white group-hover:text-mylli-quaternary">{isVisible ? '24/7' : '0'}</p>
+                    <p className="text-xl sm:text-2xl md:text-3xl font-bold text-mylli-quaternary group-hover:text-mylli-quaternary">{isVisible ? '24/7' : '0'}</p>
                     <p className="text-xs sm:text-sm text-white leading-tight">disponibilité</p>
                   </button>
                 </div>

@@ -6,6 +6,7 @@ import Header from './Header';
 import Footer from './Footer';
 import BreadcrumbNav from '../seo/BreadcrumbNav';
 import WhatsAppButton from '../common/WhatsAppButton';
+import { preloadCriticalResources, measureCoreWebVitals } from '@/utils/seoUtils';
 import '../../styles/whatsapp-button.css';
 
 interface MainLayoutProps {
@@ -15,18 +16,22 @@ interface MainLayoutProps {
 const MainLayout = ({ children }: MainLayoutProps) => {
   const location = useLocation();
   
-  // Optimized scroll to top
+  // Scroll to top when route changes
   useEffect(() => {
-    // Use requestAnimationFrame for smoother scrolling
-    requestAnimationFrame(() => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'instant' // Instant for better performance
-      });
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
     });
   }, [location.pathname]);
+  
+  // SEO optimizations
+  useEffect(() => {
+    preloadCriticalResources();
+    measureCoreWebVitals();
+  }, []);
 
-  const isHomePage = location.pathname === '/';
+  // Only apply special styling to the home page
+  const isHomePage = location.pathname === '/' || location.pathname === '/home';
   const showBreadcrumbs = !isHomePage;
 
   return (

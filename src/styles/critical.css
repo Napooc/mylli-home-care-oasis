@@ -1,17 +1,13 @@
 
-/* Optimized Critical CSS for above-the-fold content */
+/* Critical CSS for above-the-fold content */
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, system-ui, sans-serif;
+  font-family: 'Roboto', system-ui, -apple-system, sans-serif;
   margin: 0;
   padding: 0;
   background-color: #ffffff;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeSpeed;
-  line-height: 1.5;
 }
 
-/* Critical header styles with performance optimizations */
+/* Header styles for immediate rendering */
 .header-container {
   background-color: #ffffff;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -21,124 +17,45 @@ body {
   right: 0;
   z-index: 1000;
   height: 64px;
-  contain: layout style paint;
-  will-change: transform;
 }
 
-/* Optimized hero section */
+/* Hero section critical styles */
 .hero-section {
-  background: linear-gradient(135deg, #029edd 0%, #0077c0 100%);
+  background: linear-gradient(135deg, #0077C0 0%, #003d66 100%);
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  contain: layout style paint;
-  will-change: transform;
 }
 
-/* Fast, efficient loading states */
+/* Loading states */
 .loading-skeleton {
-  background: linear-gradient(90deg, #f8f9fa 25%, #e9ecef 50%, #f8f9fa 75%);
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
   background-size: 200% 100%;
-  animation: shimmer 1.2s infinite linear;
-  contain: strict;
+  animation: loading 1.5s infinite;
 }
 
-@keyframes shimmer {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
 }
 
-/* Optimized fade-in animation */
+/* Fast fade-in animation */
 .fade-in-fast {
-  animation: fadeInFast 0.25s ease-out forwards;
-  will-change: opacity, transform;
+  animation: fadeInFast 0.3s ease-out forwards;
 }
 
 @keyframes fadeInFast {
   from {
     opacity: 0;
-    transform: translate3d(0, 15px, 0);
+    transform: translateY(10px);
   }
   to {
     opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
-}
-
-/* Critical brand styling - optimized */
-.brand-name {
-  font-weight: 700;
-  white-space: nowrap;
-  display: inline-block;
-  contain: layout style;
-}
-
-.brand-name .mylli-m { color: #029edd; }
-.brand-name .mylli-y { color: #ff0707; }  
-.brand-name .mylli-lli { color: #029edd; }
-.brand-name .services { color: #029edd; }
-
-/* Performance-optimized button styles */
-.btn-primary {
-  background-color: #029edd;
-  color: white;
-  padding: 0.75rem 1.5rem;
-  border-radius: 9999px;
-  font-weight: 500;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.2s ease;
-  contain: layout style;
-  will-change: transform;
-}
-
-.btn-primary:hover {
-  background-color: #0077c0;
-  transform: translateY(-1px);
-}
-
-.btn-primary:active {
-  transform: translateY(0);
-}
-
-/* Container optimizations */
-.container-custom {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1rem;
-  contain: layout;
-}
-
-@media (min-width: 640px) {
-  .container-custom {
-    padding: 0 2rem;
-  }
-}
-
-/* GPU acceleration for critical elements */
-.gpu-accelerated {
-  transform: translateZ(0);
-  backface-visibility: hidden;
-  perspective: 1000px;
-}
-
-/* Optimize text rendering */
-h1, h2, h3, h4, h5, h6 {
-  font-weight: 700;
-  line-height: 1.2;
-  margin: 0 0 0.5em 0;
-  text-rendering: optimizeSpeed;
-}
-
-/* Critical responsive utilities */
-@media (max-width: 767px) {
-  .hero-section {
-    padding: 1rem;
-  }
-  
-  .container-custom {
-    padding: 0 1rem;
+    transform: translateY(0);
   }
 }

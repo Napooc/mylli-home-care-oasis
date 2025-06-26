@@ -18,8 +18,7 @@ export default defineConfig(({ mode }) => ({
       'X-Content-Type-Options': 'nosniff',
       'X-Frame-Options': 'DENY',
       'X-XSS-Protection': '1; mode=block',
-      'Referrer-Policy': 'strict-origin-when-cross-origin',
-      'Cache-Control': 'public, max-age=31536000'
+      'Referrer-Policy': 'strict-origin-when-cross-origin'
     }
   },
   plugins: [
@@ -33,7 +32,7 @@ export default defineConfig(({ mode }) => ({
     },
   },
   optimizeDeps: {
-    include: ['react', 'react-dom', 'react-router-dom'],
+    include: ['react', 'react-dom'],
     exclude: ['@vite/client', '@vite/env']
   },
   build: {
@@ -42,56 +41,17 @@ export default defineConfig(({ mode }) => ({
         manualChunks: {
           vendor: ['react', 'react-dom'],
           router: ['react-router-dom'],
-          ui: ['@radix-ui/react-accordion', '@radix-ui/react-dialog', '@radix-ui/react-toast'],
-          utils: ['clsx', 'tailwind-merge', 'class-variance-authority']
+          ui: ['@radix-ui/react-accordion', '@radix-ui/react-dialog', '@radix-ui/react-toast']
         }
       }
     },
     sourcemap: false,
-    minify: 'terser',
-    terserOptions: {
+    minify: mode === 'production' ? 'terser' : false,
+    terserOptions: mode === 'production' ? {
       compress: {
-        drop_console: mode === 'production',
-        drop_debugger: true,
-        passes: 2,
-        pure_funcs: ['console.log'],
-        reduce_vars: true,
-        sequences: true,
-        dead_code: true,
-        conditionals: true,
-        booleans: true,
-        unused: true,
-        if_return: true,
-        join_vars: true,
-        collapse_vars: true
-      },
-      mangle: {
-        safari10: true,
-        toplevel: true
-      },
-      format: {
-        safari10: true,
-        comments: false
+        drop_console: true,
+        drop_debugger: true
       }
-    },
-    cssMinify: 'esbuild',
-    chunkSizeWarningLimit: 500,
-    assetsInlineLimit: 2048,
-    reportCompressedSize: false,
-    target: 'es2020'
-  },
-  css: {
-    devSourcemap: false,
-    preprocessorOptions: {
-      css: {
-        charset: false
-      }
-    }
-  },
-  esbuild: {
-    legalComments: 'none',
-    minifyIdentifiers: true,
-    minifySyntax: true,
-    minifyWhitespace: true
+    } : undefined
   }
 }));
