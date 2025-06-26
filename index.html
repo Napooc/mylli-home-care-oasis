@@ -3,7 +3,16 @@
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+    
+    <!-- iOS-optimized viewport configuration -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover" />
+    
+    <!-- iOS Web App Configuration -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Mylli Services" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="application-name" content="Mylli Services" />
     
     <!-- ULTIMATE TITLE TAG - 55 characters max -->
     <title>Soins à Domicile Casablanca | #1 Infirmier Aide-Soignant 24h | Mylli Services</title>
@@ -68,13 +77,6 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/lovable-uploads/554676d0-4988-4b83-864c-15c32ee349a2.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/lovable-uploads/554676d0-4988-4b83-864c-15c32ee349a2.png">
     <link rel="shortcut icon" href="/lovable-uploads/554676d0-4988-4b83-864c-15c32ee349a2.png">
-
-    <!-- iOS-Specific Web App Meta Tags -->
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-    <meta name="apple-mobile-web-app-title" content="Mylli Services" />
-    <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="application-name" content="Mylli Services" />
 
     <!-- Web App Manifest - CLEAN URL -->
     <link rel="manifest" href="/site.webmanifest" />
@@ -284,6 +286,59 @@
         }
       ]
     }
+    </script>
+
+    <!-- iOS-specific JavaScript fixes -->
+    <script>
+      // iOS viewport height fix
+      function setIOSViewport() {
+        if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+          const vh = window.innerHeight * 0.01;
+          document.documentElement.style.setProperty('--vh', `${vh}px`);
+        }
+      }
+
+      // iOS scroll fix
+      function fixIOSScroll() {
+        if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+          document.body.style.webkitOverflowScrolling = 'touch';
+        }
+      }
+
+      // iOS input focus handling
+      function handleIOSInputFocus() {
+        if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+          const inputs = document.querySelectorAll('input, textarea, select');
+          inputs.forEach(input => {
+            input.addEventListener('focusin', function() {
+              // Prevent body scroll when input is focused
+              document.body.style.position = 'fixed';
+              document.body.style.top = `-${window.scrollY}px`;
+            });
+            
+            input.addEventListener('focusout', function() {
+              // Restore body scroll when input loses focus
+              const scrollY = document.body.style.top;
+              document.body.style.position = '';
+              document.body.style.top = '';
+              window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
+            });
+          });
+        }
+      }
+
+      // Run fixes on DOM ready and various events
+      document.addEventListener('DOMContentLoaded', function() {
+        setIOSViewport();
+        fixIOSScroll();
+        handleIOSInputFocus();
+      });
+      
+      window.addEventListener('load', setIOSViewport);
+      window.addEventListener('resize', setIOSViewport);
+      window.addEventListener('orientationchange', function() {
+        setTimeout(setIOSViewport, 100);
+      });
     </script>
   </head>
 
