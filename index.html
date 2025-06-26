@@ -1,9 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+    <!-- iOS OPTIMIZED VIEWPORT - CRITICAL FIX -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no" />
     
     <!-- ULTIMATE TITLE TAG - 55 characters max -->
     <title>Soins à Domicile Casablanca | #1 Infirmier Aide-Soignant 24h | Mylli Services</title>
@@ -69,12 +69,16 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/lovable-uploads/554676d0-4988-4b83-864c-15c32ee349a2.png">
     <link rel="shortcut icon" href="/lovable-uploads/554676d0-4988-4b83-864c-15c32ee349a2.png">
 
-    <!-- iOS-Specific Web App Meta Tags -->
+    <!-- iOS-Specific Web App Meta Tags - ENHANCED -->
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="Mylli Services" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="application-name" content="Mylli Services" />
+    
+    <!-- iOS TOUCH OPTIMIZATION -->
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="apple-touch-fullscreen" content="yes" />
 
     <!-- Web App Manifest - CLEAN URL -->
     <link rel="manifest" href="/site.webmanifest" />
@@ -121,6 +125,77 @@
     
     <!-- Preload critical favicon resource - NEW LOGO -->
     <link rel="preload" href="/lovable-uploads/554676d0-4988-4b83-864c-15c32ee349a2.png" as="image" />
+
+    <!-- iOS CRITICAL CSS FIXES -->
+    <style>
+      /* iOS Safari Compatibility and Performance Fixes */
+      html, body {
+        -webkit-overflow-scrolling: touch;
+        -webkit-text-size-adjust: 100%;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        overflow-x: hidden;
+        position: relative;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
+      /* iOS Touch and Tap Optimization */
+      * {
+        -webkit-tap-highlight-color: transparent;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        user-select: none;
+      }
+
+      /* Allow text selection for content */
+      p, span, div, h1, h2, h3, h4, h5, h6, li {
+        -webkit-user-select: text;
+        user-select: text;
+      }
+
+      /* iOS Button and Interactive Elements */
+      button, a, [onclick], [role="button"], input[type="submit"], input[type="button"] {
+        touch-action: manipulation;
+        -webkit-user-select: none;
+        user-select: none;
+        cursor: pointer;
+        -webkit-tap-highlight-color: rgba(0,0,0,0.1);
+      }
+
+      /* iOS Form Elements Fix */
+      input, textarea, select {
+        -webkit-appearance: none;
+        -webkit-border-radius: 0;
+        border-radius: inherit;
+        -webkit-user-select: text;
+        user-select: text;
+      }
+
+      /* iOS Viewport Height Fix */
+      #root {
+        min-height: 100vh;
+        min-height: -webkit-fill-available;
+      }
+
+      /* iOS Safari Address Bar Fix */
+      @supports (-webkit-touch-callout: none) {
+        #root {
+          min-height: -webkit-fill-available;
+        }
+      }
+
+      /* Prevent iOS zoom on input focus */
+      input[type="text"], input[type="email"], input[type="tel"], textarea {
+        font-size: 16px;
+      }
+
+      /* iOS Smooth Scrolling */
+      html {
+        scroll-behavior: smooth;
+      }
+    </style>
 
     <!-- LOCAL BUSINESS SCHEMA - RANK #1 WEAPON -->
     <script type="application/ld+json">
