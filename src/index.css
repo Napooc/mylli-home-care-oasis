@@ -5,31 +5,38 @@
 @tailwind components;
 @tailwind utilities;
 
-/* iOS Compatibility Layer - Built into Foundation */
 @layer base {
-  /* iOS CSS Custom Properties for dynamic viewport handling */
   :root {
-    --vh: 1vh;
     --background: 210 50% 98%;
     --foreground: 224 71% 4%;
+
     --card: 0 0% 100%;
     --card-foreground: 224 71% 4%;
+
     --popover: 0 0% 100%;
     --popover-foreground: 224 71% 4%;
+
     --primary: 201 100% 35%;
     --primary-foreground: 210 20% 98%;
+
     --secondary: 0 79% 48%;
     --secondary-foreground: 210 20% 98%;
+
     --muted: 220 14% 96%;
     --muted-foreground: 220 8% 46%;
+
     --accent: 201 90% 50%;
     --accent-foreground: 0 0% 100%;
+
     --destructive: 0 84% 60%;
     --destructive-foreground: 210 20% 98%;
+
     --border: 220 13% 91%;
     --input: 220 13% 91%;
     --ring: 201 100% 35%;
+
     --radius: 1rem;
+
     --sidebar-background: 0 0% 100%;
     --sidebar-foreground: 240 5% 26%;
     --sidebar-primary: 201 100% 35%;
@@ -49,93 +56,20 @@
     font-display: swap;
   }
 
-  /* iOS-optimized universal reset */
-  *, *::before, *::after {
+  * {
     @apply border-border;
-    -webkit-tap-highlight-color: transparent;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    user-select: none;
   }
 
-  /* iOS-optimized HTML and body */
   html {
     scroll-behavior: smooth;
-    -webkit-text-size-adjust: 100%;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  /* iOS viewport height fix */
-  @supports (-webkit-touch-callout: none) {
-    html, body {
-      min-height: -webkit-fill-available;
-      height: calc(var(--vh, 1vh) * 100);
-    }
   }
 
   body {
     @apply bg-background text-foreground font-sans;
-    -webkit-overflow-scrolling: touch;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    overscroll-behavior-y: contain;
   }
 
-  /* iOS-optimized headings */
   h1, h2, h3, h4, h5, h6 {
     @apply font-serif font-bold tracking-tight;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  /* iOS-optimized form elements - CRITICAL for iOS */
-  input, textarea, select, button {
-    -webkit-appearance: none;
-    -webkit-border-radius: 0;
-    border-radius: 0;
-    font-size: 16px !important; /* Prevents iOS zoom */
-    -webkit-user-select: text;
-    user-select: text;
-  }
-
-  /* iOS button optimization */
-  button, [role="button"] {
-    -webkit-user-select: none;
-    user-select: none;
-    -webkit-tap-highlight-color: transparent;
-    touch-action: manipulation;
-  }
-
-  /* iOS link optimization */
-  a {
-    -webkit-tap-highlight-color: transparent;
-    -webkit-user-select: none;
-    user-select: none;
-  }
-
-  /* iOS scroll optimization for all scrollable elements */
-  * {
-    -webkit-overflow-scrolling: touch;
-  }
-
-  /* iOS transform optimization for animations */
-  .animated, [class*="animate"], [class*="transition"] {
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    will-change: transform;
-  }
-
-  /* iOS safe area support */
-  @supports (padding: max(0px)) {
-    body {
-      padding-left: max(0px, env(safe-area-inset-left));
-      padding-right: max(0px, env(safe-area-inset-right));
-      padding-top: max(0px, env(safe-area-inset-top));
-      padding-bottom: max(0px, env(safe-area-inset-bottom));
-    }
   }
 
   /* Brand Name Global Styling with Gliker Bold and specific colors */
@@ -164,43 +98,24 @@
 }
 
 @layer components {
-  /* iOS-optimized container */
   .container-custom {
     @apply container mx-auto px-4 md:px-8;
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
   }
   
-  /* iOS-optimized buttons */
   .btn-primary {
     @apply bg-mylli-primary hover:bg-mylli-primary-dark text-white py-3 px-6 rounded-full font-medium transition-all duration-300 shadow-soft hover:shadow-md transform hover:-translate-y-1;
-    -webkit-tap-highlight-color: transparent;
-    touch-action: manipulation;
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
   }
   
   .btn-secondary {
     @apply bg-mylli-secondary hover:bg-mylli-secondary/90 text-white py-3 px-6 rounded-full font-medium transition-all duration-300 shadow-soft hover:shadow-md;
-    -webkit-tap-highlight-color: transparent;
-    touch-action: manipulation;
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
   }
   
   .btn-accent {
     @apply bg-mylli-accent hover:bg-mylli-accent/90 text-white py-3 px-6 rounded-full font-medium transition-all duration-300 shadow-soft hover:shadow-md transform hover:-translate-y-1;
-    -webkit-tap-highlight-color: transparent;
-    touch-action: manipulation;
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
   }
   
-  /* iOS-optimized cards */
   .card-service {
     @apply bg-white rounded-2xl shadow-card p-6 transition-all duration-300 hover:shadow-hover border border-transparent hover:border-mylli-primary/20;
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
   }
 
   .section-padding {
@@ -215,19 +130,12 @@
     @apply text-lg md:text-xl text-mylli-gray mb-10;
   }
   
-  /* iOS-optimized input fields */
   .input-field {
     @apply w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-mylli-primary focus:border-transparent outline-none transition-all duration-200;
-    font-size: 16px !important; /* Prevents iOS zoom */
-    -webkit-appearance: none;
-    -webkit-border-radius: 0.5rem;
   }
   
-  /* iOS-optimized navigation */
   .nav-link {
     @apply relative text-gray-700 hover:text-mylli-primary transition-colors duration-300 px-4 py-2 font-medium;
-    -webkit-tap-highlight-color: transparent;
-    touch-action: manipulation;
   }
   
   .nav-link::after {
@@ -247,20 +155,13 @@
     @apply w-full;
   }
 
-  /* Glass Card Styles - iOS optimized */
+  /* New Glass Card Styles */
   .glass-card {
     @apply backdrop-blur-md bg-white/20 border border-white/30 shadow-glass;
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
-    -webkit-backdrop-filter: blur(12px);
-    backdrop-filter: blur(12px);
   }
 
-  /* iOS-optimized feature cards */
   .feature-card {
     @apply rounded-xl overflow-hidden relative p-6 transition-all duration-300;
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
   }
   
   .feature-card::before {
@@ -272,11 +173,8 @@
     @apply opacity-100;
   }
 
-  /* iOS-optimized animated borders */
   .animated-border-gradient {
     position: relative;
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
   }
 
   .animated-border-gradient::before {
@@ -288,8 +186,6 @@
     background-size: 300% 300%;
     border-radius: inherit;
     animation: border-rotate 4s linear infinite;
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
   }
 
   @keyframes border-rotate {
@@ -306,24 +202,18 @@
 
   .text-gradient {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-mylli-primary to-mylli-secondary;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
   }
 
-  /* iOS-optimized 3D Effects */
+  /* New 3D Effects */
   .card-3d {
     @apply relative transition-all duration-500 transform;
     perspective: 1000px;
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
   }
 
   .card-3d:hover {
     transform: perspective(1000px) rotateX(5deg) rotateY(5deg) scale(1.02);
-    -webkit-transform: perspective(1000px) rotateX(5deg) rotateY(5deg) scale(1.02);
   }
 
-  /* iOS-optimized shadows */
   .shadow-soft {
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025);
   }
@@ -340,7 +230,7 @@
     box-shadow: 0 0 15px rgba(0, 119, 192, 0.6), 0 0 30px rgba(0, 119, 192, 0.4), 0 0 45px rgba(0, 119, 192, 0.2);
   }
 
-  /* iOS-optimized animations */
+  /* New Animation Utilities */
   .animate-text-gradient {
     background-size: 200%;
     animation: text-gradient 3s linear infinite;
@@ -403,11 +293,9 @@
     }
   }
 
-  /* iOS-optimized feature highlights */
+  /* Feature highlight effects */
   .feature-highlight {
     @apply relative overflow-hidden rounded-2xl;
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
   }
 
   .feature-highlight::before {
@@ -420,11 +308,9 @@
     @apply opacity-100;
   }
 
-  /* iOS-optimized glow effect */
+  /* Glow effect on hover */
   .hover-glow {
     @apply relative transition-all duration-300;
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
   }
 
   .hover-glow::after {
@@ -437,27 +323,15 @@
     @apply opacity-100;
   }
 
-  /* iOS-optimized floating elements */
+  /* Floating elements */
   .floating-element {
     animation: float 6s ease-in-out infinite;
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
   }
 
-  /* iOS-optimized fancy border */
+  /* Fancy border with clip path */
   .fancy-border {
     @apply relative;
     clip-path: polygon(
-      0% 5%,
-      5% 0%,
-      95% 0%,
-      100% 5%,
-      100% 95%,
-      95% 100%,
-      5% 100%,
-      0% 95%
-    );
-    -webkit-clip-path: polygon(
       0% 5%,
       5% 0%,
       95% 0%,
@@ -482,11 +356,9 @@
     }
   }
 
-  /* Enhanced White Flash Animation - iOS optimized */
+  /* Enhanced White Flash Animation */
   .flash-white-strong {
     animation: flash-white-enhanced 4s ease-in-out infinite;
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
   }
 
   @keyframes flash-white-enhanced {
@@ -507,24 +379,5 @@
       transform: scale(1.02);
       filter: brightness(1.3);
     }
-  }
-}
-
-/* iOS-specific media queries */
-@media screen and (-webkit-min-device-pixel-ratio: 2) {
-  /* High DPI iOS devices optimization */
-  .shadow-soft {
-    box-shadow: 0 5px 8px -2px rgba(0, 0, 0, 0.05), 0 2px 3px -1px rgba(0, 0, 0, 0.025);
-  }
-}
-
-@media (hover: none) and (pointer: coarse) {
-  /* Touch devices (iOS) specific styles */
-  .hover\:scale-105:hover {
-    transform: scale(1.02);
-  }
-  
-  .hover\:-translate-y-1:hover {
-    transform: translateY(-2px);
   }
 }
