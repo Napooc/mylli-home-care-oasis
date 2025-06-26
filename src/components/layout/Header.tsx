@@ -32,6 +32,16 @@ const Header = () => {
   const toggleMenu = () => setIsOpen(!isOpen);
   const closeMenu = () => setIsOpen(false);
 
+  const handleLogoClick = () => {
+    // If on home page, scroll to top
+    if (location.pathname === '/' || location.pathname === '/home') {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+  };
+
   const navLinks = [
     {
       name: 'Accueil',
@@ -69,7 +79,7 @@ const Header = () => {
     <header className="fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-white shadow-md h-16">
       <div className="container-custom flex justify-between items-center h-full">
         {/* Logo - Made bigger and more visible */}
-        <Link to="/" className="flex items-center">
+        <Link to="/" className="flex items-center" onClick={handleLogoClick}>
           <img 
             alt="Mylli Services Logo" 
             className="h-14 w-auto sm:h-16 md:h-18" 
