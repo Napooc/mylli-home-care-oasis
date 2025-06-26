@@ -341,8 +341,8 @@ const services = [{
                     <p className="text-xl sm:text-2xl md:text-3xl font-bold text-mylli-secondary group-hover:text-mylli-secondary">{isVisible ? '+10' : '0'}</p>
                    <p className="text-xs sm:text-sm text-white leading-tight">années d'expérience</p>
                   </Link>
-                  <button onClick={() => scrollToSection('testimonials-heading')} className="text-center p-3 sm:p-4 backdrop-blur-sm bg-white/15 rounded-xl border border-white/30 hover:border-mylli-quaternary/50 transition-all duration-300 hover:scale-105 cursor-pointer group">
-                    <p className="text-lg sm:text-xl md:text-3xl font-bold text-white group-hover:text-mylli-primary">{isVisible ? '+6100' : '0'}</p>
+                  <button onClick={() => scrollToSection('testimonials-heading')} className="text-center p-3 sm:p-4 backdrop-blur-sm bg-white/15 rounded-xl border border-white/30 hover:border-mylli-primary/50 transition-all duration-300 hover:scale-105 cursor-pointer group">
+                    <p className="text-lg sm:text-xl md:text-2xl font-bold text-white group-hover:text-mylli-primary">{isVisible ? '+6100' : '0'}</p>
                     <p className="text-xs sm:text-sm text-white leading-tight">Interventions</p>
                   </button>
                   <button onClick={triggerAvailabilityFeature} className="text-center p-3 sm:p-4 backdrop-blur-sm bg-white/15 rounded-xl border border-white/30 hover:border-mylli-quaternary/50 transition-all duration-300 hover:scale-105 cursor-pointer group">
