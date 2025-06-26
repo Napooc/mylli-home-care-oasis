@@ -11,11 +11,9 @@
   will-change: filter;
   transition: filter 300ms;
 }
-
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
-
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
@@ -41,92 +39,4 @@
 
 .read-the-docs {
   color: #888;
-}
-
-/* ========== iOS SAFARI COMPATIBILITY FIXES ========== */
-
-/* iOS Viewport and Scrolling */
-html, body {
-  -webkit-overflow-scrolling: touch;
-  -webkit-text-size-adjust: 100%;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
-  position: relative;
-}
-
-/* iOS Touch and Tap Optimization */
-* {
-  -webkit-tap-highlight-color: transparent;
-  -webkit-touch-callout: none;
-}
-
-/* Allow text selection for content */
-p, span, div, h1, h2, h3, h4, h5, h6, li, .read-the-docs {
-  -webkit-user-select: text;
-  user-select: text;
-}
-
-/* iOS Button and Interactive Elements */
-button, a, [onclick], [role="button"], input[type="submit"], input[type="button"] {
-  touch-action: manipulation;
-  -webkit-user-select: none;
-  user-select: none;
-  cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0,0,0,0.1);
-}
-
-/* iOS Active State Feedback */
-button:active, a:active, [onclick]:active {
-  -webkit-transform: scale(0.98);
-  transform: scale(0.98);
-  transition: transform 0.1s ease;
-}
-
-/* iOS Form Elements Fix */
-input, textarea, select {
-  -webkit-appearance: none;
-  -webkit-border-radius: 0;
-  border-radius: inherit;
-  -webkit-user-select: text;
-  user-select: text;
-  background-clip: padding-box;
-}
-
-/* Prevent iOS zoom on input focus */
-input[type="text"], input[type="email"], input[type="tel"], input[type="password"], textarea {
-  font-size: 16px;
-  -webkit-appearance: none;
-  appearance: none;
-}
-
-/* iOS Viewport Height Fix */
-#root {
-  min-height: 100vh;
-  min-height: -webkit-fill-available;
-}
-
-/* iOS Safari Address Bar Fix */
-@supports (-webkit-touch-callout: none) {
-  #root {
-    min-height: -webkit-fill-available;
-  }
-}
-
-/* iOS Safe Area Support */
-body {
-  padding-top: env(safe-area-inset-top);
-  padding-bottom: env(safe-area-inset-bottom);
-  padding-left: env(safe-area-inset-left);
-  padding-right: env(safe-area-inset-right);
-}
-
-/* iOS Smooth Scrolling */
-html {
-  scroll-behavior: smooth;
-}
-
-/* iOS Scroll Momentum for scrollable areas */
-.scrollable, [data-scroll] {
-  -webkit-overflow-scrolling: touch;
 }
