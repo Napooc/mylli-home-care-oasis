@@ -28,6 +28,7 @@ import { securitySession } from "./utils/securitySession";
 import { advancedPerformanceMonitor } from "./utils/advancedPerformanceMonitor";
 import { inlineCriticalCSS, deferNonCriticalCSS, preloadCriticalResources } from "./utils/criticalCssOptimizer";
 import { optimizeDOM, reduceReflows } from "./utils/domOptimizer";
+import IOSCompatibilityFixes from "./utils/iosCompatibilityFixes";
 import "./styles/global.css";
 
 // Optimized QueryClient configuration
@@ -44,7 +45,10 @@ const queryClient = new QueryClient({
 
 const App: React.FC = () => {
   useEffect(() => {
-    console.log('🚀 Initializing performance-optimized Mylli Services...');
+    console.log('🚀 Initializing Mylli Services...');
+    
+    // PHASE 0: Critical iOS fixes (must be first)
+    IOSCompatibilityFixes.initialize();
     
     // PHASE 1: Critical performance optimizations (immediate)
     inlineCriticalCSS();
@@ -56,14 +60,20 @@ const App: React.FC = () => {
     cleanURLFragments();
     
     // PHASE 3: DOM optimizations (requestIdleCallback)
-    requestIdleCallback(() => {
-      optimizeDOM();
-      reduceReflows();
-      deferNonCriticalCSS();
+    const idleCallback = window.requestIdleCallback || ((callback) => setTimeout(callback, 0));
+    
+    idleCallback(() => {
+      try {
+        optimizeDOM();
+        reduceReflows();
+        deferNonCriticalCSS();
+      } catch (error) {
+        console.warn('DOM optimization skipped:', error);
+      }
     }, { timeout: 1000 });
     
     // PHASE 4: Non-critical resources (low priority)
-    requestIdleCallback(() => {
+    idleCallback(() => {
       initializeFaviconManager();
       
       // Register optimized service worker
@@ -83,13 +93,17 @@ const App: React.FC = () => {
     
     // PHASE 5: Performance monitoring (delayed)
     setTimeout(() => {
-      const report = advancedPerformanceMonitor.generateReport();
-      if (report.performance < 80) {
-        console.warn('⚠️ Performance below target, check metrics');
+      try {
+        const report = advancedPerformanceMonitor.generateReport();
+        if (report.performance < 80) {
+          console.warn('⚠️ Performance below target, check metrics');
+        }
+      } catch (error) {
+        console.warn('Performance monitoring skipped:', error);
       }
     }, 5000);
 
-    console.log('✅ All performance optimizations initialized');
+    console.log('✅ All optimizations initialized');
   }, []);
 
   return (
