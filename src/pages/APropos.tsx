@@ -108,9 +108,7 @@ const AProposPage = () => {
                     <div className="absolute -inset-1 bg-gradient-to-r from-mylli-primary via-mylli-secondary to-mylli-accent rounded-2xl lg:rounded-3xl blur opacity-20 group-hover:opacity-30 transition-opacity duration-500"></div>
                     <div className="relative bg-white/90 backdrop-blur-xl rounded-2xl lg:rounded-3xl p-4 sm:p-6 lg:p-8 shadow-lg lg:shadow-xl border border-white/20 hover:shadow-xl lg:hover:shadow-2xl transition-all duration-500">
                       <div className="flex flex-col sm:flex-row sm:items-start">
-                        <div className="flex-shrink-0 mb-4 sm:mb-0 sm:mr-6">
-                          <div className="w-2 sm:w-3 h-16 sm:h-20 bg-gradient-to-b from-mylli-primary via-mylli-secondary to-mylli-accent rounded-full mx-auto sm:mx-0"></div>
-                        </div>
+                        
                         <div className="flex-grow">
                           <div className="flex flex-col sm:flex-row sm:items-center mb-4 sm:mb-6">
                             <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-mylli-primary to-mylli-secondary rounded-lg sm:rounded-xl flex items-center justify-center mb-3 sm:mb-0 sm:mr-4 shadow-lg mx-auto sm:mx-0">
