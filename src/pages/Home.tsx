@@ -336,33 +336,22 @@ const services = [{
                   </p>
                 </header>
                 
-<div className="mt-8 mb-10 grid grid-cols-3 gap-3 sm:gap-4 max-w-sm sm:max-w-md mx-auto lg:mx-0 animate-fade-in delay-[1200ms]">
-  <Link 
-    to="/apropos" 
-    className="text-center p-3 sm:p-4 backdrop-blur-sm bg-white/15 rounded-xl border border-white/30 hover:border-mylli-secondary/50 transition-all duration-300 hover:scale-105 cursor-pointer group"
-  >
-    <p className="text-xl sm:text-2xl md:text-3xl font-bold text-mylli-secondary group-hover:text-mylli-secondary">{isVisible ? '+10' : '0'}</p>
-    <p className="text-xs sm:text-sm text-white leading-tight">années d'expérience</p>
-  </Link>
-
-  <button 
-    onClick={() => scrollToSection('testimonials-heading')} 
-    className="text-center p-3 sm:p-4 backdrop-blur-sm bg-white/15 rounded-xl border border-white/30 hover:border-mylli-secondary/50 transition-all duration-300 hover:scale-105 cursor-pointer group"
-  >
-    <p className="text-lg sm:text-xl md:text-2xl font-bold text-white group-hover:text-mylli-secondary">{isVisible ? '+6100' : '0'}</p>
-    <p className="text-xs sm:text-sm text-white leading-tight">Interventions</p>
-  </button>
-
-  <button 
-    onClick={triggerAvailabilityFeature} 
-    className="text-center p-3 sm:p-4 backdrop-blur-sm bg-white/15 rounded-xl border border-white/30 hover:border-mylli-quaternary/50 transition-all duration-300 hover:scale-105 cursor-pointer group"
-  >
-    <p className="text-xl sm:text-2xl md:text-3xl font-bold text-white group-hover:text-mylli-quaternary">{isVisible ? '24/7' : '0'}</p>
-    <p className="text-xs sm:text-sm text-white leading-tight">disponibilité</p>
-  </button>
-</div>
-
-
+                <div className="mt-8 mb-10 grid grid-cols-3 gap-3 sm:gap-4 max-w-sm sm:max-w-md mx-auto lg:mx-0 animate-fade-in delay-[1200ms]">
+                  <Link to="/apropos" className="text-center p-3 sm:p-4 backdrop-blur-sm bg-white/15 rounded-xl border border-white/30 hover:border-mylli-secondary/50 transition-all duration-300 hover:scale-105 cursor-pointer group">
+                    <p className="text-xl sm:text-2xl md:text-3xl font-bold text-mylli-secondary group-hover:text-mylli-secondary">{isVisible ? '+10' : '0'}</p>
+                   <p className="text-xs sm:text-sm text-white leading-tight">années d'expérience</p>
+                  </Link>
+                  <button onClick={() => scrollToSection('testimonials-heading')} className="text-center p-3 sm:p-4 backdrop-blur-sm bg-white/15 rounded-xl border border-white/30 hover:border-mylli-primary/50 transition-all duration-300 hover:scale-105 cursor-pointer group">
+                    <p className="text-lg sm:text-xl md:text-2xl font-bold text-white group-hover:text-mylli-primary">{isVisible ? '+6100' : '0'}</p>
+                    <p className="text-xs sm:text-sm text-white leading-tight">Interventions</p>
+                  </button>
+                  <button onClick={triggerAvailabilityFeature} className="text-center p-3 sm:p-4 backdrop-blur-sm bg-white/15 rounded-xl border border-white/30 hover:border-mylli-quaternary/50 transition-all duration-300 hover:scale-105 cursor-pointer group">
+                    <p className="text-xl sm:text-2xl md:text-3xl font-bold text-white group-hover:text-mylli-quaternary">{isVisible ? '24/7' : '0'}</p>
+                    <p className="text-xs sm:text-sm text-white leading-tight">disponibilité</p>
+                  </button>
+                </div>
+              </div>
+              
               <aside className="relative flex justify-center items-center mt-8 lg:mt-0">
                 <div className="absolute -top-10 -left-10 w-40 h-40 bg-mylli-quaternary/30 rounded-full filter blur-3xl"></div>
                 <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-mylli-secondary/30 rounded-full filter blur-3xl"></div>

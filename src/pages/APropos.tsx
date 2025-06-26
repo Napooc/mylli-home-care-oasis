@@ -71,7 +71,13 @@ const AProposPage = () => {
                     </div>
                     
                     {/* Mission statement overlay - responsive positioning */}
-                    
+                    <div className="absolute -bottom-4 sm:-bottom-6 lg:-bottom-8 left-1/2 transform -translate-x-1/2 bg-white/95 backdrop-blur-xl rounded-xl lg:rounded-2xl shadow-xl lg:shadow-2xl px-4 sm:px-6 lg:px-8 py-3 sm:py-4 lg:py-6 border border-white/20 w-11/12 sm:w-auto max-w-xs sm:max-w-md">
+                      <div className="text-center">
+                        
+                        
+                        
+                      </div>
+                    </div>
                   </div>
                   
                   {/* Floating stats - responsive sizing and positioning */}
