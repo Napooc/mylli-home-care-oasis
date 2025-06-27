@@ -71,11 +71,24 @@ const AProposPage = () => {
                     </div>
                     
                     {/* Mission statement overlay - responsive positioning */}
-                    
+                    <div className="absolute -bottom-4 sm:-bottom-6 lg:-bottom-8 left-1/2 transform -translate-x-1/2 bg-white/95 backdrop-blur-xl rounded-xl lg:rounded-2xl shadow-xl lg:shadow-2xl px-4 sm:px-6 lg:px-8 py-3 sm:py-4 lg:py-6 border border-white/20 w-11/12 sm:w-auto max-w-xs sm:max-w-md">
+                      <div className="text-center">
+                        
+                        
+                        
+                      </div>
+                    </div>
                   </div>
                   
                   {/* Floating stats - responsive sizing and positioning */}
-                  
+                  <div className="absolute -top-2 -left-2 sm:-top-4 sm:-left-4 bg-gradient-to-br from-mylli-primary to-mylli-secondary rounded-xl lg:rounded-2xl p-2 sm:p-3 lg:p-4 shadow-lg lg:shadow-xl animate-float" style={{
+                  animationDelay: '1s'
+                }}>
+                    <div className="text-center">
+                      <div className="text-lg sm:text-xl lg:text-2xl font-bold text-white">10+</div>
+                      <div className="text-xs text-white/80">Années</div>
+                    </div>
+                  </div>
                   
                   <div className="absolute -bottom-2 -right-2 sm:-bottom-4 sm:-right-4 bg-gradient-to-br from-mylli-accent to-mylli-quaternary rounded-xl lg:rounded-2xl p-2 sm:p-3 lg:p-4 shadow-lg lg:shadow-xl animate-bounce-subtle">
                     <div className="text-center">
