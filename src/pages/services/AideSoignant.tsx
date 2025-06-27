@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import PageBanner from '@/components/common/PageBanner';
 import SectionHeading from '@/components/common/SectionHeading';
 import OptimizedImage from '@/components/seo/OptimizedImage';
+
 const AideSoignantPage = () => {
   // Roles of caregiver with specific healthcare icons
   const roles = [{
@@ -114,41 +115,60 @@ const AideSoignantPage = () => {
                 </div>
               </div>
               
-              {/* Right Side - Hero Image */}
+              {/* Right Side - Enhanced Modern Hero Image */}
               <div className="relative">
-                {/* Decorative elements */}
-                <div className="absolute -top-4 -left-4 w-16 h-16 bg-mylli-primary/10 rounded-full blur-xl animate-pulse"></div>
-                <div className="absolute -bottom-4 -right-4 w-20 h-20 bg-mylli-secondary/10 rounded-full blur-xl animate-pulse" style={{animationDelay: '1s'}}></div>
+                {/* Enhanced decorative elements */}
+                <div className="absolute -top-8 -left-8 w-20 h-20 bg-gradient-to-br from-mylli-primary/15 to-mylli-secondary/15 rounded-full blur-2xl animate-pulse"></div>
+                <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-gradient-to-tl from-mylli-accent/15 to-mylli-quaternary/15 rounded-full blur-2xl animate-pulse" style={{animationDelay: '1s'}}></div>
+                <div className="absolute top-1/2 -left-4 w-16 h-16 bg-gradient-to-r from-mylli-secondary/10 to-transparent rounded-full blur-xl animate-float" style={{animationDelay: '2s'}}></div>
                 
-                {/* Main image container - more compact */}
+                {/* Main image container - redesigned with modern styling */}
                 <div className="relative group">
-                  <div className="absolute inset-0 bg-gradient-to-br from-mylli-primary/20 to-mylli-secondary/20 rounded-2xl transform rotate-2 group-hover:rotate-3 transition-transform duration-500 blur-sm"></div>
-                  <div className="relative bg-white rounded-2xl p-3 shadow-xl transform group-hover:-translate-y-1 transition-all duration-500">
-                    <div className="aspect-square overflow-hidden rounded-xl">
-                      <OptimizedImage 
-                        src="/lovable-uploads/faf36ebb-3182-48d2-bee8-b230c9b182eb.png" 
-                        alt="Aide-soignant avec patient âgé" 
-                        width={400} 
-                        height={400} 
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
-                      />
-                    </div>
-                    
-                    {/* Floating stats - smaller */}
-                    <div className="absolute top-6 right-6 bg-white/95 backdrop-blur-sm rounded-xl p-3 shadow-lg border border-mylli-primary/20 transform group-hover:scale-110 transition-all duration-500">
-                      <div className="text-center">
-                        <div className="text-lg font-bold text-mylli-primary">24/7</div>
-                        <div className="text-xs text-mylli-gray">Disponible</div>
+                  {/* Multi-layered background effects */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-mylli-primary/30 via-mylli-secondary/20 to-mylli-accent/30 rounded-3xl transform rotate-1 group-hover:rotate-2 transition-all duration-700 blur-md scale-105"></div>
+                  <div className="absolute inset-0 bg-gradient-to-tl from-mylli-quaternary/20 via-transparent to-mylli-primary/20 rounded-3xl transform -rotate-1 group-hover:-rotate-2 transition-all duration-700 blur-sm scale-102"></div>
+                  
+                  {/* Main container with enhanced styling */}
+                  <div className="relative bg-gradient-to-br from-white via-white to-mylli-light/10 rounded-3xl p-4 shadow-2xl transform group-hover:-translate-y-3 group-hover:scale-[1.02] transition-all duration-700 border border-white/50 backdrop-blur-sm">
+                    {/* Image wrapper with modern aspect ratio */}
+                    <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-mylli-light/20 to-white">
+                      {/* Enhanced image with better proportions */}
+                      <div className="aspect-[4/3] relative">
+                        <OptimizedImage 
+                          src="/lovable-uploads/faf36ebb-3182-48d2-bee8-b230c9b182eb.png" 
+                          alt="Aide-soignant avec patient âgé" 
+                          width={500} 
+                          height={375} 
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 filter group-hover:brightness-105" 
+                        />
+                        
+                        {/* Subtle overlay for modern effect */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent group-hover:from-black/5 transition-all duration-500"></div>
                       </div>
                     </div>
                     
-                    <div className="absolute bottom-6 left-6 bg-white/95 backdrop-blur-sm rounded-xl p-3 shadow-lg border border-mylli-secondary/20 transform group-hover:scale-110 transition-all duration-500">
+                    {/* Enhanced floating stats with modern design */}
+                    <div className="absolute top-8 right-8 bg-white/95 backdrop-blur-md rounded-2xl p-4 shadow-xl border border-mylli-primary/20 transform group-hover:scale-110 group-hover:-translate-y-1 transition-all duration-500">
                       <div className="text-center">
-                        <div className="text-lg font-bold text-mylli-secondary">+15</div>
-                        <div className="text-xs text-mylli-gray">Ans d'expérience</div>
+                        <div className="text-2xl font-black bg-gradient-to-r from-mylli-primary to-mylli-secondary bg-clip-text text-transparent">24/7</div>
+                        <div className="text-xs text-mylli-gray font-medium mt-1">Disponible</div>
                       </div>
                     </div>
+                    
+                    <div className="absolute bottom-8 left-8 bg-white/95 backdrop-blur-md rounded-2xl p-4 shadow-xl border border-mylli-secondary/20 transform group-hover:scale-110 group-hover:-translate-y-1 transition-all duration-500">
+                      <div className="text-center">
+                        <div className="text-2xl font-black bg-gradient-to-r from-mylli-secondary to-mylli-accent bg-clip-text text-transparent">+15</div>
+                        <div className="text-xs text-mylli-gray font-medium mt-1">Ans d'expérience</div>
+                      </div>
+                    </div>
+                    
+                    {/* Additional modern decorative elements */}
+                    <div className="absolute top-1/2 right-4 w-3 h-12 bg-gradient-to-b from-mylli-primary/30 to-transparent rounded-full opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
+                    <div className="absolute bottom-4 left-1/2 w-12 h-3 bg-gradient-to-r from-mylli-secondary/30 to-transparent rounded-full opacity-60 group-hover:opacity-80 transition-opacity duration-500 transform -translate-x-1/2"></div>
                   </div>
+                  
+                  {/* External glow effect enhanced */}
+                  <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-mylli-primary/10 via-mylli-secondary/5 to-mylli-accent/10 transform scale-0 group-hover:scale-125 transition-transform duration-1000 -z-10 blur-2xl"></div>
                 </div>
               </div>
             </div>
@@ -249,8 +269,6 @@ const AideSoignantPage = () => {
                 </p>
               </div>
             </div>
-            
-            
           </div>
         </div>
       </section>
