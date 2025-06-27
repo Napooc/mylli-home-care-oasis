@@ -4,164 +4,273 @@ import { Button } from "@/components/ui/button";
 import PageBanner from '@/components/common/PageBanner';
 import SectionHeading from '@/components/common/SectionHeading';
 import OptimizedImage from '@/components/seo/OptimizedImage';
+
 const AideSoignantPage = () => {
   // Roles of caregiver with specific healthcare icons
-  const roles = [{
-    title: "Assister à l'hygiène corporelle",
-    iconImage: "/lovable-uploads/d2780d4e-04e6-4ff9-8a1f-a54048bb2eb8.png"
-  }, {
-    title: "Aider à la prise de médicaments",
-    iconImage: "/lovable-uploads/1154475c-65aa-44df-bcaf-ab3092ac9960.png"
-  }, {
-    title: "Aider à l'alimentation",
-    iconImage: "/lovable-uploads/0ac5ce88-2b3f-4931-9488-210bc9425794.png"
-  }, {
-    title: "Mesurer électroniquement les constantes",
-    iconImage: "/lovable-uploads/5364c2b1-9466-4ff2-b1bf-f6288e735add.png"
-  }, {
-    title: "Accompagner et sécuriser le patient",
-    iconImage: "/lovable-uploads/da550c48-1c62-4eb0-b6cc-df8d0db5cdd8.png"
-  }];
-  return <div>
-      <PageBanner title="AIDE-SOIGNANT(E) À DOMICILE" subtitle="Préservation de l'autonomie et accompagnement quotidien" />
+  const roles = [
+    {
+      title: "Assister à l'hygiène corporelle",
+      iconImage: "/lovable-uploads/d2780d4e-04e6-4ff9-8a1f-a54048bb2eb8.png"
+    },
+    {
+      title: "Aider à la prise de médicaments",
+      iconImage: "/lovable-uploads/1154475c-65aa-44df-bcaf-ab3092ac9960.png"
+    },
+    {
+      title: "Aider à l'alimentation",
+      iconImage: "/lovable-uploads/0ac5ce88-2b3f-4931-9488-210bc9425794.png"
+    },
+    {
+      title: "Mesurer électroniquement les constantes",
+      iconImage: "/lovable-uploads/5364c2b1-9466-4ff2-b1bf-f6288e735add.png"
+    },
+    {
+      title: "Accompagner et sécuriser le patient",
+      iconImage: "/lovable-uploads/da550c48-1c62-4eb0-b6cc-df8d0db5cdd8.png"
+    }
+  ];
+
+  return (
+    <div>
+      <PageBanner 
+        title="AIDE-SOIGNANT(E) À DOMICILE" 
+        subtitle="Préservation de l'autonomie et accompagnement quotidien" 
+      />
       
-      {/* Modern Redesigned Introduction Section */}
-      <section className="py-16 relative overflow-hidden bg-white">
-        {/* Artistic background elements */}
-        <div className="absolute inset-0">
-          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-mylli-light/5 via-transparent to-mylli-primary/5"></div>
-          <div className="absolute top-20 right-10 w-96 h-96 bg-gradient-to-br from-mylli-primary/8 to-mylli-secondary/8 rounded-full blur-3xl animate-float"></div>
-          <div className="absolute bottom-20 left-10 w-80 h-80 bg-gradient-to-tl from-mylli-accent/8 to-mylli-quaternary/8 rounded-full blur-3xl animate-float" style={{
-          animationDelay: '2s'
-        }}></div>
+      {/* Ultra Modern Redesigned Introduction Section */}
+      <section className="py-20 relative overflow-hidden bg-gradient-to-br from-slate-50 via-white to-blue-50/30">
+        {/* Dynamic Animated Background */}
+        <div className="absolute inset-0 overflow-hidden">
+          {/* Animated geometric shapes */}
+          <div className="absolute top-0 left-0 w-full h-full opacity-30">
+            <div className="absolute top-20 left-20 w-32 h-32 bg-gradient-to-br from-mylli-primary/20 to-mylli-secondary/20 rounded-full animate-pulse"></div>
+            <div className="absolute top-40 right-32 w-24 h-24 bg-gradient-to-br from-mylli-accent/15 to-mylli-quaternary/15 rounded-full animate-bounce-subtle"></div>
+            <div className="absolute bottom-32 left-40 w-20 h-20 bg-gradient-to-br from-mylli-secondary/20 to-mylli-primary/20 rounded-full animate-float"></div>
+          </div>
+          
+          {/* Flowing gradient waves */}
+          <div className="absolute inset-0 bg-gradient-to-r from-mylli-primary/5 via-transparent to-mylli-accent/5 animate-pulse-soft"></div>
+          <div className="absolute bottom-0 left-0 w-full h-64 bg-gradient-to-t from-mylli-light/10 to-transparent"></div>
         </div>
         
         <div className="container-custom relative z-10">
           <div className="max-w-7xl mx-auto">
             
-            {/* Modern Split Layout Design */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Revolutionary Split Design with Creative Layout */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
               
-              {/* Left Side - Content */}
-              <div className="space-y-6">
-                {/* Main Heading */}
-                <div className="space-y-4">
-                  <h2 className="text-4xl lg:text-5xl font-bold leading-tight">
-                    <span className="bg-gradient-to-r from-mylli-primary via-mylli-secondary to-mylli-accent bg-clip-text text-transparent">
-                      Un accompagnement
-                    </span>
-                    <br />
-                    <span className="text-mylli-dark">quotidien</span>
-                    <br />
-                    <span className="relative inline-block">
-                      <span className="bg-gradient-to-r from-mylli-secondary to-mylli-accent bg-clip-text text-transparent">
-                        personnalisé
+              {/* Left Side - Enhanced Creative Content */}
+              <div className="lg:col-span-7 space-y-10">
+                
+                {/* Ultra Modern Heading with Creative Typography */}
+                <div className="space-y-8">
+                  <div className="relative">
+                    {/* Creative background text effect */}
+                    <div className="absolute -top-4 -left-4 text-8xl font-black text-mylli-primary/5 pointer-events-none select-none">
+                      CARE
+                    </div>
+                    
+                    <h2 className="relative text-4xl lg:text-6xl font-black leading-tight tracking-tight">
+                      <span className="block bg-gradient-to-r from-mylli-primary via-mylli-secondary to-mylli-accent bg-clip-text text-transparent animate-text-gradient">
+                        Un accompagnement
                       </span>
-                      <div className="absolute -bottom-3 left-0 w-full h-1 bg-gradient-to-r from-mylli-secondary to-mylli-accent rounded-full transform scale-x-0 animate-scale-in" style={{
-                      animationDelay: '1s',
-                      animationFillMode: 'forwards'
-                    }}></div>
-                    </span>
-                  </h2>
-                </div>
-
-                {/* Content Cards */}
-                <div className="space-y-4">
-                  <div className="group bg-white/80 backdrop-blur-sm rounded-2xl p-5 shadow-lg border border-mylli-primary/10 hover:shadow-xl hover:border-mylli-primary/30 transition-all duration-500">
-                    <div className="flex items-start space-x-4">
-                      <div className="w-2 h-2 bg-mylli-primary rounded-full mt-3 group-hover:scale-150 transition-transform duration-300"></div>
-                      <p className="text-base text-mylli-gray leading-relaxed">
-                        Tout en stimulant et préservant l'autonomie du malade, l'aide-soignant accomplit différents actes de la vie quotidienne : aide au lever et au coucher, aide au transfert du malade, aide à la toilette et à l'habillage, administration des repas, changement de la literie…
-                      </p>
-                    </div>
-                  </div>
-                  
-                  <div className="group bg-white/80 backdrop-blur-sm rounded-2xl p-5 shadow-lg border border-mylli-accent/10 hover:shadow-xl hover:border-mylli-accent/30 transition-all duration-500">
-                    <div className="flex items-start space-x-4">
-                      <div className="w-2 h-2 bg-mylli-accent rounded-full mt-3 group-hover:scale-150 transition-transform duration-300"></div>
-                      <p className="text-base text-mylli-gray leading-relaxed">
-                        Il accompagne cette personne dans les activités de sa vie quotidienne, il contribue à son bien-être et à lui faire recouvrer, dans la mesure du possible, son autonomie.
-                      </p>
-                    </div>
-                  </div>
-                  
-                  <div className="group bg-white/80 backdrop-blur-sm rounded-2xl p-5 shadow-lg border border-mylli-secondary/10 hover:shadow-xl hover:border-mylli-secondary/30 transition-all duration-500">
-                    <div className="flex items-start space-x-4">
-                      <div className="w-2 h-2 bg-mylli-secondary rounded-full mt-3 group-hover:scale-150 transition-transform duration-300"></div>
-                      <p className="text-base text-mylli-gray leading-relaxed">
-                        L'aide-soignant réalise des soins liés aux fonctions d'entretien et de continuité de la vie visant à compenser partiellement ou totalement un manque ou une diminution de l'autonomie de la personne.
-                      </p>
-                    </div>
+                      <span className="block text-mylli-dark mt-2 relative">
+                        quotidien
+                        <div className="absolute -bottom-2 left-0 w-32 h-1 bg-gradient-to-r from-mylli-primary to-mylli-secondary rounded-full animate-scale-in"></div>
+                      </span>
+                      <span className="block bg-gradient-to-r from-mylli-secondary via-mylli-accent to-mylli-quaternary bg-clip-text text-transparent mt-2 relative">
+                        personnalisé
+                        <div className="absolute -top-2 -right-2 w-6 h-6 bg-gradient-to-br from-mylli-accent to-mylli-quaternary rounded-full animate-pulse"></div>
+                      </span>
+                    </h2>
                   </div>
                 </div>
 
-                {/* Service Schedule Highlight */}
-                <div className="relative">
-                  <div className="absolute inset-0 bg-gradient-to-r from-mylli-primary/20 to-mylli-secondary/20 rounded-2xl blur-sm"></div>
-                  <div className="relative bg-white/90 backdrop-blur-sm rounded-2xl p-6 border border-mylli-primary/20 shadow-xl">
-                    <div className="text-center space-y-3">
-                      <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-br from-mylli-primary to-mylli-secondary mb-3">
-                        <Clock size={24} className="text-white" />
+                {/* Revolutionary Content Cards with Unique Design */}
+                <div className="space-y-6">
+                  
+                  {/* Card 1 - Floating Design */}
+                  <div className="group relative perspective-1000">
+                    <div className="absolute -inset-2 bg-gradient-to-r from-mylli-primary/20 to-mylli-secondary/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-700"></div>
+                    <div className="relative bg-white/90 backdrop-blur-xl rounded-3xl p-8 shadow-2xl border border-white/50 transform group-hover:rotateX-5 group-hover:rotateY-5 transition-all duration-700 hover:shadow-3xl">
+                      <div className="flex items-start space-x-6">
+                        <div className="relative">
+                          <div className="w-4 h-4 bg-gradient-to-br from-mylli-primary to-mylli-secondary rounded-full animate-pulse"></div>
+                          <div className="absolute -inset-2 bg-mylli-primary/20 rounded-full animate-ping"></div>
+                        </div>
+                        <div className="flex-1">
+                          <p className="text-lg text-mylli-gray leading-relaxed font-medium">
+                            Tout en <span className="font-bold text-mylli-primary">stimulant et préservant l'autonomie</span> du malade, l'aide-soignant accomplit différents actes de la vie quotidienne : aide au lever et au coucher, aide au transfert du malade, aide à la toilette et à l'habillage, administration des repas, changement de la literie…
+                          </p>
+                        </div>
                       </div>
-                      <p className="text-xl text-mylli-dark font-bold leading-tight">
-                        Le service d'aide-soignant assure les gardes de{' '}
-                        <span className="text-mylli-primary font-black">jour</span>, de{' '}
-                        <span className="text-mylli-secondary font-black">nuit</span>
-                        {' '}ou de{' '}
-                        <span className="text-mylli-accent font-black">24h/24h</span>.
-                      </p>
                     </div>
+                  </div>
+                  
+                  {/* Card 2 - Sliding Design */}
+                  <div className="group relative overflow-hidden">
+                    <div className="absolute -inset-2 bg-gradient-to-r from-mylli-accent/20 to-mylli-quaternary/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-700"></div>
+                    <div className="relative bg-white/90 backdrop-blur-xl rounded-3xl p-8 shadow-2xl border border-white/50 transform group-hover:translate-x-2 transition-all duration-500">
+                      {/* Sliding accent bar */}
+                      <div className="absolute left-0 top-0 w-2 h-full bg-gradient-to-b from-mylli-accent to-mylli-quaternary rounded-l-3xl transform scale-y-0 group-hover:scale-y-100 transition-transform duration-700 origin-top"></div>
+                      
+                      <div className="flex items-start space-x-6">
+                        <div className="relative">
+                          <div className="w-4 h-4 bg-gradient-to-br from-mylli-accent to-mylli-quaternary rounded-full animate-bounce-subtle"></div>
+                          <div className="absolute -inset-2 bg-mylli-accent/20 rounded-full animate-ping delay-500"></div>
+                        </div>
+                        <div className="flex-1">
+                          <p className="text-lg text-mylli-gray leading-relaxed font-medium">
+                            Il accompagne cette personne dans les <span className="font-bold text-mylli-accent">activités de sa vie quotidienne</span>, il contribue à son bien-être et à lui faire recouvrer, dans la mesure du possible, son autonomie.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Card 3 - Morphing Design */}
+                  <div className="group relative">
+                    <div className="absolute -inset-2 bg-gradient-to-r from-mylli-secondary/20 to-mylli-primary/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-700"></div>
+                    <div className="relative bg-white/90 backdrop-blur-xl rounded-3xl p-8 shadow-2xl border border-white/50 transform group-hover:scale-105 transition-all duration-500">
+                      {/* Morphing corner accent */}
+                      <div className="absolute top-6 right-6 w-8 h-8 bg-gradient-to-br from-mylli-secondary to-mylli-primary rounded-full transform group-hover:rotate-180 group-hover:scale-150 transition-all duration-700"></div>
+                      
+                      <div className="flex items-start space-x-6">
+                        <div className="relative">
+                          <div className="w-4 h-4 bg-gradient-to-br from-mylli-secondary to-mylli-primary rounded-full animate-pulse delay-1000"></div>
+                          <div className="absolute -inset-2 bg-mylli-secondary/20 rounded-full animate-ping delay-1000"></div>
+                        </div>
+                        <div className="flex-1">
+                          <p className="text-lg text-mylli-gray leading-relaxed font-medium">
+                            L'aide-soignant réalise des <span className="font-bold text-mylli-secondary">soins liés aux fonctions d'entretien</span> et de continuité de la vie visant à compenser partiellement ou totalement un manque ou une diminution de l'autonomie de la personne.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Revolutionary Service Schedule with 3D Effect */}
+                <div className="relative group perspective-1000">
+                  <div className="absolute -inset-4 bg-gradient-to-r from-mylli-primary/30 via-mylli-secondary/30 to-mylli-accent/30 rounded-3xl blur-2xl opacity-50 group-hover:opacity-80 transition-opacity duration-700"></div>
+                  <div className="relative bg-gradient-to-br from-white via-white to-mylli-light/20 rounded-3xl p-10 shadow-3xl border border-white/30 backdrop-blur-xl transform group-hover:rotateX-3 group-hover:rotateY-3 transition-all duration-700">
+                    
+                    {/* Floating elements */}
+                    <div className="absolute -top-4 -right-4 w-12 h-12 bg-gradient-to-br from-mylli-primary to-mylli-secondary rounded-full flex items-center justify-center shadow-xl animate-float">
+                      <Clock size={20} className="text-white" />
+                    </div>
+                    
+                    {/* Content */}
+                    <div className="text-center space-y-6">
+                      <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-mylli-primary via-mylli-secondary to-mylli-accent mb-4 shadow-2xl animate-pulse">
+                        <Clock size={32} className="text-white" />
+                      </div>
+                      
+                      <div className="space-y-4">
+                        <p className="text-2xl text-mylli-dark font-bold leading-tight">
+                          Le service d'aide-soignant assure les gardes
+                        </p>
+                        
+                        {/* Dynamic time badges */}
+                        <div className="flex flex-wrap justify-center gap-4">
+                          <div className="group/badge relative">
+                            <div className="absolute -inset-1 bg-gradient-to-r from-mylli-primary to-mylli-secondary rounded-full blur opacity-50 group-hover/badge:opacity-100 transition-opacity duration-300"></div>
+                            <div className="relative bg-gradient-to-r from-mylli-primary to-mylli-secondary text-white px-6 py-3 rounded-full font-black text-lg shadow-lg transform group-hover/badge:scale-110 transition-transform duration-300">
+                              JOUR
+                            </div>
+                          </div>
+                          
+                          <div className="group/badge relative">
+                            <div className="absolute -inset-1 bg-gradient-to-r from-mylli-secondary to-mylli-accent rounded-full blur opacity-50 group-hover/badge:opacity-100 transition-opacity duration-300"></div>
+                            <div className="relative bg-gradient-to-r from-mylli-secondary to-mylli-accent text-white px-6 py-3 rounded-full font-black text-lg shadow-lg transform group-hover/badge:scale-110 transition-transform duration-300">
+                              NUIT
+                            </div>
+                          </div>
+                          
+                          <div className="group/badge relative">
+                            <div className="absolute -inset-1 bg-gradient-to-r from-mylli-accent to-mylli-quaternary rounded-full blur opacity-50 group-hover/badge:opacity-100 transition-opacity duration-300"></div>
+                            <div className="relative bg-gradient-to-r from-mylli-accent to-mylli-quaternary text-white px-6 py-3 rounded-full font-black text-lg shadow-lg transform group-hover/badge:scale-110 transition-transform duration-300">
+                              24H/24H
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    {/* Decorative elements */}
+                    <div className="absolute bottom-4 left-4 w-3 h-12 bg-gradient-to-b from-mylli-primary/30 to-transparent rounded-full animate-pulse"></div>
+                    <div className="absolute top-4 right-12 w-12 h-3 bg-gradient-to-r from-mylli-secondary/30 to-transparent rounded-full animate-pulse delay-500"></div>
                   </div>
                 </div>
               </div>
               
-              {/* Right Side - Enhanced Modern Hero Image */}
-              <div className="relative">
-                {/* Enhanced decorative elements */}
-                <div className="absolute -top-8 -left-8 w-20 h-20 bg-gradient-to-br from-mylli-primary/15 to-mylli-secondary/15 rounded-full blur-2xl animate-pulse"></div>
-                <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-gradient-to-tl from-mylli-accent/15 to-mylli-quaternary/15 rounded-full blur-2xl animate-pulse" style={{
-                animationDelay: '1s'
-              }}></div>
-                <div className="absolute top-1/2 -left-4 w-16 h-16 bg-gradient-to-r from-mylli-secondary/10 to-transparent rounded-full blur-xl animate-float" style={{
-                animationDelay: '2s'
-              }}></div>
+              {/* Right Side - Revolutionary Image Design */}
+              <div className="lg:col-span-5 relative">
                 
-                {/* Main image container - redesigned with modern styling */}
+                {/* Creative background elements */}
+                <div className="absolute -inset-8 opacity-20">
+                  <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-mylli-primary/30 to-mylli-secondary/30 rounded-full blur-3xl animate-pulse"></div>
+                  <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tl from-mylli-accent/30 to-mylli-quaternary/30 rounded-full blur-3xl animate-pulse delay-1000"></div>
+                </div>
+                
+                {/* Main Revolutionary Image Container */}
                 <div className="relative group">
-                  {/* Multi-layered background effects */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-mylli-primary/30 via-mylli-secondary/20 to-mylli-accent/30 rounded-3xl transform rotate-1 group-hover:rotate-2 transition-all duration-700 blur-md scale-105"></div>
-                  <div className="absolute inset-0 bg-gradient-to-tl from-mylli-quaternary/20 via-transparent to-mylli-primary/20 rounded-3xl transform -rotate-1 group-hover:-rotate-2 transition-all duration-700 blur-sm scale-102"></div>
                   
-                  {/* Main container with enhanced styling */}
-                  <div className="relative bg-gradient-to-br from-white via-white to-mylli-light/10 rounded-3xl p-4 shadow-2xl transform group-hover:-translate-y-3 group-hover:scale-[1.02] transition-all duration-700 border border-white/50 backdrop-blur-sm">
-                    {/* Image wrapper with modern aspect ratio */}
-                    <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-mylli-light/20 to-white">
-                      {/* Enhanced image with better proportions */}
-                      <div className="aspect-[4/3] relative">
-                        <OptimizedImage src="/lovable-uploads/faf36ebb-3182-48d2-bee8-b230c9b182eb.png" alt="Aide-soignant avec patient âgé" width={500} height={375} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 filter group-hover:brightness-105" />
+                  {/* Multiple layered backgrounds for depth */}
+                  <div className="absolute -inset-6 bg-gradient-to-br from-mylli-primary/40 via-mylli-secondary/30 to-mylli-accent/40 rounded-[3rem] transform rotate-3 group-hover:rotate-6 transition-all duration-1000 blur-xl scale-110"></div>
+                  <div className="absolute -inset-4 bg-gradient-to-tl from-mylli-quaternary/30 via-transparent to-mylli-primary/30 rounded-[3rem] transform -rotate-2 group-hover:-rotate-4 transition-all duration-1000 blur-lg scale-105"></div>
+                  <div className="absolute -inset-2 bg-gradient-to-r from-white/60 to-mylli-light/40 rounded-[3rem] blur-sm"></div>
+                  
+                  {/* Main container with revolutionary styling */}
+                  <div className="relative bg-gradient-to-br from-white via-white to-mylli-light/20 rounded-[3rem] p-6 shadow-3xl transform group-hover:-translate-y-4 group-hover:scale-105 group-hover:rotate-1 transition-all duration-1000 border border-white/60 backdrop-blur-xl">
+                    
+                    {/* Image wrapper with unique aspect ratio and effects */}
+                    <div className="relative rounded-[2rem] overflow-hidden bg-gradient-to-br from-mylli-light/30 to-white shadow-inner">
+                      <div className="aspect-[3/4] relative">
+                        <OptimizedImage 
+                          src="/lovable-uploads/faf36ebb-3182-48d2-bee8-b230c9b182eb.png" 
+                          alt="Aide-soignant avec patient âgé - Accompagnement personnalisé à domicile" 
+                          width={400} 
+                          height={533} 
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000 filter group-hover:brightness-110 group-hover:contrast-105" 
+                        />
                         
-                        {/* Subtle overlay for modern effect */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent group-hover:from-black/5 transition-all duration-500"></div>
+                        {/* Creative overlay effects */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-mylli-dark/20 via-transparent to-transparent group-hover:from-mylli-dark/10 transition-all duration-500"></div>
+                        <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-mylli-primary/10 group-hover:to-mylli-primary/5 transition-all duration-500"></div>
+                        
+                        {/* Floating interactive elements */}
+                        <div className="absolute top-6 left-6 w-3 h-3 bg-mylli-primary rounded-full animate-pulse opacity-60 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <div className="absolute top-12 right-8 w-2 h-2 bg-mylli-secondary rounded-full animate-pulse delay-300 opacity-60 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <div className="absolute bottom-12 left-8 w-4 h-4 bg-mylli-accent rounded-full animate-pulse delay-600 opacity-60 group-hover:opacity-100 transition-opacity duration-300"></div>
                       </div>
                     </div>
                     
-                    {/* Enhanced floating stats with modern design */}
-                    
-                    
-                    <div className="absolute bottom-8 left-8 bg-white/95 backdrop-blur-md rounded-2xl p-4 shadow-xl border border-mylli-secondary/20 transform group-hover:scale-110 group-hover:-translate-y-1 transition-all duration-500">
-                      <div className="text-center">
-                        <div className="text-2xl font-black bg-gradient-to-r from-mylli-secondary to-mylli-accent bg-clip-text text-transparent">+15</div>
-                        <div className="text-xs text-mylli-gray font-medium mt-1">Ans d'expérience</div>
+                    {/* Revolutionary floating stats with unique design */}
+                    <div className="absolute -bottom-4 -left-4 bg-gradient-to-br from-mylli-primary via-mylli-secondary to-mylli-accent rounded-2xl p-6 shadow-2xl border border-white/30 backdrop-blur-xl transform group-hover:scale-110 group-hover:-translate-y-2 group-hover:rotate-3 transition-all duration-700">
+                      <div className="text-center space-y-2">
+                        <div className="text-3xl font-black text-white drop-shadow-lg">+15</div>
+                        <div className="text-sm text-white/90 font-medium">Ans d'expérience</div>
+                        <div className="w-full h-1 bg-white/30 rounded-full overflow-hidden">
+                          <div className="h-full bg-white rounded-full animate-pulse"></div>
+                        </div>
                       </div>
                     </div>
                     
-                    {/* Additional modern decorative elements */}
-                    <div className="absolute top-1/2 right-4 w-3 h-12 bg-gradient-to-b from-mylli-primary/30 to-transparent rounded-full opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
-                    <div className="absolute bottom-4 left-1/2 w-12 h-3 bg-gradient-to-r from-mylli-secondary/30 to-transparent rounded-full opacity-60 group-hover:opacity-80 transition-opacity duration-500 transform -translate-x-1/2"></div>
+                    <div className="absolute -top-4 -right-4 bg-gradient-to-br from-mylli-accent via-mylli-quaternary to-mylli-secondary rounded-2xl p-4 shadow-2xl border border-white/30 backdrop-blur-xl transform group-hover:scale-110 group-hover:-translate-y-2 group-hover:-rotate-3 transition-all duration-700">
+                      <div className="text-center space-y-1">
+                        <div className="text-2xl font-black text-white drop-shadow-lg">24/7</div>
+                        <div className="text-xs text-white/90 font-medium">Disponible</div>
+                      </div>
+                    </div>
+                    
+                    {/* Creative decorative elements */}
+                    <div className="absolute top-1/3 -right-2 w-6 h-20 bg-gradient-to-b from-mylli-primary/40 via-mylli-secondary/30 to-transparent rounded-full opacity-60 group-hover:opacity-100 transition-opacity duration-500 animate-pulse"></div>
+                    <div className="absolute bottom-1/3 -left-2 w-20 h-6 bg-gradient-to-r from-mylli-secondary/40 via-mylli-accent/30 to-transparent rounded-full opacity-60 group-hover:opacity-100 transition-opacity duration-500 animate-pulse delay-300"></div>
                   </div>
                   
-                  {/* External glow effect enhanced */}
-                  <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-mylli-primary/10 via-mylli-secondary/5 to-mylli-accent/10 transform scale-0 group-hover:scale-125 transition-transform duration-1000 -z-10 blur-2xl"></div>
+                  {/* External magical glow effect */}
+                  <div className="absolute inset-0 rounded-[3rem] bg-gradient-to-br from-mylli-primary/20 via-mylli-secondary/10 to-mylli-accent/20 transform scale-0 group-hover:scale-150 transition-transform duration-1500 -z-10 blur-3xl"></div>
                 </div>
               </div>
             </div>
@@ -287,6 +396,8 @@ const AideSoignantPage = () => {
           </div>
         </div>
       </section>
-    </div>;
+    </div>
+  );
 };
+
 export default AideSoignantPage;
