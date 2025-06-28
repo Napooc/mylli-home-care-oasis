@@ -11,6 +11,7 @@ import SEOHead from '@/components/seo/SEOHead';
 import OptimizedImage from '@/components/seo/OptimizedImage';
 import { generateHomepageStructuredData } from '@/utils/structuredData';
 import { useEffect, useRef, useState } from 'react';
+
 const HomePage = () => {
   const [count, setCount] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
@@ -331,11 +332,30 @@ const services = [{
                     <Button asChild className="group relative overflow-hidden rounded-xl px-6 py-3 bg-white/15 hover:bg-white/25 border border-white/30 hover:border-white/50 backdrop-blur-sm text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg text-sm sm:text-base">
                       <Link to="/services/infirmier" className="flex items-center justify-center gap-2">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="transition-transform duration-300 group-hover:scale-110">
-                          <path d="M6 15l6-6 6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                          <rect x="8" y="3" width="8" height="2" rx="1" fill="currentColor"/>
-                          <rect x="9" y="5" width="6" height="14" rx="1" fill="currentColor"/>
-                          <circle cx="12" cy="12" r="1.5" fill="white"/>
-                          <path d="M10 7h4M10 17h4" stroke="white" strokeWidth="1" strokeLinecap="round"/>
+                          <defs>
+                            <linearGradient id="syringeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                              <stop offset="0%" stopColor="currentColor" stopOpacity="1"/>
+                              <stop offset="100%" stopColor="currentColor" stopOpacity="0.8"/>
+                            </linearGradient>
+                          </defs>
+                          {/* Syringe barrel */}
+                          <rect x="4" y="8" width="14" height="4" rx="2" fill="url(#syringeGradient)" stroke="currentColor" strokeWidth="0.5"/>
+                          {/* Syringe plunger */}
+                          <rect x="2" y="9" width="3" height="2" rx="1" fill="currentColor"/>
+                          {/* Plunger handle */}
+                          <circle cx="2.5" cy="10" r="1.5" fill="currentColor" stroke="white" strokeWidth="0.5"/>
+                          {/* Needle */}
+                          <rect x="18" y="9.5" width="4" height="1" fill="currentColor"/>
+                          <polygon points="22,9.5 24,10 22,10.5" fill="currentColor"/>
+                          {/* Measurement marks */}
+                          <line x1="6" y1="8.5" x2="6" y2="11.5" stroke="white" strokeWidth="0.5" opacity="0.8"/>
+                          <line x1="8" y1="8.5" x2="8" y2="11.5" stroke="white" strokeWidth="0.5" opacity="0.8"/>
+                          <line x1="10" y1="8.5" x2="10" y2="11.5" stroke="white" strokeWidth="0.5" opacity="0.8"/>
+                          <line x1="12" y1="8.5" x2="12" y2="11.5" stroke="white" strokeWidth="0.5" opacity="0.8"/>
+                          <line x1="14" y1="8.5" x2="14" y2="11.5" stroke="white" strokeWidth="0.5" opacity="0.8"/>
+                          <line x1="16" y1="8.5" x2="16" y2="11.5" stroke="white" strokeWidth="0.5" opacity="0.8"/>
+                          {/* Needle cap indicator */}
+                          <circle cx="19" cy="10" r="0.8" fill="none" stroke="currentColor" strokeWidth="0.5" opacity="0.6"/>
                         </svg>
                         <span>INFIRMIER(ÈRE) À DOMICILE</span>
                         <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
@@ -487,7 +507,7 @@ const services = [{
                     
                     <div className={`absolute top-0 right-0 w-16 md:w-20 h-16 md:h-20 ${feature.color === 'primary' ? 'bg-mylli-primary/10' : feature.color === 'secondary' ? 'bg-mylli-secondary/10' : 'bg-mylli-quaternary/10'} rounded-bl-2xl md:rounded-bl-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300`}></div>
                   </div>
-                </div>)}
+                </div>)
             </div>
             
             <div className="mt-12 md:mt-16 text-center px-4">
@@ -649,7 +669,7 @@ const services = [{
                     
                     <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-white/10 to-transparent rounded-bl-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   </div>
-                </div>)}
+                </div>)
             </div>
             
             <div className="text-center mt-20">
