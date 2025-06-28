@@ -316,7 +316,13 @@ const services = [{
                   <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start mb-8 animate-fade-in delay-[400ms]">
                     <Button asChild className="group relative overflow-hidden rounded-xl px-6 py-3 bg-white/15 hover:bg-white/25 border border-white/30 hover:border-white/50 backdrop-blur-sm text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg text-sm sm:text-base">
                       <Link to="/services/aide-soignant" className="flex items-center justify-center gap-2">
-                        <Heart size={18} className="transition-transform duration-300 group-hover:scale-110" />
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="transition-transform duration-300 group-hover:scale-110">
+                          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="currentColor"/>
+                          <path d="M7 9.5C7 8.12 8.12 7 9.5 7S12 8.12 12 9.5V11H7V9.5z" fill="none" stroke="currentColor" strokeWidth="1.5"/>
+                          <path d="M12 11v2c0 1.38-1.12 2.5-2.5 2.5S7 14.38 7 13v-2" fill="none" stroke="currentColor" strokeWidth="1.5"/>
+                          <path d="M17 9.5C17 8.12 15.88 7 14.5 7S12 8.12 12 9.5V11h5V9.5z" fill="none" stroke="currentColor" strokeWidth="1.5"/>
+                          <path d="M12 11v2c0 1.38 1.12 2.5 2.5 2.5S17 14.38 17 13v-2" fill="none" stroke="currentColor" strokeWidth="1.5"/>
+                        </svg>
                         <span>AIDE-SOIGNANT(E) À DOMICILE</span>
                         <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
                       </Link>
@@ -324,7 +330,13 @@ const services = [{
                     
                     <Button asChild className="group relative overflow-hidden rounded-xl px-6 py-3 bg-white/15 hover:bg-white/25 border border-white/30 hover:border-white/50 backdrop-blur-sm text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg text-sm sm:text-base">
                       <Link to="/services/infirmier" className="flex items-center justify-center gap-2">
-                        <Shield size={18} className="transition-transform duration-300 group-hover:scale-110" />
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="transition-transform duration-300 group-hover:scale-110">
+                          <path d="M6 15l6-6 6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                          <rect x="8" y="3" width="8" height="2" rx="1" fill="currentColor"/>
+                          <rect x="9" y="5" width="6" height="14" rx="1" fill="currentColor"/>
+                          <circle cx="12" cy="12" r="1.5" fill="white"/>
+                          <path d="M10 7h4M10 17h4" stroke="white" strokeWidth="1" strokeLinecap="round"/>
+                        </svg>
                         <span>INFIRMIER(ÈRE) À DOMICILE</span>
                         <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
                       </Link>
