@@ -78,6 +78,7 @@ const HomePage = () => {
     }, 5000);
     return () => clearInterval(interval);
   }, []);
+
 const careImages = ['/lovable-uploads/bc5d5201-c6c6-41c0-8594-5bef9171aea8.png', '/lovable-uploads/94cdeb85-c1e7-48bd-9d6f-66312af0fb9c.png', '/lovable-uploads/b078eb91-537d-4b59-bb66-5983988c4fab.png'];
 
 const services = [{
@@ -507,7 +508,7 @@ const services = [{
                     
                     <div className={`absolute top-0 right-0 w-16 md:w-20 h-16 md:h-20 ${feature.color === 'primary' ? 'bg-mylli-primary/10' : feature.color === 'secondary' ? 'bg-mylli-secondary/10' : 'bg-mylli-quaternary/10'} rounded-bl-2xl md:rounded-bl-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300`}></div>
                   </div>
-                </div>)
+                </div>)}
             </div>
             
             <div className="mt-12 md:mt-16 text-center px-4">
@@ -669,7 +670,7 @@ const services = [{
                     
                     <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-white/10 to-transparent rounded-bl-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   </div>
-                </div>)
+                </div>)}
             </div>
             
             <div className="text-center mt-20">
