@@ -81,7 +81,14 @@ const AProposPage = () => {
                   </div>
                   
                   {/* Floating stats - responsive sizing and positioning */}
-                  
+                  <div className="absolute -top-2 -left-2 sm:-top-4 sm:-left-4 bg-gradient-to-br from-mylli-primary to-mylli-secondary rounded-xl lg:rounded-2xl p-2 sm:p-3 lg:p-4 shadow-lg lg:shadow-xl animate-float" style={{
+                  animationDelay: '1s'
+                }}>
+                    <div className="text-center">
+                      <div className="text-lg sm:text-xl lg:text-2xl font-bold text-white">10+</div>
+                      <div className="text-xs text-white/80">Années</div>
+                    </div>
+                  </div>
                   
                   <div className="absolute -bottom-2 -right-2 sm:-bottom-4 sm:-right-4 bg-gradient-to-br from-mylli-accent to-mylli-quaternary rounded-xl lg:rounded-2xl p-2 sm:p-3 lg:p-4 shadow-lg lg:shadow-xl animate-bounce-subtle">
                     <div className="text-center">
