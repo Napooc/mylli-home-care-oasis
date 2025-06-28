@@ -11,7 +11,6 @@ import SEOHead from '@/components/seo/SEOHead';
 import OptimizedImage from '@/components/seo/OptimizedImage';
 import { generateHomepageStructuredData } from '@/utils/structuredData';
 import { useEffect, useRef, useState } from 'react';
-
 const HomePage = () => {
   const [count, setCount] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
@@ -78,7 +77,6 @@ const HomePage = () => {
     }, 5000);
     return () => clearInterval(interval);
   }, []);
-
 const careImages = ['/lovable-uploads/bc5d5201-c6c6-41c0-8594-5bef9171aea8.png', '/lovable-uploads/94cdeb85-c1e7-48bd-9d6f-66312af0fb9c.png', '/lovable-uploads/b078eb91-537d-4b59-bb66-5983988c4fab.png'];
 
 const services = [{
@@ -318,13 +316,7 @@ const services = [{
                   <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start mb-8 animate-fade-in delay-[400ms]">
                     <Button asChild className="group relative overflow-hidden rounded-xl px-6 py-3 bg-white/15 hover:bg-white/25 border border-white/30 hover:border-white/50 backdrop-blur-sm text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg text-sm sm:text-base">
                       <Link to="/services/aide-soignant" className="flex items-center justify-center gap-2">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="transition-transform duration-300 group-hover:scale-110">
-                          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="currentColor"/>
-                          <path d="M7 9.5C7 8.12 8.12 7 9.5 7S12 8.12 12 9.5V11H7V9.5z" fill="none" stroke="currentColor" strokeWidth="1.5"/>
-                          <path d="M12 11v2c0 1.38-1.12 2.5-2.5 2.5S7 14.38 7 13v-2" fill="none" stroke="currentColor" strokeWidth="1.5"/>
-                          <path d="M17 9.5C17 8.12 15.88 7 14.5 7S12 8.12 12 9.5V11h5V9.5z" fill="none" stroke="currentColor" strokeWidth="1.5"/>
-                          <path d="M12 11v2c0 1.38 1.12 2.5 2.5 2.5S17 14.38 17 13v-2" fill="none" stroke="currentColor" strokeWidth="1.5"/>
-                        </svg>
+                        <Heart size={18} className="transition-transform duration-300 group-hover:scale-110" />
                         <span>AIDE-SOIGNANT(E) À DOMICILE</span>
                         <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
                       </Link>
@@ -332,32 +324,7 @@ const services = [{
                     
                     <Button asChild className="group relative overflow-hidden rounded-xl px-6 py-3 bg-white/15 hover:bg-white/25 border border-white/30 hover:border-white/50 backdrop-blur-sm text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg text-sm sm:text-base">
                       <Link to="/services/infirmier" className="flex items-center justify-center gap-2">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="transition-transform duration-300 group-hover:scale-110">
-                          <defs>
-                            <linearGradient id="syringeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                              <stop offset="0%" stopColor="currentColor" stopOpacity="1"/>
-                              <stop offset="100%" stopColor="currentColor" stopOpacity="0.8"/>
-                            </linearGradient>
-                          </defs>
-                          {/* Syringe barrel */}
-                          <rect x="4" y="8" width="14" height="4" rx="2" fill="url(#syringeGradient)" stroke="currentColor" strokeWidth="0.5"/>
-                          {/* Syringe plunger */}
-                          <rect x="2" y="9" width="3" height="2" rx="1" fill="currentColor"/>
-                          {/* Plunger handle */}
-                          <circle cx="2.5" cy="10" r="1.5" fill="currentColor" stroke="white" strokeWidth="0.5"/>
-                          {/* Needle */}
-                          <rect x="18" y="9.5" width="4" height="1" fill="currentColor"/>
-                          <polygon points="22,9.5 24,10 22,10.5" fill="currentColor"/>
-                          {/* Measurement marks */}
-                          <line x1="6" y1="8.5" x2="6" y2="11.5" stroke="white" strokeWidth="0.5" opacity="0.8"/>
-                          <line x1="8" y1="8.5" x2="8" y2="11.5" stroke="white" strokeWidth="0.5" opacity="0.8"/>
-                          <line x1="10" y1="8.5" x2="10" y2="11.5" stroke="white" strokeWidth="0.5" opacity="0.8"/>
-                          <line x1="12" y1="8.5" x2="12" y2="11.5" stroke="white" strokeWidth="0.5" opacity="0.8"/>
-                          <line x1="14" y1="8.5" x2="14" y2="11.5" stroke="white" strokeWidth="0.5" opacity="0.8"/>
-                          <line x1="16" y1="8.5" x2="16" y2="11.5" stroke="white" strokeWidth="0.5" opacity="0.8"/>
-                          {/* Needle cap indicator */}
-                          <circle cx="19" cy="10" r="0.8" fill="none" stroke="currentColor" strokeWidth="0.5" opacity="0.6"/>
-                        </svg>
+                        <Shield size={18} className="transition-transform duration-300 group-hover:scale-110" />
                         <span>INFIRMIER(ÈRE) À DOMICILE</span>
                         <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
                       </Link>
