@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, Heart, User, Home as HomeIcon, Clock, Shield, CheckCircle, Star, ArrowUpRight, Phone, Share, X, Quote } from 'lucide-react';
+import { ArrowRight, Heart, User, Home as HomeIcon, Clock, Shield, CheckCircle, Star, ArrowUpRight, Phone, Share, X, Quote, Syringe } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import SectionHeading from '@/components/common/SectionHeading';
@@ -324,7 +324,7 @@ const services = [{
                     
                     <Button asChild className="group relative overflow-hidden rounded-xl px-6 py-3 bg-white/15 hover:bg-white/25 border border-white/30 hover:border-white/50 backdrop-blur-sm text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg text-sm sm:text-base">
                       <Link to="/services/infirmier" className="flex items-center justify-center gap-2">
-                        <Shield size={18} className="transition-transform duration-300 group-hover:scale-110" />
+                        <Syringe size={18} className="transition-transform duration-300 group-hover:scale-110" />
                         <span>INFIRMIER(ÈRE) À DOMICILE</span>
                         <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
                       </Link>
