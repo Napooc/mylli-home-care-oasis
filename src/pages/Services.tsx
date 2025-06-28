@@ -1,11 +1,9 @@
 
 import { Link } from 'react-router-dom';
-import { Home as HomeIcon, Heart, User, Clock, Shield, CheckCircle, AlertCircle, Phone, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import PageBanner from '@/components/common/PageBanner';
-import SectionHeading from '@/components/common/SectionHeading';
-import ServiceCard from '@/components/common/ServiceCard';
-import BrandName from '@/components/common/BrandName';
+import PerformantImage from '@/components/common/PerformantImage';
 import SEOHead from '@/components/seo/SEOHead';
 import { generateServicePageStructuredData } from '@/utils/structuredData';
 
@@ -13,7 +11,7 @@ const ServicesPage = () => {
   // Generate structured data for services
   const structuredData = generateServicePageStructuredData();
 
-  // Main services with updated images
+  // Main services with optimized image loading
   const mainServices = [{
     title: 'AIDE-SOIGNANT(E) À DOMICILE',
     description: 'Assistance personnalisée pour les activités de la vie quotidienne, avec un accompagnement bienveillant et professionnel.',
@@ -43,43 +41,44 @@ const ServicesPage = () => {
       <PageBanner 
         title="Nos Services" 
         subtitle="Des gardes-malades professionnels et attentifs pour répondre à tous vos besoins d'accompagnement à domicile." 
-        variant="modern" 
+        variant="fast" 
       />
       
-      {/* Main Services - Fixed height cards for consistency */}
+      {/* Main Services with optimized images */}
       <section className="section-padding bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
-        {/* Background decorative elements */}
-        <div className="absolute top-0 left-0 w-full h-full">
-          <div className="absolute top-1/4 left-10 w-72 h-72 bg-gradient-to-br from-mylli-primary/5 to-mylli-secondary/5 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-1/4 right-10 w-96 h-96 bg-gradient-to-br from-mylli-accent/5 to-mylli-quaternary/5 rounded-full blur-3xl"></div>
+        {/* Simplified background elements for better performance */}
+        <div className="absolute top-0 left-0 w-full h-full opacity-30">
+          <div className="absolute top-1/4 left-10 w-72 h-72 bg-gradient-to-br from-mylli-primary/10 to-mylli-secondary/10 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-1/4 right-10 w-96 h-96 bg-gradient-to-br from-mylli-accent/10 to-mylli-quaternary/10 rounded-full blur-3xl"></div>
         </div>
         
         <div className="container-custom relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 max-w-7xl mx-auto">
             {mainServices.map((service, index) => (
               <div key={index} className="group relative h-full">
-                {/* Animated background glow */}
+                {/* Simplified background glow */}
                 <div className={`absolute -inset-8 bg-gradient-to-br ${service.gradient} rounded-[3rem] blur-3xl opacity-0 group-hover:opacity-20 transition-all duration-700`}></div>
                 
-                {/* Main card container with fixed height */}
                 <div className="relative h-full flex flex-col">
-                  {/* Clean border with gradient */}
                   <div className={`absolute -inset-1 bg-gradient-to-br ${service.gradient} rounded-[2.5rem] opacity-60 blur-sm transition-all duration-500 group-hover:opacity-100`}></div>
                   
                   <div className="relative bg-white rounded-[2.5rem] shadow-2xl overflow-hidden transform group-hover:-translate-y-4 group-hover:rotate-1 transition-all duration-700 h-full flex flex-col">
                     
-                    {/* Fixed height image section */}
+                    {/* Optimized image section with performance improvements */}
                     <div className="relative h-96 overflow-hidden flex-shrink-0">
-                      <img 
-                        src={service.image} 
-                        alt={service.title} 
-                        className="w-full h-full object-cover object-center transition-all duration-1000 group-hover:scale-110 group-hover:brightness-110" 
+                      <PerformantImage
+                        src={service.image}
+                        alt={service.title}
+                        width={800}
+                        height={400}
+                        priority={index === 0} // Only first image is priority
+                        quality={80}
+                        className="w-full h-full object-cover object-center transition-all duration-1000 group-hover:scale-110 group-hover:brightness-110"
+                        sizes="(max-width: 768px) 100vw, 50vw"
                       />
                       
-                      {/* Clean gradient overlay */}
                       <div className={`absolute inset-0 bg-gradient-to-t ${service.gradient} opacity-60 group-hover:opacity-40 transition-all duration-500`}></div>
                       
-                      {/* Clean title overlay */}
                       <div className="absolute bottom-0 left-0 right-0 p-8">
                         <div className="relative">
                           <div className="absolute -inset-4 bg-black/20 backdrop-blur-sm rounded-2xl"></div>
@@ -90,14 +89,13 @@ const ServicesPage = () => {
                       </div>
                     </div>
                     
-                    {/* Content section with flex-grow for consistent height */}
+                    {/* Content section */}
                     <div className="p-8 relative flex-grow flex flex-col">
                       <div className="relative flex-grow flex flex-col">
                         <p className="text-mylli-gray text-lg md:text-xl mb-8 leading-relaxed flex-grow">
                           {service.description}
                         </p>
                         
-                        {/* Fixed height features list */}
                         <div className="space-y-4 mb-10 min-h-[120px]">
                           {service.features.map((feature, idx) => (
                             <div key={idx} className="flex items-center space-x-4 group/feature">
@@ -109,7 +107,6 @@ const ServicesPage = () => {
                           ))}
                         </div>
                         
-                        {/* CTA Button positioned at bottom */}
                         <div className="mt-auto">
                           <Link to={service.link}>
                             <div className="relative group/button">
