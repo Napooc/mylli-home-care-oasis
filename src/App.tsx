@@ -7,45 +7,47 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import MainLayout from "./components/layout/MainLayout";
 import { Skeleton } from "@/components/ui/skeleton";
 
-// Lazy load route components with chunk names for better debugging
-const Home = lazy(() => import(/* webpackChunkName: "home" */ "./pages/Home"));
-const Services = lazy(() => import(/* webpackChunkName: "services" */ "./pages/Services"));
-const APropos = lazy(() => import(/* webpackChunkName: "about" */ "./pages/APropos"));
-const Contact = lazy(() => import(/* webpackChunkName: "contact" */ "./pages/Contact"));
-const Equipe = lazy(() => import(/* webpackChunkName: "team" */ "./pages/Equipe"));
-const Articles = lazy(() => import(/* webpackChunkName: "articles" */ "./pages/Articles"));
-const ArticleDetail = lazy(() => import(/* webpackChunkName: "article-detail" */ "./pages/ArticleDetail"));
-const Fonctionnement = lazy(() => import(/* webpackChunkName: "how-it-works" */ "./pages/Fonctionnement"));
-const MotDuPresident = lazy(() => import(/* webpackChunkName: "president-message" */ "./pages/MotDuPresident"));
-const Infirmier = lazy(() => import(/* webpackChunkName: "nurse-service" */ "./pages/services/Infirmier"));
-const AideSoignant = lazy(() => import(/* webpackChunkName: "caregiver-service" */ "./pages/services/AideSoignant"));
-const PolitiqueConfidentialite = lazy(() => import(/* webpackChunkName: "privacy" */ "./pages/PolitiqueConfidentialite"));
-const CookiePolicy = lazy(() => import(/* webpackChunkName: "cookies" */ "./pages/CookiePolicy"));
-const NotFound = lazy(() => import(/* webpackChunkName: "not-found" */ "./pages/NotFound"));
+// Lazy load route components for better performance
+const Home = lazy(() => import("./pages/Home"));
+const Services = lazy(() => import("./pages/Services"));
+const APropos = lazy(() => import("./pages/APropos"));
+const Contact = lazy(() => import("./pages/Contact"));
+const Equipe = lazy(() => import("./pages/Equipe"));
+const Articles = lazy(() => import("./pages/Articles"));
+const ArticleDetail = lazy(() => import("./pages/ArticleDetail"));
+const Fonctionnement = lazy(() => import("./pages/Fonctionnement"));
+const MotDuPresident = lazy(() => import("./pages/MotDuPresident"));
+const Infirmier = lazy(() => import("./pages/services/Infirmier"));
+const AideSoignant = lazy(() => import("./pages/services/AideSoignant"));
+const PolitiqueConfidentialite = lazy(() => import("./pages/PolitiqueConfidentialite"));
+const CookiePolicy = lazy(() => import("./pages/CookiePolicy"));
+const NotFound = lazy(() => import("./pages/NotFound"));
 
-// Create optimized query client
+// Create query client with optimized settings
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 10 * 60 * 1000, // 10 minutes
-      gcTime: 15 * 60 * 1000, // 15 minutes
-      retry: 1,
+      staleTime: 5 * 60 * 1000, // 5 minutes
+      gcTime: 10 * 60 * 1000, // 10 minutes
+      retry: 2,
       refetchOnWindowFocus: false,
     },
   },
 });
 
-// Optimized route loader component
+// Loading component for route transitions
 const RouteLoader = () => (
-  <div className="min-h-screen flex flex-col animate-pulse">
-    <div className="h-16 bg-gray-200 w-full" />
-    <div className="flex-1 p-6 space-y-4">
-      <div className="h-8 bg-gray-200 rounded w-3/4" />
-      <div className="h-4 bg-gray-100 rounded w-full" />
-      <div className="h-4 bg-gray-100 rounded w-5/6" />
-      <div className="h-64 bg-gray-200 rounded w-full" />
+  <div className="min-h-screen flex flex-col">
+    <Skeleton className="h-16 w-full" />
+    <div className="flex-1 p-6">
+      <Skeleton className="h-64 w-full mb-6" />
+      <div className="space-y-4">
+        <Skeleton className="h-8 w-3/4" />
+        <Skeleton className="h-4 w-full" />
+        <Skeleton className="h-4 w-5/6" />
+      </div>
     </div>
-    <div className="h-32 bg-gray-200 w-full" />
+    <Skeleton className="h-32 w-full" />
   </div>
 );
 
