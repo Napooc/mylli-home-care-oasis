@@ -63,8 +63,7 @@ export default defineConfig(({ mode }) => ({
             '@radix-ui/react-tabs'
           ],
           'ui-data': [
-            '@radix-ui/react-select',
-            'recharts'
+            '@radix-ui/react-select'
           ],
           
           // Query and state management
