@@ -1,3 +1,4 @@
+
 // Bundle size monitoring and optimization utilities
 
 interface BundleStats {
@@ -30,7 +31,7 @@ class BundleAnalyzer {
             this.recordMetric({
               route: window.location.pathname,
               chunkSize: 0, // Will be filled by resource timing
-              loadTime: navEntry.loadEventEnd - navEntry.navigationStart,
+              loadTime: navEntry.loadEventEnd - navEntry.fetchStart,
               timestamp: Date.now()
             });
           }
@@ -47,8 +48,8 @@ class BundleAnalyzer {
         const navigation = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
         if (navigation) {
           console.log(`📊 Bundle Analysis - Route: ${window.location.pathname}`);
-          console.log(`⏱️ Load Time: ${navigation.loadEventEnd - navigation.navigationStart}ms`);
-          console.log(`🎯 First Contentful Paint: ${navigation.responseEnd - navigation.navigationStart}ms`);
+          console.log(`⏱️ Load Time: ${navigation.loadEventEnd - navigation.fetchStart}ms`);
+          console.log(`🎯 First Contentful Paint: ${navigation.responseEnd - navigation.fetchStart}ms`);
         }
       }, 1000);
     }
