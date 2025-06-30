@@ -64,7 +64,6 @@ export default defineConfig(({ mode }) => ({
           ],
           'ui-data': [
             '@radix-ui/react-select',
-            '@radix-ui/react-table',
             'recharts'
           ],
           
