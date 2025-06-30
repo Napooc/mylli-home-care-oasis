@@ -6,8 +6,7 @@ import Header from './Header';
 import Footer from './Footer';
 import BreadcrumbNav from '../seo/BreadcrumbNav';
 import WhatsAppButton from '../common/WhatsAppButton';
-import { preloadCriticalResources } from '@/utils/resourceCache';
-import { measureCoreWebVitals } from '@/utils/seoUtils';
+import { preloadCriticalResources, measureCoreWebVitals } from '@/utils/seoUtils';
 import '../../styles/whatsapp-button.css';
 
 interface MainLayoutProps {
