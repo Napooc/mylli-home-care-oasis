@@ -1,5 +1,6 @@
 
-import { preloadCriticalImages, optimizeImageUrl } from './imageOptimization';
+import { preloadCriticalResources } from './resourceCache';
+import { fontOptimizer } from './fontOptimization';
 
 // SEO utility functions
 
@@ -35,28 +36,34 @@ export const generateKeywords = (primary: string[], secondary: string[] = []) =>
   return [...primary, ...secondary].join(', ');
 };
 
-// Core Web Vitals optimization helpers
-export const preloadCriticalResources = () => {
-  // Preload critical fonts
-  const fontLink = document.createElement('link');
-  fontLink.rel = 'preload';
-  fontLink.href = 'https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap';
-  fontLink.as = 'style';
-  document.head.appendChild(fontLink);
+// Enhanced Core Web Vitals optimization
+export const preloadCriticalResourcesOptimized = async () => {
+  // Initialize font optimization first (critical for LCP)
+  await fontOptimizer.initialize();
   
-  // Use the new image optimization system
-  preloadCriticalImages();
+  // Preload critical resources with our new system
+  await preloadCriticalResources();
+  
+  console.log('✅ Critical resources preloaded with optimization');
 };
 
 export const measureCoreWebVitals = () => {
-  // This would integrate with web-vitals library in a real implementation
+  // Enhanced performance monitoring
   if ('PerformanceObserver' in window) {
     const observer = new PerformanceObserver((list) => {
       list.getEntries().forEach((entry) => {
-        console.log(`Core Web Vital: ${entry.name}`, entry);
+        if (entry.entryType === 'largest-contentful-paint') {
+          console.log(`LCP: ${entry.startTime}ms`);
+        }
+        if (entry.entryType === 'first-input') {
+          console.log(`FID: ${entry.processingStart - entry.startTime}ms`);
+        }
+        if (entry.entryType === 'layout-shift') {
+          console.log(`CLS: ${entry.value}`);
+        }
       });
     });
     
-    observer.observe({ entryTypes: ['measure', 'paint', 'largest-contentful-paint'] });
+    observer.observe({ entryTypes: ['largest-contentful-paint', 'first-input', 'layout-shift'] });
   }
 };
