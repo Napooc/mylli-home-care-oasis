@@ -1,6 +1,6 @@
 
-// iOS Safari Favicon Manager - Simplified and iOS-Optimized
-// Focuses on static favicon management without URL manipulation
+// iOS Safari Favicon Manager - Updated with new healthcare logo
+// Ensures proper favicon display on iOS without breaking URLs
 
 export interface FaviconConfig {
   baseUrl: string;
@@ -10,7 +10,11 @@ export interface FaviconConfig {
 export class FaviconManager {
   private config: FaviconConfig;
   private hasInitialized: boolean = false;
-  private loadingPromises: Map<string, Promise<boolean>> = new Map();
+  private isRefreshing: boolean = false;
+  private lastRefreshTime: number = 0;
+  private refreshCount: number = 0;
+  private readonly MAX_REFRESHES = 3;
+  private readonly MIN_REFRESH_INTERVAL = 5000;
   private static instance: FaviconManager | null = null;
 
   constructor(config: FaviconConfig) {
@@ -21,10 +25,19 @@ export class FaviconManager {
     if (!FaviconManager.instance) {
       FaviconManager.instance = new FaviconManager({
         baseUrl: '/lovable-uploads/554676d0-4988-4b83-864c-15c32ee349a2.png',
-        version: 'v2024_healthcare_stable'
+        version: '2024_new_healthcare_logo'
       });
     }
     return FaviconManager.instance;
+  }
+
+  private generateSessionId(): string {
+    let sessionId = sessionStorage.getItem('mylli-favicon-session');
+    if (!sessionId) {
+      sessionId = `healthcare_${Date.now()}_stable`;
+      sessionStorage.setItem('mylli-favicon-session', sessionId);
+    }
+    return sessionId;
   }
 
   private isIOS(): boolean {
@@ -35,133 +48,120 @@ export class FaviconManager {
     return /Safari/.test(navigator.userAgent) && !/Chrome|CriOS|FxiOS/.test(navigator.userAgent);
   }
 
-  // Phase 3: Favicon loading verification
-  private async verifyFaviconLoad(url: string): Promise<boolean> {
-    if (this.loadingPromises.has(url)) {
-      return this.loadingPromises.get(url)!;
-    }
-
-    const promise = new Promise<boolean>((resolve) => {
-      const img = new Image();
-      img.onload = () => {
-        console.log('✅ Favicon loaded successfully:', url);
-        resolve(true);
-      };
-      img.onerror = () => {
-        console.warn('❌ Favicon failed to load:', url);
-        resolve(false);
-      };
-      // Set timeout for loading
-      setTimeout(() => {
-        console.warn('⏱️ Favicon loading timeout:', url);
-        resolve(false);
-      }, 5000);
-      img.src = url;
-    });
-
-    this.loadingPromises.set(url, promise);
-    return promise;
+  private canRefresh(): boolean {
+    const now = Date.now();
+    const timeSinceLastRefresh = now - this.lastRefreshTime;
+    
+    return (
+      !this.isRefreshing &&
+      this.refreshCount < this.MAX_REFRESHES &&
+      timeSinceLastRefresh > this.MIN_REFRESH_INTERVAL
+    );
   }
 
-  // Phase 4: iOS-specific debugging and monitoring
-  private logIOSFaviconStatus(): void {
-    if (!this.isIOS()) return;
+  private cleanURL(): void {
+    const currentUrl = window.location.href;
+    
+    // Check for any unwanted hash fragments
+    if (currentUrl.includes('#') || currentUrl.includes('%23')) {
+      console.log('🧹 Cleaning URL fragments...');
+      
+      // Extract clean base URL without any fragments
+      let cleanURL = currentUrl.split('#')[0];
+      cleanURL = cleanURL.replace(/%23[^&]*/g, '');
+      cleanURL = cleanURL.replace(/ios-favicon-refresh/g, '');
+      cleanURL = cleanURL.replace(/[?&]v=[^&]*/g, '');
+      cleanURL = cleanURL.replace(/[?&]session=[^&]*/g, '');
+      cleanURL = cleanURL.replace(/[?&]ios=[^&]*/g, '');
+      cleanURL = cleanURL.replace(/[?&]$/, '');
+      
+      // Use replaceState to avoid page reload
+      window.history.replaceState(null, '', cleanURL);
+      console.log('✅ URL cleaned to:', cleanURL);
+    }
+  }
 
-    console.log('🍎 iOS Favicon Status Check:');
-    console.log('- iOS Version:', navigator.userAgent);
-    console.log('- Safari:', this.isSafari());
+  private removeExistingFavicons(): void {
+    const selectors = [
+      'link[rel*="icon"]',
+      'link[rel*="apple-touch-icon"]',
+      'link[rel="shortcut icon"]'
+    ];
     
-    const appleIcons = document.querySelectorAll('link[rel*="apple-touch-icon"]');
-    const standardIcons = document.querySelectorAll('link[rel="icon"]');
-    
-    console.log('- Apple Touch Icons:', appleIcons.length);
-    console.log('- Standard Icons:', standardIcons.length);
-    
-    appleIcons.forEach((icon, index) => {
-      const link = icon as HTMLLinkElement;
-      console.log(`- Apple Icon ${index + 1}:`, {
-        sizes: link.sizes?.value || 'default',
-        href: link.href,
-        loaded: !link.href.includes('#')
+    selectors.forEach(selector => {
+      const elements = document.querySelectorAll(selector);
+      elements.forEach(element => {
+        if (element.getAttribute('data-mylli-favicon') || 
+            element.getAttribute('data-mylli-healthcare-favicon')) {
+          element.remove();
+        }
       });
     });
   }
 
-  // Phase 2: Ensure proper iOS favicon sizing and meta tags
-  private validateIOSFavicons(): boolean {
-    const requiredSizes = ['180x180', '152x152', '120x120', '76x76'];
-    const appleIcons = document.querySelectorAll('link[rel*="apple-touch-icon"]');
+  private createFaviconElement(rel: string, sizes?: string): HTMLLinkElement {
+    const link = document.createElement('link');
+    link.rel = rel;
     
-    let hasAllSizes = true;
-    requiredSizes.forEach(size => {
-      const hasSize = Array.from(appleIcons).some(icon => 
-        (icon as HTMLLinkElement).sizes?.value === size
-      );
-      if (!hasSize) {
-        console.warn(`❌ Missing iOS favicon size: ${size}`);
-        hasAllSizes = false;
-      }
-    });
-
-    return hasAllSizes;
+    if (sizes) {
+      link.setAttribute('sizes', sizes);
+    }
+    
+    // Use clean URL without cache busters to prevent fragment accumulation
+    link.href = this.config.baseUrl;
+    
+    if (rel.includes('apple-touch-icon')) {
+      link.setAttribute('data-mylli-healthcare-favicon', 'true');
+    } else {
+      link.setAttribute('data-mylli-favicon', 'true');
+      link.type = 'image/png';
+    }
+    
+    return link;
   }
 
-  // Phase 3: Handle offline scenarios with fallback
-  private addFaviconFallback(): void {
-    // Create a simple colored favicon as fallback
-    const canvas = document.createElement('canvas');
-    canvas.width = 32;
-    canvas.height = 32;
-    const ctx = canvas.getContext('2d');
-    
-    if (ctx) {
-      // Draw a simple blue circle as fallback
-      ctx.fillStyle = '#1E88E5';
-      ctx.beginPath();
-      ctx.arc(16, 16, 12, 0, 2 * Math.PI);
-      ctx.fill();
-      
-      // Add white cross (medical symbol)
-      ctx.fillStyle = 'white';
-      ctx.fillRect(14, 8, 4, 16);
-      ctx.fillRect(8, 14, 16, 4);
-      
-      const fallbackUrl = canvas.toDataURL('image/png');
-      
-      // Store fallback for emergency use
-      sessionStorage.setItem('mylli-favicon-fallback', fallbackUrl);
-      console.log('💾 Favicon fallback created and stored');
-    }
-  }
-
-  // Phase 1 & 2: Simplified iOS favicon setup
-  public async initializeIOSFavicons(): Promise<void> {
-    if (this.hasInitialized) return;
-
-    console.log('🏥 Initializing simplified iOS favicon system...');
-    
-    // Phase 4: Log iOS status
-    this.logIOSFaviconStatus();
-    
-    // Phase 2: Validate existing favicons
-    const isValid = this.validateIOSFavicons();
-    if (!isValid) {
-      console.warn('⚠️ Some iOS favicon sizes are missing');
+  public setupIOSFavicons(): void {
+    if (!this.canRefresh()) {
+      console.log('🛑 iOS favicon refresh throttled');
+      return;
     }
 
-    // Phase 3: Verify favicon loading
-    const faviconLoaded = await this.verifyFaviconLoad(this.config.baseUrl);
+    console.log(`🏥 Setting up healthcare iOS favicons (attempt ${this.refreshCount + 1}/${this.MAX_REFRESHES})`);
     
-    if (!faviconLoaded) {
-      console.warn('⚠️ Main favicon failed to load, setting up fallback...');
-      this.addFaviconFallback();
-    }
-
-    // Phase 3: Update iOS meta tags for better caching
+    this.isRefreshing = true;
+    this.refreshCount++;
+    this.lastRefreshTime = Date.now();
+    
+    // Step 1: Clean URL first
+    this.cleanURL();
+    
+    // Step 2: Clean existing dynamic favicons
+    this.removeExistingFavicons();
+    
+    // Step 3: Create new favicon elements
+    const fragment = document.createDocumentFragment();
+    
+    // iOS Apple Touch Icons for window switching with new healthcare logo
+    fragment.appendChild(this.createFaviconElement('apple-touch-icon')); // Default 180x180
+    fragment.appendChild(this.createFaviconElement('apple-touch-icon', '180x180'));
+    fragment.appendChild(this.createFaviconElement('apple-touch-icon', '152x152'));
+    fragment.appendChild(this.createFaviconElement('apple-touch-icon', '120x120'));
+    fragment.appendChild(this.createFaviconElement('apple-touch-icon', '76x76'));
+    
+    // Standard favicons for fallback
+    fragment.appendChild(this.createFaviconElement('icon', '32x32'));
+    fragment.appendChild(this.createFaviconElement('icon', '16x16'));
+    fragment.appendChild(this.createFaviconElement('shortcut icon'));
+    
+    // Add all to head
+    document.head.appendChild(fragment);
+    
+    // Step 4: Update iOS meta tags
     this.updateIOSMetaTags();
     
+    console.log('✅ Healthcare iOS favicons installed successfully');
+    this.isRefreshing = false;
     this.hasInitialized = true;
-    console.log('✅ iOS favicon system initialized successfully');
   }
 
   private updateIOSMetaTags(): void {
@@ -169,65 +169,73 @@ export class FaviconManager {
       { name: 'apple-mobile-web-app-capable', content: 'yes' },
       { name: 'apple-mobile-web-app-status-bar-style', content: 'default' },
       { name: 'apple-mobile-web-app-title', content: 'Mylli Services' },
-      { name: 'theme-color', content: '#1E88E5' },
-      // Phase 3: Add caching hints
-      { httpEquiv: 'Cache-Control', content: 'public, max-age=31536000' }
+      { name: 'theme-color', content: '#1E88E5' }
     ];
     
-    metaUpdates.forEach(({ name, httpEquiv, content }) => {
-      const selector = name ? `meta[name="${name}"]` : `meta[http-equiv="${httpEquiv}"]`;
-      let meta = document.querySelector(selector) as HTMLMetaElement;
-      
+    metaUpdates.forEach(({ name, content }) => {
+      let meta = document.querySelector(`meta[name="${name}"]`) as HTMLMetaElement;
       if (!meta) {
         meta = document.createElement('meta');
-        if (name) meta.name = name;
-        if (httpEquiv) meta.httpEquiv = httpEquiv;
+        meta.name = name;
         document.head.appendChild(meta);
       }
       meta.content = content;
     });
   }
 
-  // Phase 4: Public monitoring method
-  public monitorFaviconHealth(): void {
-    setInterval(() => {
-      if (this.isIOS() && this.isSafari()) {
-        this.logIOSFaviconStatus();
-      }
-    }, 60000); // Check every minute
-  }
-
-  // Phase 1: Simplified initialization without URL manipulation
   public initialize(): void {
-    console.log('🏥 Starting simplified favicon system...');
+    console.log('🏥 Initializing healthcare favicon system with iOS Safari optimization...');
     
-    // Phase 3: Create fallback immediately
-    this.addFaviconFallback();
+    // Clean URL immediately
+    this.cleanURL();
     
+    // Initial setup
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', () => {
-        setTimeout(() => this.initializeIOSFavicons(), 500);
+        setTimeout(() => this.setupIOSFavicons(), 1000);
       });
     } else {
-      setTimeout(() => this.initializeIOSFavicons(), 500);
+      setTimeout(() => this.setupIOSFavicons(), 1000);
     }
     
-    // Phase 4: Start monitoring
-    if (this.isIOS()) {
-      this.monitorFaviconHealth();
-    }
+    // Handle visibility change for iOS Safari (throttled)
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden && this.isIOS() && this.isSafari() && this.canRefresh()) {
+        setTimeout(() => {
+          if (this.canRefresh()) {
+            this.setupIOSFavicons();
+          }
+        }, 2000);
+      }
+    });
+    
+    // Handle window focus for iOS (throttled)
+    window.addEventListener('focus', () => {
+      if (this.isIOS() && this.isSafari() && this.canRefresh()) {
+        setTimeout(() => {
+          if (this.canRefresh()) {
+            this.setupIOSFavicons();
+          }
+        }, 3000);
+      }
+    });
   }
 
-  // Phase 4: Health check method
-  public performHealthCheck(): Promise<boolean> {
-    return this.verifyFaviconLoad(this.config.baseUrl);
+  public resetRefreshLimits(): void {
+    this.refreshCount = 0;
+    this.lastRefreshTime = 0;
+    this.isRefreshing = false;
+    console.log('🔄 Healthcare favicon refresh limits reset');
+  }
+
+  public cleanURLFragments(): void {
+    this.cleanURL();
   }
 }
 
 // Export singleton and utility functions
 export const faviconManager = FaviconManager.getInstance();
+export const setupIOSFavicons = () => faviconManager.setupIOSFavicons();
 export const initializeFaviconManager = () => faviconManager.initialize();
-export const checkFaviconHealth = () => faviconManager.performHealthCheck();
-
-// Phase 1: Remove URL cleaning functions to prevent conflicts
-// Removed: setupIOSFavicons, resetFaviconLimits, cleanURLFragments
+export const resetFaviconLimits = () => faviconManager.resetRefreshLimits();
+export const cleanURLFragments = () => faviconManager.cleanURLFragments();
