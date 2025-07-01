@@ -64,7 +64,7 @@ const MotDuPresident = () => {
                     {/* Enhanced name plate with glass morphism */}
                     <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 bg-white/90 backdrop-blur-xl rounded-2xl shadow-2xl px-8 py-4 border border-white/20">
                       <p className="text-mylli-dark font-bold text-lg text-center">M. HARAKAT</p>
-                      <p className="text-mylli-gray text-sm text-center">Fondateur & Directeur Général</p>
+                      <p className="text-mylli-gray text-sm text-center">Fondateur </p>
                       <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-12 h-1 bg-gradient-to-r from-mylli-primary to-mylli-secondary rounded-full"></div>
                     </div>
                   </div>
