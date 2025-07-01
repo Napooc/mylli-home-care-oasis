@@ -1,4 +1,5 @@
 
+
 import { Award, CheckCircle, Shield, Users } from 'lucide-react';
 import PageBanner from '@/components/common/PageBanner';
 import SectionHeading from '@/components/common/SectionHeading';
@@ -38,8 +39,8 @@ const EquipePage = () => {
         subtitle="Des outils performants au service de votre bien-être"
       />
       
-      {/* Approach Section with Parallax */}
-      <section className="relative py-32 overflow-hidden bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/30">
+      {/* Approach Section with Parallax - RESPONSIVE FIXES */}
+      <section className="relative py-16 md:py-24 lg:py-32 overflow-hidden bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/30">
         {/* Animated background elements */}
         <div className="absolute inset-0">
           <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-br from-mylli-primary/20 to-mylli-secondary/20 rounded-full blur-xl animate-float"></div>
@@ -57,23 +58,23 @@ const EquipePage = () => {
         </div>
 
         <div className="container-custom relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center max-w-7xl mx-auto">
             
-            {/* Left side - Image with modern styling */}
-            <div className="relative group">
+            {/* Left side - Image with modern styling - RESPONSIVE */}
+            <div className="relative group order-2 lg:order-1">
               {/* Decorative background elements */}
               <div className="absolute -inset-4 bg-gradient-to-br from-mylli-primary/20 via-mylli-secondary/20 to-mylli-accent/20 rounded-3xl blur-2xl opacity-30 group-hover:opacity-50 transition-opacity duration-700"></div>
               <div className="absolute -top-8 -left-8 w-32 h-32 bg-gradient-to-br from-mylli-primary/30 to-transparent rounded-full blur-xl opacity-40"></div>
               <div className="absolute -bottom-8 -right-8 w-40 h-40 bg-gradient-to-tl from-mylli-secondary/30 to-transparent rounded-full blur-xl opacity-40"></div>
               
-              {/* Main image container */}
-              <div className="relative bg-white/80 backdrop-blur-xl rounded-3xl p-6 shadow-2xl border border-white/30 transform transition-all duration-700 group-hover:scale-[1.02] group-hover:-translate-y-2">
+              {/* Main image container - RESPONSIVE */}
+              <div className="relative bg-white/80 backdrop-blur-xl rounded-2xl md:rounded-3xl p-4 md:p-6 shadow-2xl border border-white/30 transform transition-all duration-700 group-hover:scale-[1.02] group-hover:-translate-y-2">
                 
                 {/* Glowing border effect */}
-                <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-mylli-primary/20 via-mylli-secondary/20 to-mylli-accent/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm"></div>
+                <div className="absolute inset-0 rounded-2xl md:rounded-3xl bg-gradient-to-r from-mylli-primary/20 via-mylli-secondary/20 to-mylli-accent/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm"></div>
                 
-                {/* Image with overlay effects */}
-                <div className="relative overflow-hidden rounded-2xl">
+                {/* Image with overlay effects - RESPONSIVE */}
+                <div className="relative overflow-hidden rounded-xl md:rounded-2xl">
                   <img 
                     src="/lovable-uploads/21a6c87c-23d4-42e3-a542-44f2e834616d.png" 
                     alt="Équipe médicale professionnelle - Le caractère des soignants"
@@ -87,8 +88,8 @@ const EquipePage = () => {
                   <div className="absolute top-4 right-4 w-3 h-3 bg-gradient-to-br from-mylli-primary to-mylli-secondary rounded-full animate-pulse"></div>
                 </div>
                 
-                {/* Professional badge */}
-                <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 px-6 py-3 bg-gradient-to-r from-mylli-primary to-mylli-secondary text-white text-sm font-semibold rounded-full shadow-xl flex items-center space-x-2">
+                {/* Professional badge - RESPONSIVE */}
+                <div className="absolute -bottom-2 md:-bottom-3 left-1/2 transform -translate-x-1/2 px-3 md:px-6 py-2 md:py-3 bg-gradient-to-r from-mylli-primary to-mylli-secondary text-white text-xs md:text-sm font-semibold rounded-full shadow-xl flex items-center space-x-2">
                   <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
                   <span>Excellence Professionnelle</span>
                 </div>
@@ -99,13 +100,13 @@ const EquipePage = () => {
               <div className="absolute bottom-1/3 -right-6 w-3 h-3 bg-mylli-secondary/50 rounded-full animate-bounce-subtle opacity-70" style={{animationDelay: '1s'}}></div>
             </div>
             
-            {/* Right side - Content */}
-            <div className="relative">
+            {/* Right side - Content - RESPONSIVE FIXES */}
+            <div className="relative order-1 lg:order-2">
               {/* Background decoration */}
               <div className="absolute -top-6 -right-6 w-24 h-24 bg-gradient-to-br from-mylli-primary/10 to-mylli-secondary/10 rounded-full blur-xl"></div>
               
-              {/* Enhanced content container */}
-              <div className="bg-white/70 backdrop-blur-xl rounded-3xl shadow-2xl p-12 border border-white/30 relative overflow-hidden">
+              {/* Enhanced content container - RESPONSIVE */}
+              <div className="bg-white/70 backdrop-blur-xl rounded-2xl md:rounded-3xl shadow-2xl p-6 md:p-8 lg:p-12 border border-white/30 relative overflow-hidden">
                 
                 {/* Subtle pattern overlay */}
                 <div className="absolute inset-0 opacity-5">
@@ -115,41 +116,40 @@ const EquipePage = () => {
                   }}></div>
                 </div>
                 
-                {/* Content */}
+                {/* Content - RESPONSIVE TYPOGRAPHY */}
                 <div className="relative z-10">
-                  <h2 className="text-4xl md:text-5xl font-bold mb-8 leading-tight">
-                    <span className="bg-gradient-to-r from-mylli-primary via-mylli-secondary to-mylli-accent bg-clip-text text-transparent animate-text-gradient bg-[length:200%_auto]">
+                  <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-6 md:mb-8 leading-tight">
+                    <span className="bg-gradient-to-r from-mylli-primary via-mylli-secondary to-mylli-accent bg-clip-text text-transparent animate-text-gradient bg-[length:200%_auto] block mb-2 md:mb-4">
                       LE CARACTÈRE DES SOIGNANTS
                     </span>
-                    <br />
-                    <span className="text-mylli-dark">
+                    <span className="text-mylli-dark block">
                       EST AUSSI IMPORTANT QUE LES CONNAISSANCES QU'ILS POSSÈDENT
                     </span>
                   </h2>
                   
-                  <div className="space-y-6">
-                    <p className="text-xl text-mylli-gray leading-relaxed">
+                  <div className="space-y-4 md:space-y-6">
+                    <p className="text-lg md:text-xl text-mylli-gray leading-relaxed">
                       Chez Mylli Services, nous sommes convaincus que la qualité des soins dépend autant des compétences techniques que des qualités humaines des intervenants.
                     </p>
                     
-                    <p className="text-lg text-mylli-gray leading-relaxed">
+                    <p className="text-base md:text-lg text-mylli-gray leading-relaxed">
                       C'est pourquoi nous accordons une importance particulière au recrutement et à la formation continue de notre équipe, en privilégiant l'empathie, le professionnalisme et l'excellence humaine.
                     </p>
                   </div>
                   
-                  {/* Enhanced call-to-action elements */}
-                  <div className="mt-10 flex items-center space-x-4">
+                  {/* Enhanced call-to-action elements - RESPONSIVE */}
+                  <div className="mt-8 md:mt-10 flex items-center space-x-4">
                     <div className="flex -space-x-2">
                       {[1, 2, 3].map((i) => (
                         <div 
                           key={i} 
-                          className="w-8 h-8 rounded-full bg-gradient-to-br from-mylli-primary to-mylli-secondary border-2 border-white shadow-lg animate-pulse" 
+                          className="w-6 h-6 md:w-8 md:h-8 rounded-full bg-gradient-to-br from-mylli-primary to-mylli-secondary border-2 border-white shadow-lg animate-pulse" 
                           style={{animationDelay: `${i * 0.3}s`}}
                         ></div>
                       ))}
                     </div>
-                    <div className="h-8 w-px bg-gradient-to-b from-transparent via-mylli-primary to-transparent"></div>
-                    <span className="text-mylli-dark font-semibold">Notre engagement qualité</span>
+                    <div className="h-6 md:h-8 w-px bg-gradient-to-b from-transparent via-mylli-primary to-transparent"></div>
+                    <span className="text-sm md:text-base text-mylli-dark font-semibold">Notre engagement qualité</span>
                   </div>
                 </div>
                 
@@ -575,8 +575,8 @@ const EquipePage = () => {
         </div>
       </section>
       
-      {/* Values Section - Completely redesigned with modern creative styling */}
-      <section className="relative py-32 overflow-hidden bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/30">
+      {/* Values Section - RESPONSIVE FIXES */}
+      <section className="relative py-16 md:py-24 lg:py-32 overflow-hidden bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/30">
         {/* Animated background elements */}
         <div className="absolute inset-0">
           {/* Floating geometric shapes */}
@@ -596,68 +596,68 @@ const EquipePage = () => {
         </div>
 
         <div className="container-custom relative z-10">
-          {/* Enhanced Section Heading */}
-          <div className="text-center mb-20">
+          {/* Enhanced Section Heading - RESPONSIVE */}
+          <div className="text-center mb-12 md:mb-16 lg:mb-20">
             <div className="inline-flex items-center justify-center p-3 bg-white/40 backdrop-blur-md rounded-full border border-white/30 mb-6 shadow-lg">
               <div className="w-3 h-3 bg-gradient-to-r from-mylli-primary to-mylli-secondary rounded-full animate-pulse mr-2"></div>
               <span className="text-sm font-semibold text-mylli-dark tracking-wider uppercase">Nos Principes</span>
             </div>
             
-            <h2 className="text-5xl md:text-6xl font-bold mb-6 relative">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 relative">
               <span className="bg-gradient-to-r from-mylli-dark via-mylli-primary to-mylli-secondary bg-clip-text text-transparent animate-text-gradient bg-[length:200%_auto]">
                 Nos Valeurs
               </span>
-              <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-mylli-primary to-mylli-secondary rounded-full"></div>
+              <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-16 md:w-24 h-1 bg-gradient-to-r from-mylli-primary to-mylli-secondary rounded-full"></div>
             </h2>
             
-            <p className="text-xl text-mylli-gray max-w-3xl mx-auto leading-relaxed">
+            <p className="text-lg md:text-xl text-mylli-gray max-w-3xl mx-auto leading-relaxed px-4">
               Des principes fondamentaux qui définissent notre identité et guident chacune de nos actions au quotidien
             </p>
           </div>
           
-          {/* Creative Values Grid */}
+          {/* Creative Values Grid - RESPONSIVE FIXES */}
           <div className="max-w-7xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-12 md:mb-16">
               {values.map((value, index) => (
                 <div key={index} className="group relative" style={{animationDelay: `${index * 0.2}s`}}>
-                  {/* Main Card with glass morphism */}
-                  <div className="relative bg-white/70 backdrop-blur-xl rounded-3xl p-8 border border-white/30 shadow-2xl transform transition-all duration-700 hover:scale-[1.02] hover:-translate-y-2 hover:shadow-3xl overflow-hidden">
+                  {/* Main Card with glass morphism - RESPONSIVE */}
+                  <div className="relative bg-white/70 backdrop-blur-xl rounded-2xl md:rounded-3xl p-6 md:p-8 border border-white/30 shadow-2xl transform transition-all duration-700 hover:scale-[1.02] hover:-translate-y-2 hover:shadow-3xl overflow-hidden">
                     
                     {/* Animated background gradient */}
-                    <div className={`absolute inset-0 bg-gradient-to-br ${value.bgGradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl`}></div>
+                    <div className={`absolute inset-0 bg-gradient-to-br ${value.bgGradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl md:rounded-3xl`}></div>
                     
                     {/* Glowing border effect */}
-                    <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm"></div>
+                    <div className="absolute inset-0 rounded-2xl md:rounded-3xl bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm"></div>
                     
-                    {/* Content */}
+                    {/* Content - RESPONSIVE */}
                     <div className="relative z-10">
-                      {/* Icon Container with creative styling */}
-                      <div className="flex items-start mb-6">
-                        <div className={`relative w-20 h-20 rounded-2xl bg-gradient-to-br ${value.color} p-4 shadow-lg transform transition-all duration-500 group-hover:rotate-12 group-hover:scale-110`}>
+                      {/* Icon Container with creative styling - RESPONSIVE */}
+                      <div className="flex items-start mb-4 md:mb-6">
+                        <div className={`relative w-16 h-16 md:w-20 md:h-20 rounded-xl md:rounded-2xl bg-gradient-to-br ${value.color} p-3 md:p-4 shadow-lg transform transition-all duration-500 group-hover:rotate-12 group-hover:scale-110 flex-shrink-0`}>
                           <div className="text-white transform transition-transform duration-500 group-hover:scale-110">
                             {value.icon}
                           </div>
                           
                           {/* Glowing effect behind icon */}
-                          <div className={`absolute inset-0 bg-gradient-to-br ${value.color} rounded-2xl blur-lg opacity-0 group-hover:opacity-30 transition-opacity duration-500 -z-10`}></div>
+                          <div className={`absolute inset-0 bg-gradient-to-br ${value.color} rounded-xl md:rounded-2xl blur-lg opacity-0 group-hover:opacity-30 transition-opacity duration-500 -z-10`}></div>
                         </div>
                         
-                        {/* Decorative elements */}
-                        <div className="flex-1 pl-6">
+                        {/* Decorative elements - RESPONSIVE */}
+                        <div className="flex-1 pl-4 md:pl-6">
                           <div className="flex items-center mb-2">
-                            <h3 className="text-2xl font-bold text-mylli-dark group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-mylli-primary group-hover:to-mylli-secondary group-hover:bg-clip-text transition-all duration-500">
+                            <h3 className="text-xl md:text-2xl font-bold text-mylli-dark group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-mylli-primary group-hover:to-mylli-secondary group-hover:bg-clip-text transition-all duration-500">
                               {value.title}
                             </h3>
                             <div className="ml-3 w-2 h-2 bg-gradient-to-r from-mylli-primary to-mylli-secondary rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-pulse"></div>
                           </div>
                           
-                          {/* Animated underline */}
-                          <div className="w-0 h-0.5 bg-gradient-to-r from-mylli-primary to-mylli-secondary group-hover:w-16 transition-all duration-500 mb-4 rounded-full"></div>
+                          {/* Animated underline - RESPONSIVE */}
+                          <div className="w-0 h-0.5 bg-gradient-to-r from-mylli-primary to-mylli-secondary group-hover:w-12 md:group-hover:w-16 transition-all duration-500 mb-3 md:mb-4 rounded-full"></div>
                         </div>
                       </div>
                       
-                      {/* Description with enhanced typography */}
-                      <p className="text-mylli-gray leading-relaxed text-lg transform transition-all duration-500 group-hover:text-mylli-dark">
+                      {/* Description with enhanced typography - RESPONSIVE */}
+                      <p className="text-mylli-gray leading-relaxed text-base md:text-lg transform transition-all duration-500 group-hover:text-mylli-dark">
                         {value.description}
                       </p>
                       
@@ -671,22 +671,22 @@ const EquipePage = () => {
                   </div>
                   
                   {/* Enhanced shadow effect */}
-                  <div className={`absolute inset-0 bg-gradient-to-br ${value.color} rounded-3xl blur-xl opacity-0 group-hover:opacity-20 transition-opacity duration-500 -z-10 scale-95`}></div>
+                  <div className={`absolute inset-0 bg-gradient-to-br ${value.color} rounded-2xl md:rounded-3xl blur-xl opacity-0 group-hover:opacity-20 transition-opacity duration-500 -z-10 scale-95`}></div>
                 </div>
               ))}
             </div>
             
-            {/* Bottom decorative section */}
+            {/* Bottom decorative section - RESPONSIVE */}
             <div className="text-center">
-              <div className="inline-flex items-center justify-center p-6 bg-white/60 backdrop-blur-xl rounded-2xl border border-white/40 shadow-xl">
+              <div className="inline-flex items-center justify-center p-4 md:p-6 bg-white/60 backdrop-blur-xl rounded-xl md:rounded-2xl border border-white/40 shadow-xl">
                 <div className="flex items-center space-x-4">
                   <div className="flex -space-x-2">
                     {[1, 2, 3, 4].map(i => (
-                      <div key={i} className={`w-4 h-4 rounded-full bg-gradient-to-br ${values[i - 1]?.color} animate-pulse`} style={{animationDelay: `${i * 0.2}s`}}></div>
+                      <div key={i} className={`w-3 h-3 md:w-4 md:h-4 rounded-full bg-gradient-to-br ${values[i - 1]?.color} animate-pulse`} style={{animationDelay: `${i * 0.2}s`}}></div>
                     ))}
                   </div>
-                  <div className="h-6 w-px bg-gradient-to-b from-transparent via-mylli-primary to-transparent"></div>
-                  <p className="text-mylli-dark font-semibold text-lg">
+                  <div className="h-4 md:h-6 w-px bg-gradient-to-b from-transparent via-mylli-primary to-transparent"></div>
+                  <p className="text-mylli-dark font-semibold text-base md:text-lg">
                     Des valeurs qui font la différence
                   </p>
                 </div>
@@ -707,3 +707,4 @@ const EquipePage = () => {
 };
 
 export default EquipePage;
+
