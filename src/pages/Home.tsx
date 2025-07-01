@@ -95,7 +95,7 @@ const services = [{
     <div className="absolute -bottom-3 -left-3 w-8 h-8 bg-gradient-to-br from-mylli-quaternary/70 to-mylli-accent/70 rounded-full shadow-lg backdrop-blur-sm border border-white/40 group-hover:scale-110 group-hover:-rotate-90 transition-all duration-1200"></div>
     <div className="absolute top-6 left-6 w-4 h-4 bg-gradient-to-br from-white/60 to-white/30 rounded-full shadow-md group-hover:scale-150 transition-all duration-800"></div>
   </div>,
-  features: ["Toilette et hygiène", "Aide à la mobilité", "Surveillance médicale", "Accompagnement social"],
+  features: ["Assiste à l’hygiène corporelle", "Aide à la mobilité", "Aide à l’alimentation", "Aide à la prise de médicaments"],
   link: "/services/aide-soignant",
   gradient: "from-mylli-primary via-mylli-secondary to-mylli-quaternary"
 }, {
