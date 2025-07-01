@@ -114,7 +114,7 @@ const services = [{
     <div className="absolute -bottom-3 -right-3 w-8 h-8 bg-gradient-to-bl from-mylli-accent/70 to-mylli-primary/70 rounded-full shadow-lg backdrop-blur-sm border border-white/40 group-hover:scale-110 group-hover:rotate-90 transition-all duration-1200"></div>
     <div className="absolute top-6 right-6 w-4 h-4 bg-gradient-to-bl from-white/60 to-white/30 rounded-full shadow-md group-hover:scale-150 transition-all duration-800"></div>
   </div>,
-  features: ["Soins post-opératoires", "Pansements et injections", "Surveillance glycémique", "Traitement Des escarres"],
+  features: ["Pose et surveillance de perfusions", "Pansements et injections", "Pose et surveillance de sondes nasogastrique et urinaire", "Traitement Des escarres"],
   link: "/services/infirmier",
   gradient: "from-mylli-secondary via-mylli-tertiary to-mylli-accent"
 }];
