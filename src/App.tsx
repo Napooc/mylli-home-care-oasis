@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -22,7 +21,7 @@ import MotDuPresident from "./pages/MotDuPresident";
 import NotFound from "./pages/NotFound";
 import { initEmailJS } from "./utils/emailjs";
 import { preloadCriticalImages } from "./utils/imageOptimization";
-import { initializeFaviconManager, cleanURLFragments } from "./utils/faviconManager";
+import { initializeFaviconManager } from "./utils/faviconManager";
 import CookieConsentManager from "./components/cookies/CookieConsentManager";
 import SecurityDashboard from "./components/security/SecurityDashboard";
 import { securitySession } from "./utils/securitySession";
@@ -39,47 +38,19 @@ const queryClient = new QueryClient({
 
 const App: React.FC = () => {
   useEffect(() => {
-    console.log('🚀 Initializing Mylli Services application with URL-safe favicon system...');
+    console.log('🚀 Initializing Mylli Services with simplified favicon system...');
     
     // Initialize security session
     securitySession.initializeSession();
     
-    // STEP 1: EMERGENCY URL cleanup - Remove ALL broken fragments IMMEDIATELY
-    console.log('🆘 EMERGENCY: Cleaning broken URL fragments...');
-    cleanURLFragments();
-    
-    // Additional aggressive URL cleanup for accumulated fragments
-    const emergencyUrlCleanup = () => {
-      const currentUrl = window.location.href;
-      if (currentUrl.includes('#') || currentUrl.includes('%23') || currentUrl.includes('ios-favicon-refresh')) {
-        console.log('🚨 CRITICAL: Performing emergency URL cleanup...');
-        
-        // Extract clean base URL
-        let cleanUrl = currentUrl.split('#')[0];
-        cleanUrl = cleanUrl.replace(/%23[^&]*/g, '');
-        cleanUrl = cleanUrl.replace(/ios-favicon-refresh/g, '');
-        cleanUrl = cleanUrl.replace(/[?&]v=[^&]*/g, '');
-        cleanUrl = cleanUrl.replace(/[?&]session=[^&]*/g, '');
-        cleanUrl = cleanUrl.replace(/[?&]ios=[^&]*/g, '');
-        
-        // Remove any trailing parameters
-        cleanUrl = cleanUrl.replace(/[?&]$/, '');
-        
-        window.history.replaceState(null, '', cleanUrl);
-        console.log('✅ EMERGENCY URL cleanup complete:', cleanUrl);
-      }
-    };
-    
-    emergencyUrlCleanup();
-    
-    // STEP 2: Initialize the URL-safe favicon system
-    console.log('🍎 Launching URL-safe iOS favicon system...');
+    // Phase 1: Initialize simplified favicon system (no URL manipulation)
+    console.log('🍎 Starting simplified iOS-optimized favicon system...');
     initializeFaviconManager();
     
-    // STEP 3: Preload critical images
+    // Preload critical images
     preloadCriticalImages();
 
-    // STEP 4: Initialize EmailJS
+    // Initialize EmailJS
     try {
       initEmailJS();
       console.log("✅ EmailJS initialized successfully");
@@ -87,21 +58,7 @@ const App: React.FC = () => {
       console.error("❌ Failed to initialize EmailJS:", error);
     }
 
-    // STEP 5: Set up periodic URL cleanup to prevent fragment accumulation
-    const urlCleanupInterval = setInterval(() => {
-      const currentUrl = window.location.href;
-      if (currentUrl.includes('#ios-favicon-refresh') || currentUrl.includes('%23ios-favicon-refresh')) {
-        console.log('🧹 Periodic URL cleanup triggered...');
-        cleanURLFragments();
-      }
-    }, 30000); // Check every 30 seconds
-
-    console.log('✅ Application initialization complete with URL-safe favicon system');
-
-    // Cleanup interval on unmount
-    return () => {
-      clearInterval(urlCleanupInterval);
-    };
+    console.log('✅ Application initialization complete with simplified favicon system');
   }, []);
 
   return (
