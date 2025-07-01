@@ -25,7 +25,7 @@ const SEOHead: React.FC<SEOHeadProps> = ({
   nofollow = false,
   structuredData
 }) => {
-  const baseUrl = 'https://mylli-home-care-oasis-gilt.vercel.app';
+  const baseUrl = 'https://mylliservices.com';
   const fullCanonicalUrl = canonicalUrl ? `${baseUrl}${canonicalUrl}` : undefined;
   const fullOgImage = ogImage.startsWith('http') ? ogImage : `${baseUrl}${ogImage}`;
 

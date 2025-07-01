@@ -1,30 +1,30 @@
+
 // SEO structured data utility functions
 
 export const generateOrganizationData = () => ({
   "@type": "Organization",
   "name": "Mylli Services",
   "url": "https://mylliservices.com",
-  "logo": "https://mylliservices.com/lovable-uploads/00945798-dc13-478e-94d1-d1aaa70af5a6.png",
+  "logo": "https://mylliservices.com/lovable-uploads/554676d0-4988-4b83-864c-15c32ee349a2.png",
   "description": "Mylli Services: Aide à domicile professionnelle à Casablanca. Services d'aide-soignant, infirmier, garde-malade et plus.",
   "address": {
     "@type": "PostalAddress",
-    "streetAddress": "2 Rue Ahmed Barakat",
+    "streetAddress": "19, rue Masmouda hay Al Hana",
     "addressLocality": "Casablanca",
-    "addressRegion": "Grand Casablanca",
-    "postalCode": "20250",
+    "addressRegion": "Casablanca-Settat",
+    "postalCode": "20210",
     "addressCountry": "MA"
   },
   "contactPoint": {
     "@type": "ContactPoint",
-    "telephone": "+212661234567",
+    "telephone": "+212661377438",
     "contactType": "assistance",
     "areaServed": "MA",
     "availableLanguage": ["French", "Arabic"]
   },
   "sameAs": [
-    "https://www.facebook.com/MylliServices",
-    "https://www.linkedin.com/company/mylliservices",
-    "https://twitter.com/mylli_services"
+    "https://web.facebook.com/mylliservices",
+    "https://www.instagram.com/mylliservices"
   ]
 });
 
@@ -55,7 +55,7 @@ export const generateHomepageStructuredData = () => {
         "primaryImageOfPage": {
           "@id": "https://mylliservices.com/#primaryimage"
         },
-        "datePublished": "2023-01-01T00:00:00+00:00",
+        "datePublished": "2014-01-01T00:00:00+00:00",
         "dateModified": new Date().toISOString(),
         "description": "Mylli Services: Votre partenaire de confiance pour l'aide à domicile à Casablanca. Découvrez nos services personnalisés.",
         "breadcrumb": {
@@ -77,9 +77,9 @@ export const generateHomepageStructuredData = () => {
       {
         "@type": "ImageObject",
         "@id": "https://mylliservices.com/#primaryimage",
-        "url": "https://mylliservices.com/lovable-uploads/00945798-dc13-478e-94d1-d1aaa70af5a6.png",
-        "width": 800,
-        "height": 600
+        "url": "https://mylliservices.com/lovable-uploads/554676d0-4988-4b83-864c-15c32ee349a2.png",
+        "width": 512,
+        "height": 512
       }
     ]
   };
