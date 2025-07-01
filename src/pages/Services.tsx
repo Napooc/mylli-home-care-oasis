@@ -18,14 +18,14 @@ const ServicesPage = () => {
     image: "/lovable-uploads/93fb824b-3948-43af-a313-a54ebaf3ded0.png",
     link: "/services/aide-soignant",
     gradient: "from-mylli-primary via-mylli-quaternary to-mylli-accent",
-    features: ["Soins personnalisés", "Accompagnement quotidien", "Suivi médical"]
+    features: ["Aide personnalisés", "Accompagnement 24h/24", "Sécurisation du malade"]
   }, {
     title: 'INFIRMIER(ÈRE) À DOMICILE',
     description: 'Soins médicaux professionnels à domicile, incluant les injections, pansements et suivi médical.',
     image: "/lovable-uploads/0e49a73b-0499-4adb-84fc-7707c6381ef7.png",
     link: "/services/infirmier",
     gradient: "from-mylli-secondary via-mylli-tertiary to-mylli-quaternary",
-    features: ["Injections médicales", "Pansements", "Suivi thérapeutique"]
+    features: ["Soins personnalisés", "Exécution d’une ordonnance médicale", "Suivi médical"]
   }];
 
   return (
