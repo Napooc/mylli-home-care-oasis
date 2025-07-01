@@ -439,7 +439,7 @@ const services = [{
         
           <div className="container-custom relative z-10 px-4 md:px-6">
             <header className="max-w-2xl mx-auto mb-12 md:mb-16">
-              <SectionHeading title="Des services sur mesure pour vous accompagner a domicile" variant="animated" highlightText="sur mesure" className="text-center" id="features-heading" />
+              <SectionHeading title="Des services sur mesure pour vous accompagner à domicile" variant="animated" highlightText="sur mesure" className="text-center" id="features-heading" />
             </header>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 max-w-6xl mx-auto">
