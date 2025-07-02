@@ -1,4 +1,3 @@
-
 // iOS Safari Favicon Manager - Simplified for Performance
 // Ensures proper favicon display on iOS without breaking URLs
 
@@ -36,8 +35,8 @@ export class FaviconManager {
   static getInstance(): FaviconManager {
     if (!FaviconManager.instance) {
       FaviconManager.instance = new FaviconManager({
-        baseUrl: '/lovable-uploads/554676d0-4988-4b83-864c-15c32ee349a2.png',
-        version: '2024_simplified_v1'
+        baseUrl: '/lovable-uploads/f8839c98-c2b6-4a1b-86d6-d6858f3f38df.png',
+        version: '2024_homecare_logo_v1'
       });
     }
     return FaviconManager.instance;

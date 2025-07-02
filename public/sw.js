@@ -1,4 +1,3 @@
-
 // High-performance service worker with smart caching strategies
 const CACHE_NAME = 'mylli-services-v1';
 const STATIC_CACHE = 'mylli-static-v1';
@@ -13,12 +12,12 @@ const CRITICAL_RESOURCES = [
   '/src/main.tsx',
   '/src/App.tsx',
   '/src/styles/global.css',
-  '/lovable-uploads/554676d0-4988-4b83-864c-15c32ee349a2.png', // Logo
+  '/lovable-uploads/f8839c98-c2b6-4a1b-86d6-d6858f3f38df.png', // New Home Care Logo
 ];
 
 // Favicon-specific resources for iOS optimization
 const FAVICON_RESOURCES = [
-  '/lovable-uploads/554676d0-4988-4b83-864c-15c32ee349a2.png'
+  '/lovable-uploads/f8839c98-c2b6-4a1b-86d6-d6858f3f38df.png'
 ];
 
 // Install event - cache critical resources including favicons
@@ -134,8 +133,8 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Special handling for favicon requests
-  if (url.pathname.includes('554676d0-4988-4b83-864c-15c32ee349a2.png') ||
+  // Special handling for favicon requests - NEW HOME CARE LOGO
+  if (url.pathname.includes('f8839c98-c2b6-4a1b-86d6-d6858f3f38df.png') ||
       url.pathname.includes('favicon') ||
       url.pathname.includes('apple-touch-icon')) {
     
@@ -249,7 +248,7 @@ self.addEventListener('message', (event) => {
     console.log('🔄 Refreshing favicon cache...');
     event.waitUntil(
       caches.open(FAVICON_CACHE).then((cache) => {
-        return cache.delete('/lovable-uploads/554676d0-4988-4b83-864c-15c32ee349a2.png');
+        return cache.delete('/lovable-uploads/f8839c98-c2b6-4a1b-86d6-d6858f3f38df.png');
       }).then(() => {
         console.log('✅ Favicon cache refreshed');
       })
@@ -263,8 +262,8 @@ self.addEventListener('push', (event) => {
     const data = event.data.json();
     const options = {
       body: data.body,
-      icon: '/lovable-uploads/554676d0-4988-4b83-864c-15c32ee349a2.png',
-      badge: '/lovable-uploads/554676d0-4988-4b83-864c-15c32ee349a2.png',
+      icon: '/lovable-uploads/f8839c98-c2b6-4a1b-86d6-d6858f3f38df.png',
+      badge: '/lovable-uploads/f8839c98-c2b6-4a1b-86d6-d6858f3f38df.png',
       vibrate: [200, 100, 200],
       data: data.data
     };
@@ -274,4 +273,3 @@ self.addEventListener('push', (event) => {
     );
   }
 });
-

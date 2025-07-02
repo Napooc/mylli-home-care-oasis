@@ -3,10 +3,10 @@
 <browserconfig>
   <msapplication>
     <tile>
-      <square70x70logo src="/lovable-uploads/554676d0-4988-4b83-864c-15c32ee349a2.png?v=2024_healthcare_logo&ms=true&size=70"/>
-      <square150x150logo src="/lovable-uploads/554676d0-4988-4b83-864c-15c32ee349a2.png?v=2024_healthcare_logo&ms=true&size=150"/>
-      <wide310x150logo src="/lovable-uploads/554676d0-4988-4b83-864c-15c32ee349a2.png?v=2024_healthcare_logo&ms=true&size=310x150"/>
-      <square310x310logo src="/lovable-uploads/554676d0-4988-4b83-864c-15c32ee349a2.png?v=2024_healthcare_logo&ms=true&size=310"/>
+      <square70x70logo src="/lovable-uploads/f8839c98-c2b6-4a1b-86d6-d6858f3f38df.png?v=2024_homecare_logo&ms=true&size=70"/>
+      <square150x150logo src="/lovable-uploads/f8839c98-c2b6-4a1b-86d6-d6858f3f38df.png?v=2024_homecare_logo&ms=true&size=150"/>
+      <wide310x150logo src="/lovable-uploads/f8839c98-c2b6-4a1b-86d6-d6858f3f38df.png?v=2024_homecare_logo&ms=true&size=310x150"/>
+      <square310x310logo src="/lovable-uploads/f8839c98-c2b6-4a1b-86d6-d6858f3f38df.png?v=2024_homecare_logo&ms=true&size=310"/>
       <TileColor>#1E88E5</TileColor>
     </tile>
     <notification>
