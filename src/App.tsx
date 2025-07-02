@@ -21,7 +21,7 @@ import PolitiqueConfidentialite from "./pages/PolitiqueConfidentialite";
 import MotDuPresident from "./pages/MotDuPresident";
 import NotFound from "./pages/NotFound";
 import { initEmailJS } from "./utils/emailjs";
-import { cleanURLFragments } from "./utils/faviconManager";
+
 import CookieConsentManager from "./components/cookies/CookieConsentManager";
 import SecurityDashboard from "./components/security/SecurityDashboard";
 import { securitySession } from "./utils/securitySession";
@@ -60,7 +60,6 @@ const App: React.FC = () => {
     
     // Phase 2: Essential Services
     securitySession.initializeSession();
-    cleanURLFragments();
     
     // Phase 3: Bundle + Image Optimization
     MemoryOptimizer.startMemoryOptimization();

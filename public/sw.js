@@ -15,9 +15,9 @@ const CRITICAL_RESOURCES = [
   '/lovable-uploads/f8839c98-c2b6-4a1b-86d6-d6858f3f38df.png', // New Home Care Logo
 ];
 
-// Favicon-specific resources for iOS optimization
+// Simplified favicon resources with cache busting
 const FAVICON_RESOURCES = [
-  '/lovable-uploads/f8839c98-c2b6-4a1b-86d6-d6858f3f38df.png'
+  '/lovable-uploads/f8839c98-c2b6-4a1b-86d6-d6858f3f38df.png?v=ios-fix-2024'
 ];
 
 // Install event - cache critical resources including favicons
@@ -74,52 +74,35 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// Enhanced iOS detection for service worker
+// Simplified iOS detection
 function isIOSRequest(request) {
   const userAgent = request.headers.get('user-agent') || '';
   return /iPad|iPhone|iPod/.test(userAgent) || 
-         (/Macintosh/.test(userAgent) && 'ontouchend' in self);
+         (/Macintosh/.test(userAgent) && navigator.maxTouchPoints > 1);
 }
 
-// iOS-optimized favicon caching strategy
-async function iosFaviconCache(request) {
+// Simple iOS-friendly favicon caching
+async function simpleFaviconCache(request) {
   try {
     const cache = await caches.open(FAVICON_CACHE);
     
-    // For iOS, always try network first to avoid stale favicon issues
-    try {
-      const networkResponse = await fetch(request, {
-        cache: 'no-cache', // Force fresh fetch for iOS
-        mode: 'cors'
-      });
-      
-      if (networkResponse.ok) {
-        // Clone and cache the fresh response
-        cache.put(request, networkResponse.clone());
-        console.log('🍎 iOS favicon cached from network');
-        return networkResponse;
-      }
-    } catch (networkError) {
-      console.warn('🌐 Network failed, trying cache for iOS favicon');
-    }
-    
-    // Fallback to cache if network fails
-    const cachedResponse = await cache.match(request);
-    if (cachedResponse) {
-      console.log('📦 Serving cached favicon for iOS');
-      return cachedResponse;
-    }
-    
-    // Ultimate fallback - create a transparent response
-    return new Response(new Blob(), {
-      status: 200,
-      statusText: 'OK',
-      headers: { 'Content-Type': 'image/png' }
+    // Network first for iOS to ensure fresh favicons
+    const networkResponse = await fetch(request, {
+      cache: 'no-store' // Always fetch fresh for iOS
     });
     
+    if (networkResponse.ok) {
+      cache.put(request, networkResponse.clone());
+      return networkResponse;
+    }
+    
+    // Fallback to cache only if network fails
+    return await cache.match(request) || networkResponse;
+    
   } catch (error) {
-    console.error('❌ iOS favicon cache error:', error);
-    return fetch(request);
+    // Simple fallback
+    const cache = await caches.open(FAVICON_CACHE);
+    return await cache.match(request) || fetch(request);
   }
 }
 
@@ -133,18 +116,18 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Special handling for favicon requests - NEW HOME CARE LOGO
+  // Simplified favicon handling for iOS compatibility
   if (url.pathname.includes('f8839c98-c2b6-4a1b-86d6-d6858f3f38df.png') ||
+      url.search.includes('v=ios-fix-2024') ||
       url.pathname.includes('favicon') ||
       url.pathname.includes('apple-touch-icon')) {
     
     if (isIOSRequest(request)) {
-      console.log('🍎 Handling iOS favicon request');
-      event.respondWith(iosFaviconCache(request));
+      event.respondWith(simpleFaviconCache(request));
       return;
     } else {
-      // Standard favicon caching for non-iOS
-      event.respondWith(cacheFirst(request, FAVICON_CACHE, 7 * 24 * 60 * 60 * 1000)); // 7 days
+      // Standard caching for non-iOS
+      event.respondWith(cacheFirst(request, FAVICON_CACHE, 24 * 60 * 60 * 1000)); // 24 hours
       return;
     }
   }
@@ -242,15 +225,12 @@ async function doBackgroundSync() {
   console.log('📤 Processing background sync tasks...');
 }
 
-// Enhanced message handling for favicon refresh commands
+// Simplified message handling
 self.addEventListener('message', (event) => {
-  if (event.data && event.data.type === 'REFRESH_FAVICON_CACHE') {
-    console.log('🔄 Refreshing favicon cache...');
+  if (event.data && event.data.type === 'CLEAR_FAVICON_CACHE') {
     event.waitUntil(
-      caches.open(FAVICON_CACHE).then((cache) => {
-        return cache.delete('/lovable-uploads/f8839c98-c2b6-4a1b-86d6-d6858f3f38df.png');
-      }).then(() => {
-        console.log('✅ Favicon cache refreshed');
+      caches.delete(FAVICON_CACHE).then(() => {
+        console.log('✅ Favicon cache cleared');
       })
     );
   }
