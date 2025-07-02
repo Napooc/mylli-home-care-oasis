@@ -1,6 +1,9 @@
 // iOS Safari Favicon Manager - Enhanced for iOS Compatibility
 // Ensures proper favicon display on iOS without breaking URLs
 
+import { faviconPreloader } from './faviconPreloader';
+import { faviconPerformanceMonitor } from './faviconPerformanceMonitor';
+
 export interface FaviconConfig {
   baseUrl: string;
   version: string;
@@ -231,7 +234,7 @@ export class FaviconManager {
       link.type = 'image/png';
     }
     
-    // Enhanced load event handling with state tracking
+    // Enhanced load event handling with performance monitoring
     link.addEventListener('load', () => {
       this.faviconLoadStatus.set(rel, true);
       this.faviconState.consecutiveFailures = 0; // Reset failures on success
@@ -239,6 +242,9 @@ export class FaviconManager {
       this.faviconState.isStable = true;
       this.currentDelayIndex = 0; // Reset backoff
       this.saveFaviconState();
+      
+      // Record successful load for monitoring
+      faviconPerformanceMonitor.recordSuccessfulLoad(Date.now() - this.lastRefreshTime);
       console.log(`✅ Favicon loaded successfully: ${rel}`);
     });
     
@@ -248,6 +254,13 @@ export class FaviconManager {
       this.faviconState.isStable = false;
       this.currentDelayIndex = Math.min(this.currentDelayIndex + 1, this.progressiveDelays.length - 1);
       this.saveFaviconState();
+      
+      // Record failed load and iOS issue if applicable
+      faviconPerformanceMonitor.recordFailedLoad();
+      if (this.isIOS() && this.isSafari()) {
+        faviconPerformanceMonitor.recordIOSIssue();
+      }
+      
       console.warn(`❌ Favicon failed to load: ${rel} (failures: ${this.faviconState.consecutiveFailures})`);
       
       // Progressive retry with backoff for iOS
@@ -264,32 +277,27 @@ export class FaviconManager {
     return link;
   }
 
-  // Enhanced favicon preloading with network awareness
-  private preloadFavicon(): Promise<void> {
-    return new Promise((resolve) => {
-      const img = new Image();
-      const startTime = Date.now();
+  // Enhanced favicon preloading with performance monitoring
+  private async preloadFavicon(): Promise<void> {
+    const startTime = Date.now();
+    faviconPerformanceMonitor.recordLoadAttempt();
+    
+    try {
+      const success = await faviconPreloader.preloadFavicon(this.config.baseUrl, 5000);
+      const loadTime = Date.now() - startTime;
       
-      img.onload = () => {
-        const loadTime = Date.now() - startTime;
+      if (success) {
+        faviconPerformanceMonitor.recordSuccessfulLoad(loadTime);
         console.log(`✅ Favicon preloaded successfully in ${loadTime}ms`);
-        resolve();
-      };
-      
-      img.onerror = () => {
-        const loadTime = Date.now() - startTime;
+      } else {
+        faviconPerformanceMonitor.recordFailedLoad();
         console.warn(`⚠️ Favicon preload failed after ${loadTime}ms, continuing anyway`);
-        resolve(); // Continue even if preload fails
-      };
-      
-      // Add timeout for slow connections
-      setTimeout(() => {
-        console.warn('⏰ Favicon preload timeout, continuing anyway');
-        resolve();
-      }, 5000);
-      
-      img.src = this.config.baseUrl;
-    });
+      }
+    } catch (error) {
+      const loadTime = Date.now() - startTime;
+      faviconPerformanceMonitor.recordFailedLoad();
+      console.error(`❌ Favicon preload error after ${loadTime}ms:`, error);
+    }
   }
 
   public async setupIOSFavicons(): Promise<void> {
@@ -311,7 +319,7 @@ export class FaviconManager {
         await this.refreshServiceWorkerCache();
       }
       
-      // Step 2: Preload favicon with timeout
+      // Step 2: Enhanced preload with performance monitoring
       await this.preloadFavicon();
       
       // Step 3: Clean URL first
@@ -354,10 +362,15 @@ export class FaviconManager {
       this.saveFaviconState();
       
       console.log('✅ Healthcare iOS favicons installed successfully');
+      console.log(faviconPerformanceMonitor.generateReport());
       
     } catch (error) {
       console.error('❌ Error setting up iOS favicons:', error);
       this.faviconState.consecutiveFailures++;
+      faviconPerformanceMonitor.recordFailedLoad();
+      if (this.isIOS() && this.isSafari()) {
+        faviconPerformanceMonitor.recordIOSIssue();
+      }
       this.saveFaviconState();
     } finally {
       this.isRefreshing = false;
@@ -475,8 +488,11 @@ export class FaviconManager {
     this.cleanURL();
   }
 
-  // Enhanced diagnostic method
+  // Enhanced diagnostic method with performance metrics
   public getDiagnostics(): any {
+    const performanceMetrics = faviconPerformanceMonitor.getMetrics();
+    const preloadStats = faviconPreloader.getPreloadStats();
+    
     return {
       isIOS: this.isIOS(),
       isSafari: this.isSafari(),
@@ -492,7 +508,11 @@ export class FaviconManager {
       nextRetryDelay: this.progressiveDelays[this.currentDelayIndex] || 'max',
       sessionId: this.generateSessionId(),
       serviceWorkerStatus: 'serviceWorker' in navigator ? 'supported' : 'not supported',
-      version: this.config.version
+      version: this.config.version,
+      performanceMetrics,
+      preloadStats,
+      successRate: faviconPerformanceMonitor.getSuccessRate(),
+      cacheHitRate: faviconPerformanceMonitor.getCacheHitRate()
     };
   }
 }
