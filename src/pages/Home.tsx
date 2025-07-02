@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Heart, Clock, Shield, Star, CheckCircle, Users, Award, Headphones } from 'lucide-react';
@@ -10,11 +11,11 @@ import SectionHeading from '@/components/common/SectionHeading';
 import WhatsAppButton from '@/components/common/WhatsAppButton';
 import UltraFastImage from '@/components/images/UltraFastImage';
 import SEOHead from '@/components/seo/SEOHead';
-import { generateHomePageStructuredData } from '@/utils/structuredData';
+import { generateHomepageStructuredData } from '@/utils/structuredData';
 
 const HomePage: React.FC = () => {
   // Generate structured data for the home page
-  const structuredData = generateHomePageStructuredData();
+  const structuredData = generateHomepageStructuredData();
 
   // Dummy data for the services
   const services = [{
@@ -137,7 +138,14 @@ const HomePage: React.FC = () => {
           />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
             {services.map((service, index) => (
-              <ServiceCard key={index} service={service} />
+              <ServiceCard 
+                key={index} 
+                title={service.title}
+                description={service.description}
+                image={service.image}
+                link={service.link}
+                icon={<service.icon size={24} />}
+              />
             ))}
           </div>
           <div className="mt-12 text-center">
@@ -184,7 +192,13 @@ const HomePage: React.FC = () => {
           />
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-12">
             {testimonials.map((testimonial, index) => (
-              <TestimonialCard key={index} testimonial={testimonial} />
+              <TestimonialCard 
+                key={index} 
+                quote={testimonial.quote}
+                name={testimonial.name}
+                title={testimonial.title}
+                image={testimonial.image}
+              />
             ))}
           </div>
         </div>
