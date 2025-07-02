@@ -1,3 +1,4 @@
+
 import React, { useEffect } from 'react';
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -28,42 +29,45 @@ import { securitySession } from "./utils/securitySession";
 import "./styles/global.css";
 import { imagePreloader } from "./services/ImagePreloader";
 import { optimizeMemory, optimizeBrowserCache } from "./utils/imageOptimization";
+import { resourcePreloader, optimizeCSS } from "./utils/resourcePreloader";
+import { compressionManager, optimizeMemoryUsage, getNetworkAwareQuality } from "./utils/compressionUtils";
 
+// Optimized QueryClient with aggressive caching
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       staleTime: 5 * 60 * 1000, // 5 minutes
-      gcTime: 10 * 60 * 1000, // 10 minutes
+      gcTime: 30 * 60 * 1000, // 30 minutes - increased for better caching
+      retry: 2,
+      retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
+      refetchOnWindowFocus: false, // Reduce unnecessary refetches
+      refetchOnReconnect: 'always',
+    },
+    mutations: {
+      retry: 1,
     },
   },
 });
 
 const App: React.FC = () => {
   useEffect(() => {
-    console.log('🚀 Initializing Mylli Services application with URL-safe favicon system...');
+    console.log('🚀 Initializing Mylli Services with Phase 2 optimizations...');
     
-    // Initialize security session
+    // PHASE 1: Security and URL Management
     securitySession.initializeSession();
-    
-    // STEP 1: EMERGENCY URL cleanup - Remove ALL broken fragments IMMEDIATELY
-    console.log('🆘 EMERGENCY: Cleaning broken URL fragments...');
     cleanURLFragments();
     
-    // Additional aggressive URL cleanup for accumulated fragments
     const emergencyUrlCleanup = () => {
       const currentUrl = window.location.href;
       if (currentUrl.includes('#') || currentUrl.includes('%23') || currentUrl.includes('ios-favicon-refresh')) {
         console.log('🚨 CRITICAL: Performing emergency URL cleanup...');
         
-        // Extract clean base URL
         let cleanUrl = currentUrl.split('#')[0];
         cleanUrl = cleanUrl.replace(/%23[^&]*/g, '');
         cleanUrl = cleanUrl.replace(/ios-favicon-refresh/g, '');
         cleanUrl = cleanUrl.replace(/[?&]v=[^&]*/g, '');
         cleanUrl = cleanUrl.replace(/[?&]session=[^&]*/g, '');
         cleanUrl = cleanUrl.replace(/[?&]ios=[^&]*/g, '');
-        
-        // Remove any trailing parameters
         cleanUrl = cleanUrl.replace(/[?&]$/, '');
         
         window.history.replaceState(null, '', cleanUrl);
@@ -72,15 +76,45 @@ const App: React.FC = () => {
     };
     
     emergencyUrlCleanup();
-    
-    // STEP 2: Initialize the URL-safe favicon system
-    console.log('🍎 Launching URL-safe iOS favicon system...');
     initializeFaviconManager();
     
-    // STEP 3: Initialize image optimization systems
-    console.log('🖼️ Initializing image optimization systems...');
+    // PHASE 2: Service Worker Registration
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', async () => {
+        try {
+          const registration = await navigator.serviceWorker.register('/sw.js');
+          console.log('✅ Service Worker registered successfully:', registration);
+          
+          // Handle service worker updates
+          registration.addEventListener('updatefound', () => {
+            const newWorker = registration.installing;
+            if (newWorker) {
+              newWorker.addEventListener('statechange', () => {
+                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                  console.log('🔄 New service worker available, refreshing...');
+                  window.location.reload();
+                }
+              });
+            }
+          });
+        } catch (error) {
+          console.warn('❌ Service Worker registration failed:', error);
+        }
+      });
+    }
     
-    // Preload critical images
+    // PHASE 3: Resource Preloading
+    console.log('📦 Starting resource preloading...');
+    resourcePreloader.preloadCriticalResources();
+    
+    // PHASE 4: Image System Initialization
+    console.log('🖼️ Initializing optimized image system...');
+    
+    // Get network-aware quality settings
+    const networkQuality = getNetworkAwareQuality();
+    console.log(`📊 Network quality detected: ${networkQuality}`);
+    
+    // Preload critical images with network-aware compression
     const criticalImages = [
       '/lovable-uploads/93fb824b-3948-43af-a313-a54ebaf3ded0.png',
       '/lovable-uploads/0e49a73b-0499-4adb-84fc-7707c6381ef7.png',
@@ -88,14 +122,17 @@ const App: React.FC = () => {
     ];
     
     imagePreloader.preloadCriticalImages(criticalImages);
-    
-    // Initialize memory optimization
     optimizeMemory();
     optimizeBrowserCache();
-    
     preloadCriticalImages();
-
-    // STEP 4: Initialize EmailJS
+    
+    // PHASE 5: Memory and Performance Optimization
+    optimizeMemoryUsage();
+    
+    // Initialize compression manager
+    compressionManager.clearCache(); // Start with clean cache
+    
+    // PHASE 6: EmailJS Initialization
     try {
       initEmailJS();
       console.log("✅ EmailJS initialized successfully");
@@ -103,18 +140,32 @@ const App: React.FC = () => {
       console.error("❌ Failed to initialize EmailJS:", error);
     }
 
-    // STEP 5: Set up periodic URL cleanup to prevent fragment accumulation
+    // PHASE 7: Performance Monitoring
+    if ('performance' in window && 'getEntriesByType' in performance) {
+      window.addEventListener('load', () => {
+        setTimeout(() => {
+          const perfData = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
+          console.log('📊 Performance Metrics:', {
+            'DOM Content Loaded': `${perfData.domContentLoadedEventEnd - perfData.domContentLoadedEventStart}ms`,
+            'Load Complete': `${perfData.loadEventEnd - perfData.loadEventStart}ms`,
+            'First Paint': performance.getEntriesByType('paint')[0]?.startTime || 'N/A',
+            'Largest Contentful Paint': performance.getEntriesByType('largest-contentful-paint')[0]?.startTime || 'N/A'
+          });
+        }, 0);
+      });
+    }
+
+    // PHASE 8: Cleanup and URL Monitoring
     const urlCleanupInterval = setInterval(() => {
       const currentUrl = window.location.href;
       if (currentUrl.includes('#ios-favicon-refresh') || currentUrl.includes('%23ios-favicon-refresh')) {
         console.log('🧹 Periodic URL cleanup triggered...');
         cleanURLFragments();
       }
-    }, 30000); // Check every 30 seconds
+    }, 30000);
 
-    console.log('✅ Application initialization complete with URL-safe favicon system');
+    console.log('✅ Phase 2 optimization complete - Service Worker, Resource Preloading, and Compression active');
 
-    // Cleanup interval on unmount
     return () => {
       clearInterval(urlCleanupInterval);
     };
