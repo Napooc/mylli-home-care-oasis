@@ -4,6 +4,7 @@ const CACHE_NAME = 'mylli-services-v1';
 const STATIC_CACHE = 'mylli-static-v1';
 const IMAGE_CACHE = 'mylli-images-v1';
 const API_CACHE = 'mylli-api-v1';
+const FAVICON_CACHE = 'mylli-favicon-v1'; // New favicon-specific cache
 
 // Critical resources to cache immediately
 const CRITICAL_RESOURCES = [
@@ -15,22 +16,36 @@ const CRITICAL_RESOURCES = [
   '/lovable-uploads/554676d0-4988-4b83-864c-15c32ee349a2.png', // Logo
 ];
 
-// Install event - cache critical resources
+// Favicon-specific resources for iOS optimization
+const FAVICON_RESOURCES = [
+  '/lovable-uploads/554676d0-4988-4b83-864c-15c32ee349a2.png'
+];
+
+// Install event - cache critical resources including favicons
 self.addEventListener('install', (event) => {
   console.log('🔧 Service Worker installing...');
   event.waitUntil(
-    caches.open(STATIC_CACHE)
-      .then((cache) => {
-        console.log('📦 Caching critical resources...');
-        return cache.addAll(CRITICAL_RESOURCES);
-      })
-      .then(() => {
-        console.log('✅ Critical resources cached successfully');
-        return self.skipWaiting();
-      })
-      .catch((error) => {
-        console.error('❌ Failed to cache critical resources:', error);
-      })
+    Promise.all([
+      // Cache static resources
+      caches.open(STATIC_CACHE)
+        .then((cache) => {
+          console.log('📦 Caching critical resources...');
+          return cache.addAll(CRITICAL_RESOURCES);
+        }),
+      // Cache favicon resources with special handling
+      caches.open(FAVICON_CACHE)
+        .then((cache) => {
+          console.log('🎯 Caching favicon resources...');
+          return cache.addAll(FAVICON_RESOURCES);
+        })
+    ])
+    .then(() => {
+      console.log('✅ All resources cached successfully');
+      return self.skipWaiting();
+    })
+    .catch((error) => {
+      console.error('❌ Failed to cache resources:', error);
+    })
   );
 });
 
@@ -45,6 +60,7 @@ self.addEventListener('activate', (event) => {
             if (cacheName !== STATIC_CACHE && 
                 cacheName !== IMAGE_CACHE && 
                 cacheName !== API_CACHE &&
+                cacheName !== FAVICON_CACHE &&
                 cacheName !== CACHE_NAME) {
               console.log('🗑️ Deleting old cache:', cacheName);
               return caches.delete(cacheName);
@@ -59,7 +75,56 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// Fetch event - implement caching strategies
+// Enhanced iOS detection for service worker
+function isIOSRequest(request) {
+  const userAgent = request.headers.get('user-agent') || '';
+  return /iPad|iPhone|iPod/.test(userAgent) || 
+         (/Macintosh/.test(userAgent) && 'ontouchend' in self);
+}
+
+// iOS-optimized favicon caching strategy
+async function iosFaviconCache(request) {
+  try {
+    const cache = await caches.open(FAVICON_CACHE);
+    
+    // For iOS, always try network first to avoid stale favicon issues
+    try {
+      const networkResponse = await fetch(request, {
+        cache: 'no-cache', // Force fresh fetch for iOS
+        mode: 'cors'
+      });
+      
+      if (networkResponse.ok) {
+        // Clone and cache the fresh response
+        cache.put(request, networkResponse.clone());
+        console.log('🍎 iOS favicon cached from network');
+        return networkResponse;
+      }
+    } catch (networkError) {
+      console.warn('🌐 Network failed, trying cache for iOS favicon');
+    }
+    
+    // Fallback to cache if network fails
+    const cachedResponse = await cache.match(request);
+    if (cachedResponse) {
+      console.log('📦 Serving cached favicon for iOS');
+      return cachedResponse;
+    }
+    
+    // Ultimate fallback - create a transparent response
+    return new Response(new Blob(), {
+      status: 200,
+      statusText: 'OK',
+      headers: { 'Content-Type': 'image/png' }
+    });
+    
+  } catch (error) {
+    console.error('❌ iOS favicon cache error:', error);
+    return fetch(request);
+  }
+}
+
+// Fetch event - implement caching strategies with favicon optimization
 self.addEventListener('fetch', (event) => {
   const { request } = event;
   const url = new URL(request.url);
@@ -67,6 +132,22 @@ self.addEventListener('fetch', (event) => {
   // Skip non-GET requests
   if (request.method !== 'GET') {
     return;
+  }
+
+  // Special handling for favicon requests
+  if (url.pathname.includes('554676d0-4988-4b83-864c-15c32ee349a2.png') ||
+      url.pathname.includes('favicon') ||
+      url.pathname.includes('apple-touch-icon')) {
+    
+    if (isIOSRequest(request)) {
+      console.log('🍎 Handling iOS favicon request');
+      event.respondWith(iosFaviconCache(request));
+      return;
+    } else {
+      // Standard favicon caching for non-iOS
+      event.respondWith(cacheFirst(request, FAVICON_CACHE, 7 * 24 * 60 * 60 * 1000)); // 7 days
+      return;
+    }
   }
 
   // Handle different resource types with different strategies
@@ -162,6 +243,20 @@ async function doBackgroundSync() {
   console.log('📤 Processing background sync tasks...');
 }
 
+// Enhanced message handling for favicon refresh commands
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'REFRESH_FAVICON_CACHE') {
+    console.log('🔄 Refreshing favicon cache...');
+    event.waitUntil(
+      caches.open(FAVICON_CACHE).then((cache) => {
+        return cache.delete('/lovable-uploads/554676d0-4988-4b83-864c-15c32ee349a2.png');
+      }).then(() => {
+        console.log('✅ Favicon cache refreshed');
+      })
+    );
+  }
+});
+
 // Push notifications (for future use)
 self.addEventListener('push', (event) => {
   if (event.data) {
@@ -179,3 +274,4 @@ self.addEventListener('push', (event) => {
     );
   }
 });
+

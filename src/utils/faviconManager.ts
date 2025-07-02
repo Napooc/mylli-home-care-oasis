@@ -38,10 +38,24 @@ export class FaviconManager {
     if (!FaviconManager.instance) {
       FaviconManager.instance = new FaviconManager({
         baseUrl: '/lovable-uploads/554676d0-4988-4b83-864c-15c32ee349a2.png',
-        version: '2024_ios_progressive_v3'
+        version: '2024_ios_progressive_v4' // Updated version
       });
     }
     return FaviconManager.instance;
+  }
+
+  // Service Worker integration for cache management
+  private async refreshServiceWorkerCache(): Promise<void> {
+    try {
+      if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+        console.log('🔄 Requesting service worker favicon cache refresh...');
+        navigator.serviceWorker.controller.postMessage({
+          type: 'REFRESH_FAVICON_CACHE'
+        });
+      }
+    } catch (error) {
+      console.warn('⚠️ Service worker cache refresh failed:', error);
+    }
   }
 
   // Session-based favicon state management
@@ -292,16 +306,21 @@ export class FaviconManager {
     this.lastRefreshTime = Date.now();
     
     try {
-      // Step 1: Preload favicon with timeout
+      // Step 1: Refresh service worker cache for iOS
+      if (this.isIOS() && this.isSafari()) {
+        await this.refreshServiceWorkerCache();
+      }
+      
+      // Step 2: Preload favicon with timeout
       await this.preloadFavicon();
       
-      // Step 2: Clean URL first
+      // Step 3: Clean URL first
       this.cleanURL();
       
-      // Step 3: Clean existing dynamic favicons
+      // Step 4: Clean existing dynamic favicons
       this.removeExistingFavicons();
       
-      // Step 4: Progressive delay for iOS Safari
+      // Step 5: Progressive delay for iOS Safari
       if (this.isIOS() && this.isSafari()) {
         const setupDelay = Math.min(this.faviconState.consecutiveFailures * 500, 2000);
         if (setupDelay > 0) {
@@ -310,7 +329,7 @@ export class FaviconManager {
         }
       }
       
-      // Step 5: Create new favicon elements with iOS optimization
+      // Step 6: Create new favicon elements with iOS optimization
       const fragment = document.createDocumentFragment();
       
       // iOS Apple Touch Icons (priority order for iOS)
@@ -328,10 +347,10 @@ export class FaviconManager {
       // Add all to head at once for better performance
       document.head.appendChild(fragment);
       
-      // Step 6: Update iOS meta tags
+      // Step 7: Update iOS meta tags
       this.updateIOSMetaTags();
       
-      // Step 7: Save state
+      // Step 8: Save state
       this.saveFaviconState();
       
       console.log('✅ Healthcare iOS favicons installed successfully');
@@ -368,7 +387,7 @@ export class FaviconManager {
   }
 
   public initialize(): void {
-    console.log('🏥 Initializing enhanced iOS-compatible favicon system with progressive retry...');
+    console.log('🏥 Initializing enhanced iOS-compatible favicon system with service worker integration...');
     
     // Clean URL immediately
     this.cleanURL();
@@ -471,7 +490,9 @@ export class FaviconManager {
       faviconState: this.faviconState,
       currentDelayIndex: this.currentDelayIndex,
       nextRetryDelay: this.progressiveDelays[this.currentDelayIndex] || 'max',
-      sessionId: this.generateSessionId()
+      sessionId: this.generateSessionId(),
+      serviceWorkerStatus: 'serviceWorker' in navigator ? 'supported' : 'not supported',
+      version: this.config.version
     };
   }
 }
