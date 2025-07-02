@@ -6,7 +6,7 @@ export const generateOrganizationData = () => ({
   "name": "Mylli Services",
   "url": "https://mylliservices.com",
   "logo": "https://mylliservices.com/lovable-uploads/554676d0-4988-4b83-864c-15c32ee349a2.png",
-  "description": "Mylli Services: Aide à domicile professionnelle à Casablanca. Services d'aide-soignant, infirmier, garde-malade et plus.",
+  "description": "Depuis 2014, première société au Maroc de soins et d'aide à domicile pour les personnes fragilisées, avec des aides-soignants certifiés et des gardes-malades disponibles 24h/7j.",
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "19, rue Masmouda hay Al Hana",
@@ -39,7 +39,7 @@ export const generateHomepageStructuredData = () => {
         "@type": "WebSite",
         "url": "https://mylliservices.com",
         "name": "Mylli Services",
-        "description": "Aide à domicile professionnelle à Casablanca: Services d'aide-soignant, infirmier, garde-malade et plus.",
+        "description": "Depuis 2014, première société au Maroc de soins et d'aide à domicile pour les personnes fragilisées, avec des aides-soignants certifiés et des gardes-malades disponibles 24h/7j.",
         "publisher": {
           "@id": "https://mylliservices.com/#organization"
         }
@@ -57,7 +57,7 @@ export const generateHomepageStructuredData = () => {
         },
         "datePublished": "2014-01-01T00:00:00+00:00",
         "dateModified": new Date().toISOString(),
-        "description": "Mylli Services: Votre partenaire de confiance pour l'aide à domicile à Casablanca. Découvrez nos services personnalisés.",
+        "description": "Depuis 2014, première société au Maroc de soins et d'aide à domicile pour les personnes fragilisées, avec des aides-soignants certifiés et des gardes-malades disponibles 24h/7j.",
         "breadcrumb": {
           "@id": "https://mylliservices.com/#breadcrumb"
         }
