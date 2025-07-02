@@ -67,13 +67,6 @@ const App: React.FC = () => {
       navigator.serviceWorker.register('/sw.js')
         .then(registration => {
           console.log('🚀 Service Worker registered:', registration);
-          
-          // Trigger background sync for image preloading (with proper type checking)
-          if ('serviceWorker' in navigator && 'sync' in window.ServiceWorkerRegistration.prototype) {
-            registration.sync?.register('image-preload').catch(() => {
-              console.warn('Background sync not supported');
-            });
-          }
         })
         .catch(error => {
           console.warn('Service Worker registration failed:', error);
