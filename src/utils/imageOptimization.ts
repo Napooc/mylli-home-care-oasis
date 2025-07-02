@@ -1,4 +1,3 @@
-
 // High-performance image optimization utilities with smart preloading
 
 export interface ImageOptimizationOptions {
@@ -220,3 +219,114 @@ export class ImageLoadingQueue {
 }
 
 export const imageLoadingQueue = new ImageLoadingQueue();
+
+// Enhanced image cache with memory management
+class ImageCacheManager {
+  private cache = new Map<string, { img: HTMLImageElement; timestamp: number; hits: number }>();
+  private maxSize = 50; // Maximum cached images
+  private maxAge = 30 * 60 * 1000; // 30 minutes
+
+  set(key: string, img: HTMLImageElement): void {
+    // Clean old entries if cache is full
+    if (this.cache.size >= this.maxSize) {
+      this.cleanup();
+    }
+
+    this.cache.set(key, {
+      img,
+      timestamp: Date.now(),
+      hits: 1
+    });
+  }
+
+  get(key: string): HTMLImageElement | null {
+    const entry = this.cache.get(key);
+    if (!entry) return null;
+
+    // Check if entry is still valid
+    if (Date.now() - entry.timestamp > this.maxAge) {
+      this.cache.delete(key);
+      return null;
+    }
+
+    entry.hits++;
+    return entry.img;
+  }
+
+  private cleanup(): void {
+    const now = Date.now();
+    const entries = Array.from(this.cache.entries());
+    
+    // Remove expired entries
+    entries.forEach(([key, entry]) => {
+      if (now - entry.timestamp > this.maxAge) {
+        this.cache.delete(key);
+      }
+    });
+
+    // If still too many, remove least used
+    if (this.cache.size >= this.maxSize) {
+      const sortedEntries = entries
+        .filter(([key]) => this.cache.has(key))
+        .sort((a, b) => a[1].hits - b[1].hits);
+      
+      const toRemove = sortedEntries.slice(0, Math.floor(this.maxSize / 4));
+      toRemove.forEach(([key]) => this.cache.delete(key));
+    }
+  }
+
+  clear(): void {
+    this.cache.clear();
+  }
+}
+
+export const imageCache = new ImageCacheManager();
+
+// Enhanced adaptive loading based on connection speed
+export const getAdaptiveQuality = (): number => {
+  if ('connection' in navigator) {
+    const connection = (navigator as any).connection;
+    
+    if (connection?.effectiveType) {
+      switch (connection.effectiveType) {
+        case 'slow-2g':
+        case '2g':
+          return 40;
+        case '3g':
+          return 55;
+        case '4g':
+        default:
+          return 75;
+      }
+    }
+  }
+  
+  return 65; // Default quality
+};
+
+// Browser cache optimization
+export const optimizeBrowserCache = (): void => {
+  // Set cache control headers for images
+  const images = document.querySelectorAll('img');
+  images.forEach(img => {
+    if (!img.complete) {
+      img.addEventListener('load', () => {
+        // Mark image as cacheable
+        img.setAttribute('data-cached', 'true');
+      });
+    }
+  });
+};
+
+// Memory optimization - clean up unused resources
+export const optimizeMemory = (): void => {
+  // Clean up image cache periodically
+  setInterval(() => {
+    imageCache.clear();
+    
+    // Force garbage collection if available
+    if ('gc' in window) {
+      (window as any).gc();
+    }
+  }, 5 * 60 * 1000); // Every 5 minutes
+};

@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -27,6 +26,8 @@ import CookieConsentManager from "./components/cookies/CookieConsentManager";
 import SecurityDashboard from "./components/security/SecurityDashboard";
 import { securitySession } from "./utils/securitySession";
 import "./styles/global.css";
+import { imagePreloader } from "./services/ImagePreloader";
+import { optimizeMemory, optimizeBrowserCache } from "./utils/imageOptimization";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -76,7 +77,22 @@ const App: React.FC = () => {
     console.log('🍎 Launching URL-safe iOS favicon system...');
     initializeFaviconManager();
     
-    // STEP 3: Preload critical images
+    // STEP 3: Initialize image optimization systems
+    console.log('🖼️ Initializing image optimization systems...');
+    
+    // Preload critical images
+    const criticalImages = [
+      '/lovable-uploads/93fb824b-3948-43af-a313-a54ebaf3ded0.png',
+      '/lovable-uploads/0e49a73b-0499-4adb-84fc-7707c6381ef7.png',
+      '/lovable-uploads/554676d0-4988-4b83-864c-15c32ee349a2.png'
+    ];
+    
+    imagePreloader.preloadCriticalImages(criticalImages);
+    
+    // Initialize memory optimization
+    optimizeMemory();
+    optimizeBrowserCache();
+    
     preloadCriticalImages();
 
     // STEP 4: Initialize EmailJS
