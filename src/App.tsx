@@ -29,8 +29,6 @@ import { injectCriticalCSS } from "./utils/criticalCSS";
 import { preloadCriticalResources, addResourceHints } from "./utils/resourcePriority";
 import { MemoryOptimizer } from "./utils/memoryOptimizer";
 import { SpeedOptimizer } from "./utils/speedOptimizer";
-import { ultraFastImageLoader } from "./utils/ultraFastImageLoader";
-import { intelligentImageCache } from "./utils/intelligentImageCache";
 import "./styles/global.css";
 
 // Ultra-optimized QueryClient
