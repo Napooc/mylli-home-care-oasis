@@ -31,8 +31,11 @@ import { imagePreloader } from "./services/ImagePreloader";
 import { optimizeMemory, optimizeBrowserCache } from "./utils/imageOptimization";
 import { resourcePreloader, optimizeCSS } from "./utils/resourcePreloader";
 import { compressionManager, optimizeMemoryUsage, getNetworkAwareQuality } from "./utils/compressionUtils";
+import { performanceMonitor } from "./utils/performanceMonitor";
+import { adaptiveLoader } from "./utils/adaptiveLoader";
+import { intelligentCache } from "./utils/intelligentCache";
 
-// Optimized QueryClient with aggressive caching
+// Optimized QueryClient with intelligent caching integration
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -51,7 +54,7 @@ const queryClient = new QueryClient({
 
 const App: React.FC = () => {
   useEffect(() => {
-    console.log('🚀 Initializing Mylli Services with Phase 2 optimizations...');
+    console.log('🚀 Initializing Mylli Services with Phase 3 optimizations...');
     
     // PHASE 1: Security and URL Management
     securitySession.initializeSession();
@@ -103,11 +106,11 @@ const App: React.FC = () => {
       });
     }
     
-    // PHASE 3: Resource Preloading
+    // PHASE 2: Resource Preloading
     console.log('📦 Starting resource preloading...');
     resourcePreloader.preloadCriticalResources();
     
-    // PHASE 4: Image System Initialization
+    // PHASE 2: Image System Initialization
     console.log('🖼️ Initializing optimized image system...');
     
     // Get network-aware quality settings
@@ -126,11 +129,30 @@ const App: React.FC = () => {
     optimizeBrowserCache();
     preloadCriticalImages();
     
-    // PHASE 5: Memory and Performance Optimization
+    // PHASE 2: Memory and Performance Optimization
     optimizeMemoryUsage();
     
     // Initialize compression manager
     compressionManager.clearCache(); // Start with clean cache
+    
+    // PHASE 3: Advanced Performance Monitoring
+    console.log('🔍 Phase 3: Initializing advanced performance monitoring...');
+    performanceMonitor.initialize();
+    
+    // PHASE 3: Adaptive Loading System
+    console.log('🎯 Phase 3: Initializing adaptive loading strategies...');
+    // adaptiveLoader is automatically initialized in its constructor
+    
+    // PHASE 3: Intelligent Caching System
+    console.log('🧠 Phase 3: Initializing intelligent cache system...');
+    // intelligentCache is automatically initialized in its constructor
+    
+    // Cache critical application data
+    intelligentCache.set('app-config', {
+      version: '3.0.0',
+      phase: 3,
+      features: ['performance-monitoring', 'adaptive-loading', 'intelligent-caching']
+    }, { priority: 'high', ttl: 24 * 60 * 60 * 1000 }); // 24 hours
     
     // PHASE 6: EmailJS Initialization
     try {
@@ -140,16 +162,21 @@ const App: React.FC = () => {
       console.error("❌ Failed to initialize EmailJS:", error);
     }
 
-    // PHASE 7: Performance Monitoring
+    // PHASE 7: Performance Monitoring Enhanced
     if ('performance' in window && 'getEntriesByType' in performance) {
       window.addEventListener('load', () => {
         setTimeout(() => {
           const perfData = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
-          console.log('📊 Performance Metrics:', {
+          const performanceReport = performanceMonitor.generateReport();
+          const cacheStats = intelligentCache.getStats();
+          
+          console.log('📊 Phase 3 Performance Metrics:', {
             'DOM Content Loaded': `${perfData.domContentLoadedEventEnd - perfData.domContentLoadedEventStart}ms`,
             'Load Complete': `${perfData.loadEventEnd - perfData.loadEventStart}ms`,
             'First Paint': performance.getEntriesByType('paint')[0]?.startTime || 'N/A',
-            'Largest Contentful Paint': performance.getEntriesByType('largest-contentful-paint')[0]?.startTime || 'N/A'
+            'Largest Contentful Paint': performance.getEntriesByType('largest-contentful-paint')[0]?.startTime || 'N/A',
+            'Performance Report': performanceReport,
+            'Cache Statistics': cacheStats
           });
         }, 0);
       });
@@ -164,10 +191,12 @@ const App: React.FC = () => {
       }
     }, 30000);
 
-    console.log('✅ Phase 2 optimization complete - Service Worker, Resource Preloading, and Compression active');
+    console.log('✅ Phase 3 optimization complete - Advanced Performance Monitoring, Adaptive Loading, and Intelligent Caching active');
 
     return () => {
       clearInterval(urlCleanupInterval);
+      performanceMonitor.destroy();
+      intelligentCache.destroy();
     };
   }, []);
 
