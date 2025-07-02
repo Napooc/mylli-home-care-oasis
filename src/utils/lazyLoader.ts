@@ -1,5 +1,5 @@
 
-import { lazy, ComponentType } from 'react';
+import { lazy, ComponentType, Suspense } from 'react';
 
 // Ultra-fast lazy loading utility
 export const createLazyComponent = <T extends ComponentType<any>>(
@@ -9,7 +9,20 @@ export const createLazyComponent = <T extends ComponentType<any>>(
   const LazyComponent = lazy(importFn);
   
   return (props: any) => {
-    return <LazyComponent {...props} />;
+    if (fallback) {
+      const FallbackComponent = fallback;
+      return (
+        <Suspense fallback={<FallbackComponent />}>
+          <LazyComponent {...props} />
+        </Suspense>
+      );
+    }
+    
+    return (
+      <Suspense fallback={<div>Loading...</div>}>
+        <LazyComponent {...props} />
+      </Suspense>
+    );
   };
 };
 
