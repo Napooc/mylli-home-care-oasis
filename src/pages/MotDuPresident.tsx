@@ -2,9 +2,8 @@ import { ArrowLeft, Quote, Heart, Award, Clock, Users, Calendar, Building, Phone
 import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import SectionHeading from '@/components/common/SectionHeading';
-import UltraFastImage from '@/components/images/UltraFastImage';
+import OptimizedImage from '@/components/seo/OptimizedImage';
 import SEOHead from '@/components/seo/SEOHead';
-
 const MotDuPresident = () => {
   return <>
       <SEOHead title="Mot du Président - Mylli Services | Vision et Engagement" description="Découvrez le message personnel du Président de Mylli Services sur notre mission d'accompagnement à domicile et notre engagement envers la dignité humaine." keywords="mot du président, Mylli Services, fondateur, vision, mission, accompagnement domicile" canonicalUrl="/mot-du-president" />

@@ -1,3 +1,4 @@
+
 import { Link } from 'react-router-dom';
 import { Heart, Clock, File, Phone, Clipboard, Syringe, Hospital, Calendar, CheckCircle, User, MessageSquare } from 'lucide-react';
 import { Button } from "@/components/ui/button";
@@ -5,7 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import PageBanner from '@/components/common/PageBanner';
 import SectionHeading from '@/components/common/SectionHeading';
 import TestimonialCard from '@/components/common/TestimonialCard';
-import UltraFastImage from '@/components/images/UltraFastImage';
+import OptimizedImage from '@/components/seo/OptimizedImage';
 
 const InfirmierPage = () => {
   // Patient profiles
@@ -136,7 +137,7 @@ const InfirmierPage = () => {
                   <div className="relative bg-white rounded-3xl shadow-2xl overflow-hidden border border-mylli-primary/10">
                     <div className="absolute inset-0 bg-gradient-to-br from-mylli-primary/5 to-mylli-secondary/5"></div>
                     <div className="relative p-8">
-                      <UltraFastImage 
+                      <OptimizedImage 
                         src="/lovable-uploads/9570e5be-c600-4267-a8d7-4ef12d722304.png" 
                         alt="Infirmière prodiguant des soins à domicile" 
                         width={600} 
@@ -227,7 +228,7 @@ const InfirmierPage = () => {
                         
                         {/* Main image container */}
                         <div className="relative w-40 h-40 mx-auto rounded-3xl bg-gradient-to-br from-white to-mylli-light/30 flex items-center justify-center shadow-xl transform transition-all duration-500 group-hover:scale-110 group-hover:shadow-2xl border border-mylli-primary/10">
-                          <UltraFastImage 
+                          <OptimizedImage 
                             src={role.iconImage} 
                             alt={role.title} 
                             width={140} 
