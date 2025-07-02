@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -34,6 +33,8 @@ import { compressionManager, optimizeMemoryUsage, getNetworkAwareQuality } from 
 import { performanceMonitor } from "./utils/performanceMonitor";
 import { adaptiveLoader } from "./utils/adaptiveLoader";
 import { intelligentCache } from "./utils/intelligentCache";
+import { performanceAnalytics } from "./utils/performanceAnalytics";
+import { performanceReporting } from "./utils/performanceReporting";
 
 // Optimized QueryClient with intelligent caching integration
 const queryClient = new QueryClient({
@@ -54,7 +55,7 @@ const queryClient = new QueryClient({
 
 const App: React.FC = () => {
   useEffect(() => {
-    console.log('🚀 Initializing Mylli Services with Phase 3 optimizations...');
+    console.log('🚀 Initializing Mylli Services with Phase 4 optimizations...');
     
     // PHASE 1: Security and URL Management
     securitySession.initializeSession();
@@ -147,11 +148,24 @@ const App: React.FC = () => {
     console.log('🧠 Phase 3: Initializing intelligent cache system...');
     // intelligentCache is automatically initialized in its constructor
     
-    // Cache critical application data
+    // PHASE 4: Advanced Performance Analytics & Reporting
+    console.log('📊 Phase 4: Initializing advanced performance analytics...');
+    performanceAnalytics.initialize();
+    
+    console.log('📋 Phase 4: Initializing performance reporting system...');
+    performanceReporting.initialize({
+      enableAutoReporting: true,
+      reportingInterval: 5 * 60 * 1000, // 5 minutes
+      enableConsoleReports: true,
+      enableLocalStorage: true,
+      maxStoredReports: 50
+    });
+    
+    // Cache critical application data with Phase 4 metadata
     intelligentCache.set('app-config', {
-      version: '3.0.0',
-      phase: 3,
-      features: ['performance-monitoring', 'adaptive-loading', 'intelligent-caching']
+      version: '4.0.0',
+      phase: 4,
+      features: ['performance-monitoring', 'adaptive-loading', 'intelligent-caching', 'performance-analytics', 'automated-reporting']
     }, { priority: 'high', ttl: 24 * 60 * 60 * 1000 }); // 24 hours
     
     // PHASE 6: EmailJS Initialization
@@ -162,20 +176,24 @@ const App: React.FC = () => {
       console.error("❌ Failed to initialize EmailJS:", error);
     }
 
-    // PHASE 7: Performance Monitoring Enhanced
+    // PHASE 7: Enhanced Performance Monitoring with Analytics
     if ('performance' in window && 'getEntriesByType' in performance) {
       window.addEventListener('load', () => {
         setTimeout(() => {
           const perfData = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
           const performanceReport = performanceMonitor.generateReport();
+          const analyticsReport = performanceAnalytics.getLatestReport();
+          const performanceSummary = performanceReporting.getPerformanceSummary();
           const cacheStats = intelligentCache.getStats();
           
-          console.log('📊 Phase 3 Performance Metrics:', {
+          console.log('📊 Phase 4 Performance Analytics:', {
             'DOM Content Loaded': `${perfData.domContentLoadedEventEnd - perfData.domContentLoadedEventStart}ms`,
             'Load Complete': `${perfData.loadEventEnd - perfData.loadEventStart}ms`,
             'First Paint': performance.getEntriesByType('paint')[0]?.startTime || 'N/A',
             'Largest Contentful Paint': performance.getEntriesByType('largest-contentful-paint')[0]?.startTime || 'N/A',
             'Performance Report': performanceReport,
+            'Analytics Report': analyticsReport,
+            'Performance Summary': performanceSummary,
             'Cache Statistics': cacheStats
           });
         }, 0);
@@ -191,12 +209,13 @@ const App: React.FC = () => {
       }
     }, 30000);
 
-    console.log('✅ Phase 3 optimization complete - Advanced Performance Monitoring, Adaptive Loading, and Intelligent Caching active');
+    console.log('✅ Phase 4 optimization complete - Advanced Analytics, Automated Reporting, and Performance Dashboard active');
 
     return () => {
       clearInterval(urlCleanupInterval);
       performanceMonitor.destroy();
       intelligentCache.destroy();
+      performanceReporting.destroy();
     };
   }, []);
 
