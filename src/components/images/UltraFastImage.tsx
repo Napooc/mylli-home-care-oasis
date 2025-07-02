@@ -9,43 +9,34 @@ interface UltraFastImageProps {
   height?: number;
   className?: string;
   priority?: boolean;
-  critical?: boolean;
   quality?: number;
   sizes?: string;
   onLoad?: () => void;
   onError?: () => void;
 }
 
-// Modern format support with fallbacks
-const generateImageSources = (src: string, quality: number, width?: number, height?: number) => {
-  const baseParams = new URLSearchParams();
-  if (width) baseParams.set('w', width.toString());
-  if (height) baseParams.set('h', height.toString());
-  baseParams.set('q', quality.toString());
-  baseParams.set('auto', 'format');
-  baseParams.set('fit', 'crop');
-
+// Ultra-fast image optimization
+const optimizeImageUrl = (src: string, width?: number, height?: number, quality = 75) => {
   if (src.includes('unsplash.com')) {
-    return {
-      avif: `${src}?${baseParams.toString()}&fm=avif`,
-      webp: `${src}?${baseParams.toString()}&fm=webp`,
-      jpeg: `${src}?${baseParams.toString()}&fm=jpg`
-    };
+    const params = new URLSearchParams();
+    params.set('auto', 'format');
+    params.set('fit', 'crop');
+    params.set('q', quality.toString());
+    if (width) params.set('w', width.toString());
+    if (height) params.set('h', height.toString());
+    return `${src}?${params.toString()}`;
   }
-
+  
   if (src.includes('lovable-uploads')) {
-    return {
-      avif: `${src}?${baseParams.toString()}&format=avif`,
-      webp: `${src}?${baseParams.toString()}&format=webp`,
-      jpeg: `${src}?${baseParams.toString()}`
-    };
+    const params = new URLSearchParams();
+    if (width) params.set('w', width.toString());
+    if (height) params.set('h', height.toString());
+    params.set('q', quality.toString());
+    return `${src}?${params.toString()}`;
   }
-
-  return { jpeg: src };
+  
+  return src;
 };
-
-// Image cache for memory optimization
-const imageCache = new Map<string, HTMLImageElement>();
 
 const UltraFastImage: React.FC<UltraFastImageProps> = memo(({
   src,
@@ -54,30 +45,19 @@ const UltraFastImage: React.FC<UltraFastImageProps> = memo(({
   height,
   className = '',
   priority = false,
-  critical = false,
-  quality,
+  quality = 75,
   sizes = '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw',
   onLoad,
   onError
 }) => {
   const [isLoaded, setIsLoaded] = useState(false);
-  const [isInView, setIsInView] = useState(priority || critical);
+  const [isInView, setIsInView] = useState(priority);
   const [hasError, setHasError] = useState(false);
-  const [showLowQuality, setShowLowQuality] = useState(true);
-  const imgRef = useRef<HTMLImageElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Determine quality based on priority
-  const imageQuality = quality || (critical ? 70 : 60);
-  const lowQualityParams = critical ? 20 : 15;
-
-  // Generate image sources
-  const imageSources = generateImageSources(src, imageQuality, width, height);
-  const lowQualitySrc = generateImageSources(src, lowQualityParams, Math.floor((width || 400) / 4), Math.floor((height || 300) / 4)).jpeg;
-
-  // Intersection Observer with 300px rootMargin for smart preloading
+  // Ultra-fast intersection observer
   useEffect(() => {
-    if (priority || critical) return;
+    if (priority) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -86,10 +66,7 @@ const UltraFastImage: React.FC<UltraFastImageProps> = memo(({
           observer.disconnect();
         }
       },
-      { 
-        threshold: 0.1, 
-        rootMargin: '300px' // Smart preloading margin
-      }
+      { threshold: 0.1, rootMargin: '100px' }
     );
 
     if (containerRef.current) {
@@ -97,12 +74,10 @@ const UltraFastImage: React.FC<UltraFastImageProps> = memo(({
     }
 
     return () => observer.disconnect();
-  }, [priority, critical]);
+  }, [priority]);
 
-  // Progressive loading handler
   const handleLoad = useCallback(() => {
     setIsLoaded(true);
-    setShowLowQuality(false);
     onLoad?.();
   }, [onLoad]);
 
@@ -111,134 +86,48 @@ const UltraFastImage: React.FC<UltraFastImageProps> = memo(({
     onError?.();
   }, [onError]);
 
-  // Low quality placeholder load handler
-  const handleLowQualityLoad = useCallback(() => {
-    if (!isLoaded) {
-      setShowLowQuality(true);
-    }
-  }, [isLoaded]);
-
-  // Preload high quality image when in view
-  useEffect(() => {
-    if (!isInView || hasError) return;
-
-    const cacheKey = `${src}-${imageQuality}-${width}-${height}`;
-    
-    // Check memory cache first
-    if (imageCache.has(cacheKey)) {
-      setIsLoaded(true);
-      setShowLowQuality(false);
-      return;
-    }
-
-    // Preload high quality image
-    const img = new Image();
-    img.onload = () => {
-      imageCache.set(cacheKey, img);
-      handleLoad();
-    };
-    img.onerror = handleError;
-    
-    // Try AVIF first, then WebP, then JPEG
-    if (imageSources.avif) {
-      const avifImg = new Image();
-      avifImg.onload = () => {
-        imageCache.set(cacheKey, avifImg);
-        handleLoad();
-      };
-      avifImg.onerror = () => {
-        if (imageSources.webp) {
-          const webpImg = new Image();
-          webpImg.onload = () => {
-            imageCache.set(cacheKey, webpImg);
-            handleLoad();
-          };
-          webpImg.onerror = () => {
-            img.src = imageSources.jpeg;
-          };
-          webpImg.src = imageSources.webp;
-        } else {
-          img.src = imageSources.jpeg;
-        }
-      };
-      avifImg.src = imageSources.avif;
-    } else if (imageSources.webp) {
-      const webpImg = new Image();
-      webpImg.onload = () => {
-        imageCache.set(cacheKey, webpImg);
-        handleLoad();
-      };
-      webpImg.onerror = () => {
-        img.src = imageSources.jpeg;
-      };
-      webpImg.src = imageSources.webp;
-    } else {
-      img.src = imageSources.jpeg;
-    }
-  }, [isInView, hasError, src, imageQuality, width, height, handleLoad, handleError, imageSources]);
-
   if (hasError) {
     return (
       <div 
-        className={`bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center rounded ${className}`}
+        className={`bg-gray-100 flex items-center justify-center rounded ${className}`}
         style={{ width, height }}
       >
-        <span className="text-gray-500 text-sm font-medium">Image non disponible</span>
+        <span className="text-gray-500 text-sm">Image non disponible</span>
       </div>
     );
   }
 
+  const optimizedSrc = optimizeImageUrl(src, width, height, quality);
+
   return (
     <div ref={containerRef} className={`relative overflow-hidden ${className}`}>
-      {/* Low quality placeholder for progressive loading */}
-      {isInView && showLowQuality && !isLoaded && (
-        <img
-          src={lowQualitySrc}
-          alt={alt}
-          className="absolute inset-0 w-full h-full object-cover filter blur-sm opacity-60 transition-opacity duration-300"
-          onLoad={handleLowQualityLoad}
-          style={{ width, height }}
-        />
-      )}
-
-      {/* Loading skeleton */}
-      {!isInView && (
+      {!isLoaded && (
         <Skeleton 
           className="absolute inset-0 w-full h-full rounded"
           style={{ width: width || '100%', height: height || '100%' }}
         />
       )}
-
-      {/* High quality image */}
+      
       {isInView && (
-        <picture>
-          {imageSources.avif && (
-            <source srcSet={imageSources.avif} type="image/avif" />
-          )}
-          {imageSources.webp && (
-            <source srcSet={imageSources.webp} type="image/webp" />
-          )}
-          <img
-            ref={imgRef}
-            src={imageSources.jpeg}
-            alt={alt}
-            width={width}
-            height={height}
-            sizes={sizes}
-            loading={priority || critical ? 'eager' : 'lazy'}
-            decoding={critical ? 'sync' : 'async'}
-            fetchPriority={priority || critical ? 'high' : 'auto'}
-            onLoad={handleLoad}
-            onError={handleError}
-            className={`transition-all duration-500 ease-out ${
-              isLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-105'
-            } ${className}`}
-            style={{
-              width: width ? `${width}px` : 'auto',
-              height: height ? `${height}px` : 'auto'
-            }}
-          />
-        </picture>
+        <img
+          src={optimizedSrc}
+          alt={alt}
+          width={width}
+          height={height}
+          sizes={sizes}
+          loading={priority ? 'eager' : 'lazy'}
+          decoding="async"
+          fetchPriority={priority ? 'high' : 'auto'}
+          onLoad={handleLoad}
+          onError={handleError}
+          className={`transition-opacity duration-300 ${
+            isLoaded ? 'opacity-100' : 'opacity-0'
+          } ${className}`}
+          style={{
+            width: width ? `${width}px` : 'auto',
+            height: height ? `${height}px` : 'auto'
+          }}
+        />
       )}
     </div>
   );
