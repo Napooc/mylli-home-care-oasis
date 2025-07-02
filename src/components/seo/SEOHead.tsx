@@ -39,6 +39,10 @@ const SEOHead: React.FC<SEOHeadProps> = ({
       {/* Canonical URL */}
       {fullCanonicalUrl && <link rel="canonical" href={fullCanonicalUrl} />}
       
+      {/* Preload logo for instant social sharing */}
+      <link rel="preload" href={fullOgImage} as="image" type="image/png" />
+      <link rel="prefetch" href={fullOgImage} />
+      
       {/* Advanced SEO Meta */}
       <meta name="robots" content={`${noindex ? 'noindex' : 'index'},${nofollow ? 'nofollow' : 'follow'},max-snippet:160,max-image-preview:large,max-video-preview:30`} />
       <meta name="googlebot" content="index,follow" />
@@ -58,11 +62,12 @@ const SEOHead: React.FC<SEOHeadProps> = ({
       <meta name="distribution" content="local" />
       <meta name="coverage" content="Casablanca" />
       
-      {/* Open Graph Tags with new home care logo */}
+      {/* Open Graph Tags with optimized logo for social sharing */}
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
       <meta property="og:type" content={ogType} />
       <meta property="og:image" content={fullOgImage} />
+      <meta property="og:image:secure_url" content={fullOgImage} />
       <meta property="og:image:width" content="512" />
       <meta property="og:image:height" content="512" />
       <meta property="og:image:alt" content="Mylli Services - Soins à domicile professionnels Casablanca" />
@@ -72,19 +77,39 @@ const SEOHead: React.FC<SEOHeadProps> = ({
       <meta property="og:locale" content="fr_MA" />
       <meta property="og:locale:alternate" content="ar_MA" />
       
-      {/* Twitter Card Tags with new home care logo */}
+      {/* Additional OG tags for better social media integration */}
+      <meta property="og:updated_time" content={new Date().toISOString()} />
+      <meta property="article:publisher" content="https://mylliservices.com" />
+      <meta property="article:author" content="Mylli Services" />
+      
+      {/* Twitter Card Tags with optimized logo for social sharing */}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:site" content="@mylli_services" />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={fullOgImage} />
+      <meta name="twitter:image:src" content={fullOgImage} />
       <meta name="twitter:image:alt" content="Mylli Services - Soins à domicile professionnels Casablanca" />
       <meta name="twitter:creator" content="@mylli_services" />
+      <meta name="twitter:domain" content="mylliservices.com" />
+      <meta name="twitter:url" content={fullCanonicalUrl || baseUrl} />
       
-      {/* Additional Social Media Meta Tags */}
+      {/* Additional Social Media Meta Tags for better compatibility */}
       <meta property="fb:app_id" content="mylli-services-app" />
       <meta name="thumbnail" content={fullOgImage} />
       <meta name="image" content={fullOgImage} />
+      
+      {/* WhatsApp specific meta tags */}
+      <meta property="og:image:url" content={fullOgImage} />
+      <meta property="og:image:secure_url" content={fullOgImage} />
+      
+      {/* LinkedIn specific meta tags */}
+      <meta property="linkedin:owner" content="Mylli Services" />
+      
+      {/* General social sharing tags */}
+      <meta name="application-name" content="Mylli Services" />
+      <meta name="msapplication-TileImage" content={fullOgImage} />
+      <meta name="msapplication-square150x150logo" content={fullOgImage} />
       
       {/* Hreflang */}
       <link rel="alternate" hrefLang="fr-ma" href={fullCanonicalUrl || baseUrl} />
