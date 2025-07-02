@@ -4,7 +4,6 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import PerceivedLoadingOptimizer from "./components/optimization/PerceivedLoadingOptimizer";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import MainLayout from "./components/layout/MainLayout";
 import HomePage from "./pages/Home";
@@ -34,7 +33,6 @@ import { ultraFastImageLoader } from "./utils/ultraFastImageLoader";
 import { intelligentImageCache } from "./utils/intelligentImageCache";
 import { imagePerformanceMonitor } from "./utils/imagePerformanceMonitor";
 import { adaptiveLoader } from "./utils/adaptiveLoader";
-import { heroPerformanceMonitor } from "./utils/heroPerformanceMonitor";
 import "./styles/global.css";
 
 // Ultra-optimized QueryClient
@@ -69,9 +67,6 @@ const App: React.FC = () => {
     SpeedOptimizer.initialize();
     adaptiveLoader; // Initialize adaptive connection-based loading
     
-    // Phase 4: Performance Monitoring & Perceived Loading
-    heroPerformanceMonitor; // Initialize hero performance tracking
-    
     // Phase 3.5: Ultra-Fast Image System (Silent Integration)
     ultraFastImageLoader; // Initialize image loader
     intelligentImageCache; // Initialize intelligent cache
@@ -98,14 +93,12 @@ const App: React.FC = () => {
     return () => {
       MemoryOptimizer.cleanup();
       SpeedOptimizer.cleanup();
-      heroPerformanceMonitor.cleanup();
     };
   }, []);
 
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <PerceivedLoadingOptimizer />
         <Toaster />
         <Sonner />
         <BrowserRouter>
