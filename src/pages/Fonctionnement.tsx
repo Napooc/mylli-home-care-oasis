@@ -4,7 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import PageBanner from '@/components/common/PageBanner';
 import SectionHeading from '@/components/common/SectionHeading';
-import OptimizedImage from '@/components/seo/OptimizedImage';
+import UltraFastImage from '@/components/images/UltraFastImage';
+
 const FonctionnementPage = () => {
   const steps = [{
     id: "rencontre",
@@ -92,7 +93,7 @@ const FonctionnementPage = () => {
                     {/* Decorative background */}
                     <div className="absolute inset-0 bg-gradient-to-br from-mylli-primary/20 to-mylli-secondary/20 rounded-3xl blur-lg transform rotate-3"></div>
                     <div className="relative bg-white rounded-2xl p-6 shadow-xl">
-                      <OptimizedImage src="/lovable-uploads/1a734acd-93c2-4f7b-88a3-fa8c91f19cc0.png" alt="Conseiller Mylli Services - Professionnel de santé à domicile" width={280} height={280} className="w-full h-auto rounded-xl" priority={true} />
+                      <UltraFastImage src="/lovable-uploads/1a734acd-93c2-4f7b-88a3-fa8c91f19cc0.png" alt="Conseiller Mylli Services - Professionnel de santé à domicile" width={280} height={280} className="w-full h-auto rounded-xl" priority={true} />
                     </div>
                   </div>
                 </div>
@@ -162,7 +163,7 @@ const FonctionnementPage = () => {
                   <div className={`absolute -inset-2 bg-gradient-to-r ${step.gradient} rounded-3xl blur opacity-0 group-hover:opacity-20 transition-all duration-500`}></div>
                   
                   {/* Main card */}
-                  <div className="relative h-full bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100 group-hover:border-mylli-primary/20">
+                  <div className="relative h-full bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-white/20 group-hover:border-mylli-primary/20">
                     
                     {/* Animated top border */}
                     <div className={`h-2 bg-gradient-to-r ${step.gradient} transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left`}></div>
