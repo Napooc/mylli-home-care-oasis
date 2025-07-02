@@ -9,7 +9,9 @@ const LightweightHero: React.FC = () => {
         <div className="max-w-4xl mx-auto text-center">
           {/* Immediate brand visibility */}
           <div className="mb-6">
-            <BrandName className="text-4xl md:text-6xl lg:text-7xl mb-4" />
+            <div className="text-4xl md:text-6xl lg:text-7xl mb-4">
+              <BrandName />
+            </div>
           </div>
           
           {/* Critical headline - loads instantly */}
