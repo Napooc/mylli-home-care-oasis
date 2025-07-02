@@ -64,11 +64,17 @@ const App: React.FC = () => {
       console.error("❌ Failed to initialize EmailJS:", error);
     }
 
-    // PHASE 4: Bundle Analysis (Development only)
+    // PHASE 4: Performance Monitoring (Development only)
     if (process.env.NODE_ENV === 'development') {
-      import('./utils/bundleAnalyzer').then(({ analyzeBundleSize, preloadCriticalChunks }) => {
-        analyzeBundleSize();
-        preloadCriticalChunks();
+      Promise.all([
+        import('./utils/bundleAnalyzer'),
+        import('./utils/performanceOptimizer')
+      ]).then(([bundleAnalyzer, performanceOptimizer]) => {
+        bundleAnalyzer.analyzeBundleSize();
+        bundleAnalyzer.preloadCriticalChunks();
+        performanceOptimizer.performanceOptimizer.initialize();
+        
+        console.log('📊 Performance monitoring active');
       });
     }
 

@@ -7,6 +7,7 @@ import Footer from './Footer';
 import BreadcrumbNav from '../seo/BreadcrumbNav';
 import WhatsAppButton from '../common/WhatsAppButton';
 import { preloadCriticalResources, measureCoreWebVitals } from '@/utils/seoUtils';
+import { usePerformanceOptimization } from '@/hooks/usePerformanceOptimization';
 import '../../styles/whatsapp-button.css';
 
 interface MainLayoutProps {
@@ -15,6 +16,9 @@ interface MainLayoutProps {
 
 const MainLayout = ({ children }: MainLayoutProps) => {
   const location = useLocation();
+  
+  // Initialize performance optimizations
+  usePerformanceOptimization();
   
   // Scroll to top when route changes
   useEffect(() => {
