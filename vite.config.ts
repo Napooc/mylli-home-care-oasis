@@ -28,12 +28,12 @@ export default defineConfig({
       deleteOriginFile: false
     }),
     // Bundle analyzer (only in build mode)
-    process.env.ANALYZE && visualizer({
+    ...(process.env.ANALYZE ? [visualizer({
       filename: 'dist/stats.html',
       open: true,
       gzipSize: true,
       brotliSize: true
-    })
+    })] : [])
   ],
   resolve: {
     alias: {
