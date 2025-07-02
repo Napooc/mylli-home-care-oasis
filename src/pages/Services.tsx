@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import PageBanner from '@/components/common/PageBanner';
-import UltraFastImage from '@/components/images/UltraFastImage';
+import PerformantImage from '@/components/common/PerformantImage';
 import SEOHead from '@/components/seo/SEOHead';
 import { generateServicePageStructuredData } from '@/utils/structuredData';
 
@@ -11,7 +11,7 @@ const ServicesPage = () => {
   // Generate structured data for services
   const structuredData = generateServicePageStructuredData();
 
-  // Main services with ultra-optimized image loading
+  // Main services with optimized image loading
   const mainServices = [{
     title: 'AIDE-SOIGNANT(E) À DOMICILE',
     description: 'Assistance personnalisée pour les activités de la vie quotidienne, avec un accompagnement bienveillant et professionnel.',
@@ -25,7 +25,7 @@ const ServicesPage = () => {
     image: "/lovable-uploads/0e49a73b-0499-4adb-84fc-7707c6381ef7.png",
     link: "/services/infirmier",
     gradient: "from-mylli-secondary via-mylli-tertiary to-mylli-quaternary",
-    features: ["Soins personnalisés", "Exécution d'une ordonnance médicale", "Suivi médical"]
+    features: ["Soins personnalisés", "Exécution d’une ordonnance médicale", "Suivi médical"]
   }];
 
   return (
@@ -44,7 +44,7 @@ const ServicesPage = () => {
         variant="fast" 
       />
       
-      {/* Main Services with ultra-optimized images */}
+      {/* Main Services with optimized images */}
       <section className="section-padding bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
         {/* Simplified background elements for better performance */}
         <div className="absolute top-0 left-0 w-full h-full opacity-30">
@@ -64,19 +64,17 @@ const ServicesPage = () => {
                   
                   <div className="relative bg-white rounded-[2.5rem] shadow-2xl overflow-hidden transform group-hover:-translate-y-4 group-hover:rotate-1 transition-all duration-700 h-full flex flex-col">
                     
-                    {/* Ultra-optimized image section */}
+                    {/* Optimized image section with performance improvements */}
                     <div className="relative h-96 overflow-hidden flex-shrink-0">
-                      <UltraFastImage
+                      <PerformantImage
                         src={service.image}
                         alt={service.title}
                         width={800}
                         height={400}
-                        priority={index === 0} // First image is priority
-                        critical={index === 0} // First image is critical
-                        quality={index === 0 ? 70 : 60} // Higher quality for first image
+                        priority={index === 0} // Only first image is priority
+                        quality={80}
                         className="w-full h-full object-cover object-center transition-all duration-1000 group-hover:scale-110 group-hover:brightness-110"
                         sizes="(max-width: 768px) 100vw, 50vw"
-                        placeholder="skeleton"
                       />
                       
                       <div className={`absolute inset-0 bg-gradient-to-t ${service.gradient} opacity-60 group-hover:opacity-40 transition-all duration-500`}></div>
