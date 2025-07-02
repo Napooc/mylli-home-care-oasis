@@ -1,3 +1,4 @@
+
 import React, { useEffect } from 'react';
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -24,14 +25,18 @@ import { cleanURLFragments } from "./utils/faviconManager";
 import CookieConsentManager from "./components/cookies/CookieConsentManager";
 import SecurityDashboard from "./components/security/SecurityDashboard";
 import { securitySession } from "./utils/securitySession";
+import { injectCriticalCSS } from "./utils/criticalCSS";
+import { preloadCriticalResources, addResourceHints } from "./utils/resourcePriority";
+import { MemoryOptimizer } from "./utils/memoryOptimizer";
+import { SpeedOptimizer } from "./utils/speedOptimizer";
 import "./styles/global.css";
 
-// Optimized QueryClient with essential caching only
+// Ultra-optimized QueryClient
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 5 * 60 * 1000, // 5 minutes
-      gcTime: 10 * 60 * 1000, // 10 minutes
+      staleTime: 5 * 60 * 1000,
+      gcTime: 10 * 60 * 1000,
       retry: 1,
       refetchOnWindowFocus: false,
     },
@@ -43,42 +48,43 @@ const queryClient = new QueryClient({
 
 const App: React.FC = () => {
   useEffect(() => {
-    console.log('🚀 Initializing Mylli Services - Ultra Fast Mode...');
+    console.log('🚀 Ultra-Fast Loading Initialization...');
     
-    // PHASE 1: Essential Security & URL Management
+    // Phase 1: Critical Rendering Path
+    injectCriticalCSS();
+    preloadCriticalResources();
+    addResourceHints();
+    
+    // Phase 2: Essential Services
     securitySession.initializeSession();
     cleanURLFragments();
     
-    // PHASE 2: Service Worker (Essential only)
+    // Phase 3: Bundle Optimization
+    MemoryOptimizer.startMemoryOptimization();
+    SpeedOptimizer.initialize();
+    
+    // Phase 4: Service Worker (Minimal)
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/sw.js').catch(error => {
-        console.warn('❌ Service Worker registration failed:', error);
+      navigator.serviceWorker.register('/sw.js').catch(() => {
+        console.warn('Service Worker registration failed');
       });
     }
     
-    // PHASE 3: EmailJS Initialization
+    // EmailJS Initialization
     try {
       initEmailJS();
-      console.log("✅ EmailJS initialized successfully");
+      console.log("✅ EmailJS initialized");
     } catch (error) {
-      console.error("❌ Failed to initialize EmailJS:", error);
-    }
-
-    // PHASE 4: Performance Monitoring (Development only)
-    if (process.env.NODE_ENV === 'development') {
-      Promise.all([
-        import('./utils/bundleAnalyzer'),
-        import('./utils/performanceOptimizer')
-      ]).then(([bundleAnalyzer, performanceOptimizer]) => {
-        bundleAnalyzer.analyzeBundleSize();
-        bundleAnalyzer.preloadCriticalChunks();
-        performanceOptimizer.performanceOptimizer.initialize();
-        
-        console.log('📊 Performance monitoring active');
-      });
+      console.error("❌ EmailJS initialization failed:", error);
     }
 
     console.log('✅ Ultra-fast initialization complete');
+
+    // Cleanup on unmount
+    return () => {
+      MemoryOptimizer.cleanup();
+      SpeedOptimizer.cleanup();
+    };
   }, []);
 
   return (
