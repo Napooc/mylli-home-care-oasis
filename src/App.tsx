@@ -29,6 +29,9 @@ import { injectCriticalCSS } from "./utils/criticalCSS";
 import { preloadCriticalResources, addResourceHints } from "./utils/resourcePriority";
 import { MemoryOptimizer } from "./utils/memoryOptimizer";
 import { SpeedOptimizer } from "./utils/speedOptimizer";
+import { ultraFastImageLoader } from "./utils/ultraFastImageLoader";
+import { intelligentImageCache } from "./utils/intelligentImageCache";
+import { imagePerformanceMonitor } from "./utils/imagePerformanceMonitor";
 import "./styles/global.css";
 
 // Ultra-optimized QueryClient
@@ -59,9 +62,14 @@ const App: React.FC = () => {
     securitySession.initializeSession();
     cleanURLFragments();
     
-    // Phase 3: Bundle Optimization
+    // Phase 3: Bundle + Image Optimization
     MemoryOptimizer.startMemoryOptimization();
     SpeedOptimizer.initialize();
+    
+    // Phase 3.5: Ultra-Fast Image System (Silent Integration)
+    ultraFastImageLoader; // Initialize image loader
+    intelligentImageCache; // Initialize intelligent cache
+    imagePerformanceMonitor; // Initialize performance monitoring
     
     // Phase 4: Service Worker (Minimal)
     if ('serviceWorker' in navigator) {
