@@ -62,7 +62,12 @@ const TestimonialsSection = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 md:gap-8 max-w-6xl mx-auto">
           {testimonials.map((testimonial, index) => (
             <div key={index} className="transform transition-all duration-500 hover:scale-[1.02]">
-              <TestimonialCard {...testimonial} />
+              <TestimonialCard 
+                quote={testimonial.text}
+                name={testimonial.name}
+                title={testimonial.service}
+                rating={testimonial.rating}
+              />
             </div>
           ))}
         </div>

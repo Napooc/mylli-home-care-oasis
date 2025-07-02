@@ -55,7 +55,7 @@ const HomePage = () => {
         <ServiceLocations 
           locations={serviceLocations} 
           title="Zones d'intervention" 
-          description="Nous intervenons dans tout le Grand Casablanca et ses environs"
+          subtitle="Nous intervenons dans tout le Grand Casablanca et ses environs"
         />
         
         <ContactForm />
