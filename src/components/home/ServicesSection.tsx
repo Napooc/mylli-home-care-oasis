@@ -2,6 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import ServiceCard from '../common/ServiceCard';
+import { Heart, Users, Clock } from 'lucide-react';
 
 const ServicesSection: React.FC = () => {
   const services = [
@@ -11,7 +12,8 @@ const ServicesSection: React.FC = () => {
       description: 'Soins infirmiers professionnels dispensés par des infirmiers diplômés d\'État',
       icon: 'Heart',
       image: '/lovable-uploads/bc659d89-2f47-4184-b283-c7f41ba9193c.png',
-      features: ['Injections et perfusions', 'Pansements complexes', 'Surveillance médicale']
+      features: ['Injections et perfusions', 'Pansements complexes', 'Surveillance médicale'],
+      link: '/services/infirmier'
     },
     {
       id: 'aide-soignant',
@@ -19,7 +21,8 @@ const ServicesSection: React.FC = () => {
       description: 'Assistance quotidienne pour les actes essentiels de la vie',
       icon: 'Users',
       image: '/lovable-uploads/f44d65a2-d31c-4815-a088-b4b4465908e2.png',
-      features: ['Toilette et hygiène', 'Aide à la mobilité', 'Accompagnement social']
+      features: ['Toilette et hygiène', 'Aide à la mobilité', 'Accompagnement social'],
+      link: '/services/aide-soignant'
     },
     {
       id: 'garde-malade',
@@ -27,9 +30,23 @@ const ServicesSection: React.FC = () => {
       description: 'Surveillance et accompagnement continu jour et nuit',
       icon: 'Clock',
       image: '/lovable-uploads/12ada3b4-5734-4170-b5a3-090ee9c4f507.png',
-      features: ['Présence continue', 'Surveillance médicale', 'Assistance d\'urgence']
+      features: ['Présence continue', 'Surveillance médicale', 'Assistance d\'urgence'],
+      link: '/services/garde-malade'
     }
   ];
+
+  const getIconComponent = (iconName: string) => {
+    switch (iconName) {
+      case 'Heart':
+        return <Heart size={32} className="text-mylli-primary" />;
+      case 'Users':
+        return <Users size={32} className="text-mylli-primary" />;
+      case 'Clock':
+        return <Clock size={32} className="text-mylli-primary" />;
+      default:
+        return <Heart size={32} className="text-mylli-primary" />;
+    }
+  };
 
   return (
     <section className="py-20 bg-gradient-to-br from-white to-mylli-light/30">
@@ -45,7 +62,15 @@ const ServicesSection: React.FC = () => {
         
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
           {services.map((service) => (
-            <ServiceCard key={service.id} service={service} />
+            <ServiceCard 
+              key={service.id}
+              title={service.title}
+              description={service.description}
+              icon={getIconComponent(service.icon)}
+              image={service.image}
+              link={service.link}
+              style="modern"
+            />
           ))}
         </div>
         
