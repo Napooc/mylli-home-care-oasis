@@ -2,8 +2,6 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
-import { visualizer } from 'rollup-plugin-visualizer';
-import compression from 'vite-plugin-compression';
 import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
@@ -15,26 +13,6 @@ export default defineConfig(({ mode }) => ({
   plugins: [
     react(),
     mode === 'development' && componentTagger(),
-    // Ultra-fast compression
-    compression({
-      algorithm: 'gzip',
-      ext: '.gz',
-      threshold: 512, // Compress files larger than 512B
-      deleteOriginFile: false
-    }),
-    compression({
-      algorithm: 'brotliCompress',
-      ext: '.br',
-      threshold: 512,
-      deleteOriginFile: false
-    }),
-    // Bundle analyzer for optimization monitoring
-    ...(process.env.ANALYZE ? [visualizer({
-      filename: 'dist/stats.html',
-      open: true,
-      gzipSize: true,
-      brotliSize: true
-    })] : [])
   ].filter(Boolean),
   resolve: {
     alias: {
@@ -42,24 +20,23 @@ export default defineConfig(({ mode }) => ({
     },
   },
   build: {
-    // Ultra-optimized code splitting
+    // Ultra-aggressive code splitting for maximum performance
     rollupOptions: {
       output: {
         manualChunks: {
-          // Core vendor chunks (smallest possible)
-          'react': ['react', 'react-dom'],
-          'router': ['react-router-dom'],
-          'query': ['@tanstack/react-query'],
-          'ui': ['@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu'],
+          // Core essentials only (smallest possible)
+          'vendor-react': ['react', 'react-dom'],
+          'vendor-router': ['react-router-dom'],
+          'vendor-query': ['@tanstack/react-query'],
+          // Feature chunks (lazy loaded)
+          'ui-components': ['@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu', '@radix-ui/react-toast'],
           'icons': ['lucide-react'],
           'utils': ['clsx', 'tailwind-merge'],
-          // Feature chunks (lazy loaded)
-          'charts': ['recharts'],
-          'forms': ['react-hook-form', '@hookform/resolvers', 'zod'],
           'email': ['@emailjs/browser'],
         },
-        // Ultra-optimized file names
+        // Ultra-optimized file names for better caching
         chunkFileNames: 'js/[name]-[hash:8].js',
+        entryFileNames: 'js/[name]-[hash:8].js',
         assetFileNames: (assetInfo) => {
           const info = assetInfo.name?.split('.') ?? [];
           const extType = info[info.length - 1];
@@ -73,29 +50,15 @@ export default defineConfig(({ mode }) => ({
         }
       }
     },
-    // Ultra-fast build settings
+    // Maximum optimization settings
     target: 'es2020',
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: true,
-        drop_debugger: true,
-        pure_funcs: ['console.log', 'console.info', 'console.debug']
-      },
-      mangle: {
-        safari10: true
-      },
-      format: {
-        comments: false
-      }
-    },
-    // Aggressive optimization
-    chunkSizeWarningLimit: 500, // Stricter chunk size limit
+    minify: 'esbuild', // Faster than terser
+    chunkSizeWarningLimit: 300, // Stricter limit
     sourcemap: false,
     cssCodeSplit: true,
-    cssMinify: true,
-    // Preload critical resources
-    assetsInlineLimit: 2048, // Inline small assets
+    cssMinify: 'esbuild',
+    assetsInlineLimit: 1024, // Inline very small assets only
+    reportCompressedSize: false, // Skip size reporting for faster builds
   },
   // Ultra-optimized dependencies
   optimizeDeps: {
@@ -108,15 +71,20 @@ export default defineConfig(({ mode }) => ({
       'clsx',
       'tailwind-merge'
     ],
-    exclude: ['@vite/client', '@vite/env']
+    exclude: ['@vite/client', '@vite/env'],
+    force: false // Don't force re-optimization unless needed
   },
-  // Ultra-fast esbuild
+  // Ultra-fast esbuild configuration
   esbuild: {
     target: 'es2020',
     logOverride: {
       'this-is-undefined-in-esm': 'silent'
     },
-    // Remove all console logs in production
+    // Remove all console logs in production for smaller bundles
     drop: mode === 'production' ? ['console', 'debugger'] : [],
+    legalComments: 'none', // Remove license comments
+    minifyIdentifiers: true,
+    minifySyntax: true,
+    minifyWhitespace: true
   }
 }));

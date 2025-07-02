@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -63,6 +62,14 @@ const App: React.FC = () => {
       console.log("✅ EmailJS initialized successfully");
     } catch (error) {
       console.error("❌ Failed to initialize EmailJS:", error);
+    }
+
+    // PHASE 4: Bundle Analysis (Development only)
+    if (process.env.NODE_ENV === 'development') {
+      import('./utils/bundleAnalyzer').then(({ analyzeBundleSize, preloadCriticalChunks }) => {
+        analyzeBundleSize();
+        preloadCriticalChunks();
+      });
     }
 
     console.log('✅ Ultra-fast initialization complete');
