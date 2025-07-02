@@ -1,4 +1,3 @@
-
 import React, { Suspense } from 'react';
 import InstantHero from '../hero/InstantHero';
 

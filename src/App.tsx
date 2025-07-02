@@ -32,6 +32,10 @@ import { SpeedOptimizer } from "./utils/speedOptimizer";
 import { ultraFastImageLoader } from "./utils/ultraFastImageLoader";
 import { intelligentImageCache } from "./utils/intelligentImageCache";
 import { imagePerformanceMonitor } from "./utils/imagePerformanceMonitor";
+import { performanceBudget } from "./utils/performanceBudget";
+import { adaptiveLoader } from "./utils/adaptiveLoader";
+import { webWorkerManager } from "./utils/webWorkerManager";
+import { sharedObserver } from "./utils/sharedIntersectionObserver";
 import "./styles/global.css";
 
 // Ultra-optimized QueryClient
@@ -65,10 +69,13 @@ const App: React.FC = () => {
     MemoryOptimizer.startMemoryOptimization();
     SpeedOptimizer.initialize();
     
-    // Phase 3.5: Ultra-Fast Image System (Silent Integration)
+    // Phase 3: Advanced Optimization
     ultraFastImageLoader; // Initialize image loader
     intelligentImageCache; // Initialize intelligent cache
     imagePerformanceMonitor; // Initialize performance monitoring
+    performanceBudget; // Initialize performance budgets
+    adaptiveLoader; // Initialize adaptive loading
+    webWorkerManager.createImageProcessor(); // Initialize Web Workers
     
     // Phase 4: Service Worker (Minimal)
     if ('serviceWorker' in navigator) {

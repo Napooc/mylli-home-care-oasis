@@ -10,7 +10,10 @@ import ServiceLocations from '@/components/common/ServiceLocations';
 import SEOHead from '@/components/seo/SEOHead';
 import OptimizedImage from '@/components/seo/OptimizedImage';
 import { generateHomepageStructuredData } from '@/utils/structuredData';
-import { useEffect, useRef, useState } from 'react';
+import LazyHeroSection from '@/components/sections/LazyHeroSection';
+import LazyServiceSection from '@/components/sections/LazyServiceSection';
+import LazyTestimonialSection from '@/components/sections/LazyTestimonialSection';
+import { useEffect, useRef, useState, Suspense } from 'react';
 const HomePage = () => {
   const [count, setCount] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
@@ -276,8 +279,16 @@ const services = [{
       <SEOHead title="Mylli Services | N°1 Soins à Domicile Casablanca depuis 2014 ❤️" description="Depuis 2014, première société au Maroc de soins et d'aide à domicile pour les personnes fragilisées ❤️, avec des aides-soignants certifiés et des gardes-malades disponibles 24h/7j 🩺" keywords="aide domicile casablanca, infirmier domicile casablanca, aide soignant domicile casablanca, garde malade casablanca, soins infirmiers domicile, mylli services casablanca, aide domicile personnes agees, infirmier nuit casablanca, garde malade 24h casablanca, soins palliatifs domicile, assistance medicale domicile, infirmier liberal casablanca" canonicalUrl="/" structuredData={structuredData} />
       
       <div className="overflow-hidden">
-        {/* Hero Section */}
-        <section ref={heroRef} className="relative min-h-screen flex items-center overflow-hidden pt-32 md:pt-20" onMouseMove={handleMouseMove} aria-labelledby="hero-heading">
+        {/* Optimized Hero Section */}
+        <LazyHeroSection />
+        
+        {/* Optimized Services Section */}
+        <LazyServiceSection services={services} />
+        
+        {/* Optimized Testimonials Section */}
+        <Suspense fallback={<div className="loading-skeleton h-96"></div>}>
+          <LazyTestimonialSection testimonials={testimonials} />
+        </Suspense>
           <div className="absolute inset-0 z-0">
             <div className="absolute inset-0 bg-gradient-to-r from-mylli-dark/80 via-mylli-primary/60 to-mylli-dark/70 z-10"></div>
             
