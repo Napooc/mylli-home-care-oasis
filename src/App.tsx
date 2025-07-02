@@ -32,6 +32,7 @@ import { SpeedOptimizer } from "./utils/speedOptimizer";
 import { ultraFastImageLoader } from "./utils/ultraFastImageLoader";
 import { intelligentImageCache } from "./utils/intelligentImageCache";
 import { imagePerformanceMonitor } from "./utils/imagePerformanceMonitor";
+import { adaptiveLoader } from "./utils/adaptiveLoader";
 import "./styles/global.css";
 
 // Ultra-optimized QueryClient
@@ -61,9 +62,10 @@ const App: React.FC = () => {
     // Phase 2: Essential Services
     securitySession.initializeSession();
     
-    // Phase 3: Bundle + Image Optimization
+    // Phase 3: Advanced Optimization + Adaptive Loading
     MemoryOptimizer.startMemoryOptimization();
     SpeedOptimizer.initialize();
+    adaptiveLoader; // Initialize adaptive connection-based loading
     
     // Phase 3.5: Ultra-Fast Image System (Silent Integration)
     ultraFastImageLoader; // Initialize image loader

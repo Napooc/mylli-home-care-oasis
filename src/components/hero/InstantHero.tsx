@@ -1,14 +1,36 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import BrandName from '../common/BrandName';
+import '../../styles/hero-critical.css';
 
 const InstantHero: React.FC = () => {
+  // Phase 1: Critical resource preloading
+  useEffect(() => {
+    // Preload critical hero background image only
+    const heroImage = new Image();
+    heroImage.src = '/lovable-uploads/00945798-dc13-478e-94d1-d1aaa70af5a6.png';
+    heroImage.loading = 'eager';
+    
+    // Add resource hints for critical domains
+    const link = document.createElement('link');
+    link.rel = 'preconnect';
+    link.href = 'https://fonts.googleapis.com';
+    document.head.appendChild(link);
+  }, []);
+
   return (
-    <section className="hero-section gpu-accelerated">
-      <div className="container mx-auto px-4 relative z-10">
+    <section className="hero-section gpu-accelerated" style={{
+      backgroundImage: 'url(/lovable-uploads/00945798-dc13-478e-94d1-d1aaa70af5a6.png)',
+      backgroundSize: 'cover',
+      backgroundPosition: 'center'
+    }}>
+      {/* Critical gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-r from-mylli-dark/80 via-mylli-primary/60 to-mylli-dark/70 z-10"></div>
+      
+      <div className="container-custom relative z-20">
         <div className="max-w-4xl mx-auto text-center">
           <div className="mb-6">
-            <div className="text-4xl md:text-6xl lg:text-7xl mb-4">
+            <div className="brand-name mb-4">
               <BrandName />
             </div>
           </div>
@@ -30,13 +52,13 @@ const InstantHero: React.FC = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <a 
               href="tel:+212661377438" 
-              className="bg-gradient-to-r from-blue-600 to-blue-700 text-white text-lg px-8 py-4 rounded-full font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+              className="btn-primary shadow-lg hover:shadow-xl hover:scale-105"
             >
               📞 Urgence: +212 661 37 74 38
             </a>
             <a 
               href="#services" 
-              className="bg-white/20 text-white border border-white/30 px-8 py-4 rounded-full font-semibold hover:bg-white/30 transition-all duration-300"
+              className="btn-secondary hover:bg-white/30 hover:scale-105"
             >
               Découvrir nos services
             </a>
