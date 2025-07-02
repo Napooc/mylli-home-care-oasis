@@ -1,4 +1,3 @@
-
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { Button } from "@/components/ui/button";
@@ -71,9 +70,8 @@ const ServicesPage = () => {
                         alt={service.title}
                         width={800}
                         height={400}
-                        priority={index === 0} // First image is priority
-                        critical={index === 0} // First image is critical
-                        quality={index === 0 ? 70 : 60} // Higher quality for first image
+                        priority={index === 0}
+                        quality={index === 0 ? 70 : 60}
                         className="w-full h-full object-cover object-center transition-all duration-1000 group-hover:scale-110 group-hover:brightness-110"
                         sizes="(max-width: 768px) 100vw, 50vw"
                       />
