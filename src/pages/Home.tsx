@@ -10,72 +10,27 @@ import ServiceLocations from '@/components/common/ServiceLocations';
 import SEOHead from '@/components/seo/SEOHead';
 import OptimizedImage from '@/components/seo/OptimizedImage';
 import { generateHomepageStructuredData } from '@/utils/structuredData';
-import { useEffect, useRef, useState } from 'react';
+import { useState, useEffect } from 'react';
+import LazyHeroSection from '@/components/sections/LazyHeroSection';
+import LazyServiceSection from '@/components/sections/LazyServiceSection';
+import LazyTestimonialSection from '@/components/sections/LazyTestimonialSection';
 const HomePage = () => {
-  const [count, setCount] = useState(0);
-  const [isVisible, setIsVisible] = useState(false);
-  const heroRef = useRef<HTMLDivElement>(null);
-  const [activeImage, setActiveImage] = useState(0);
-  const [hoverCard, setHoverCard] = useState(-1);
+  // Ultra-optimized state management
   const [selectedFeature, setSelectedFeature] = useState<number | null>(null);
-  const [mousePosition, setMousePosition] = useState({
-    x: 0,
-    y: 0
-  });
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const {
-      clientX,
-      clientY
-    } = e;
-    const {
-      left,
-      top,
-      width,
-      height
-    } = e.currentTarget.getBoundingClientRect();
-    const x = (clientX - left) / width - 0.5;
-    const y = (clientY - top) / height - 0.5;
-    setMousePosition({
-      x,
-      y
-    });
-  };
+  
+  // Performance monitoring and cleanup
   useEffect(() => {
-    const observer = new IntersectionObserver(entries => {
-      if (entries[0].isIntersecting) {
-        setIsVisible(true);
-      }
-    }, {
-      threshold: 0.1
-    });
-    if (heroRef.current) {
-      observer.observe(heroRef.current);
+    // Ensure critical CSS is applied
+    if (typeof document !== 'undefined') {
+      document.documentElement.classList.add('gpu-accelerated');
     }
+    
+    // Cleanup function
     return () => {
-      if (heroRef.current) {
-        observer.unobserve(heroRef.current);
+      if (typeof document !== 'undefined') {
+        document.documentElement.classList.remove('gpu-accelerated');
       }
     };
-  }, []);
-  useEffect(() => {
-    if (isVisible) {
-      const interval = setInterval(() => {
-        setCount(prevCount => {
-          if (prevCount < 10) {
-            return prevCount + 1;
-          }
-          clearInterval(interval);
-          return prevCount;
-        });
-      }, 200);
-      return () => clearInterval(interval);
-    }
-  }, [isVisible]);
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveImage(prev => (prev + 1) % 3);
-    }, 5000);
-    return () => clearInterval(interval);
   }, []);
 const careImages = ['/lovable-uploads/bc5d5201-c6c6-41c0-8594-5bef9171aea8.png', '/lovable-uploads/94cdeb85-c1e7-48bd-9d6f-66312af0fb9c.png', '/lovable-uploads/b078eb91-537d-4b59-bb66-5983988c4fab.png'];
 
@@ -276,147 +231,7 @@ const services = [{
       <SEOHead title="Mylli Services | N°1 Soins à Domicile Casablanca depuis 2014 ❤️" description="Depuis 2014, première société au Maroc de soins et d'aide à domicile pour les personnes fragilisées ❤️, avec des aides-soignants certifiés et des gardes-malades disponibles 24h/7j 🩺" keywords="aide domicile casablanca, infirmier domicile casablanca, aide soignant domicile casablanca, garde malade casablanca, soins infirmiers domicile, mylli services casablanca, aide domicile personnes agees, infirmier nuit casablanca, garde malade 24h casablanca, soins palliatifs domicile, assistance medicale domicile, infirmier liberal casablanca" canonicalUrl="/" structuredData={structuredData} />
       
       <div className="overflow-hidden">
-        {/* Hero Section */}
-        <section ref={heroRef} className="relative min-h-screen flex items-center overflow-hidden pt-32 md:pt-20" onMouseMove={handleMouseMove} aria-labelledby="hero-heading">
-          <div className="absolute inset-0 z-0">
-            <div className="absolute inset-0 bg-gradient-to-r from-mylli-dark/80 via-mylli-primary/60 to-mylli-dark/70 z-10"></div>
-            
-            <div className="absolute inset-0 overflow-hidden">
-              {careImages.map((img, index) => <div key={index} className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out ${activeImage === index ? 'opacity-100' : 'opacity-0'}`}>
-                  <img src={img} alt="Professional care services" className="absolute w-full h-full object-cover object-center filter brightness-[0.75]" />
-                </div>)}
-            </div>
-            
-            <div className="absolute inset-0 z-20 pointer-events-none">
-              <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-mylli-primary opacity-30 blur-3xl animate-pulse-soft"></div>
-              <div className="absolute bottom-1/4 right-1/4 w-64 h-64 rounded-full bg-mylli-secondary opacity-20 blur-3xl animate-pulse-soft" style={{
-              animationDelay: '1s'
-            }}></div>
-              <div className="absolute top-1/2 right-1/3 w-40 h-40 rounded-full bg-mylli-quaternary opacity-20 blur-2xl animate-pulse-soft" style={{
-              animationDelay: '2s'
-            }}></div>
-            </div>
-            
-            <div className="absolute inset-0 z-20 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGZpbGw9IiMwMDc3QzAxMCIgZD0iTTAgMGg2MHY2MEgweiIvPjxwYXRoIGQ9Ik0zNiAxOGgtMTJWMmgxMnYxMnptMCAxMmgtMTJWMThoMTJ2MTJ6bTAgMTJoLTEyVjMwaDEydjEyIiBmaWxsPSIjMDA5OUU4MTAiLz48L2c+PC9zdmc+')]"></div>
-          </div>
-          
-          <div className="container-custom relative z-20 px-4 md:px-6">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-              <div className="text-center lg:text-left">
-                <header>
-                  <h1 id="hero-heading" className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-8 tracking-tight leading-tight">
-                    <span className="block text-white flash-white-strong">
-                      NOUS SOMMES LÀ POUR VOUS
-                    </span>
-                    <span className="block text-white flash-white-strong">
-                      AIDER!
-                    </span>
-                  </h1>
-                  
-                  <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start mb-8 animate-fade-in delay-[400ms]">
-                    <Button asChild className="group relative overflow-hidden rounded-xl px-6 py-3 bg-white/15 hover:bg-white/25 border border-white/30 hover:border-white/50 backdrop-blur-sm text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg text-sm sm:text-base">
-                      <Link to="/services/aide-soignant" className="flex items-center justify-center gap-2">
-                        <Heart size={18} className="transition-transform duration-300 group-hover:scale-110" />
-                        <span>AIDE-SOIGNANT(E) À DOMICILE</span>
-                        <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
-                      </Link>
-                    </Button>
-                    
-                    <Button asChild className="group relative overflow-hidden rounded-xl px-6 py-3 bg-white/15 hover:bg-white/25 border border-white/30 hover:border-white/50 backdrop-blur-sm text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg text-sm sm:text-base">
-                      <Link to="/services/infirmier" className="flex items-center justify-center gap-2">
-                        <Syringe size={18} className="transition-transform duration-300 group-hover:scale-110" />
-                        <span>INFIRMIER(ÈRE) À DOMICILE</span>
-                        <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
-                      </Link>
-                    </Button>
-                  </div>
-                  
-                  <p className="text-lg sm:text-xl md:text-2xl opacity-90 mb-10 max-w-2xl animate-fade-in delay-[600ms] leading-relaxed text-white px-2 sm:px-0">
-                    Depuis <span className="text-white font-bold">2014</span>, première société au Maroc spécialisée dans les soins et l'accompagnement à domicile des personnes en perte d'autonomie.
-                  </p>
-                </header>
-                
-                <div className="mt-8 mb-10 grid grid-cols-3 gap-3 sm:gap-4 max-w-sm sm:max-w-md mx-auto lg:mx-0 animate-fade-in delay-[1200ms]">
-                  <Link to="/apropos" className="text-center p-3 sm:p-4 backdrop-blur-sm bg-white/15 rounded-xl border border-white/30 hover:border-mylli-secondary/50 transition-all duration-300 hover:scale-105 cursor-pointer group">
-                    <p className="text-xl sm:text-2xl md:text-3xl font-bold text-mylli-secondary group-hover:text-mylli-secondary">{isVisible ? '+10' : '0'}</p>
-                   <p className="text-xs sm:text-sm text-white leading-tight">années d'expérience</p>
-                  </Link>
-                  <button onClick={() => scrollToSection('testimonials-heading')} className="relative overflow-hidden text-center p-3 sm:p-4 backdrop-blur-sm bg-white/15 rounded-xl border border-white/30 hover:border-mylli-quaternary/50 transition-all duration-300 hover:scale-105 cursor-pointer group">
-                    <span className="pointer-events-none absolute inset-0 z-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                      <span className="absolute inset-0 animate-gradient-x bg-gradient-to-r from-mylli-quaternary via-mylli-accent to-mylli-primary blur-lg opacity-40"></span>
-                    </span>
-                    <p className="relative z-10 text-lg sm:text-xl md:text-2xl font-bold text-white group-hover:text-mylli-quaternary">{isVisible ? '+6100' : '0'}</p>
-                    <p className="relative z-10 text-xs sm:text-sm text-white leading-tight group-hover:text-mylli-quaternary">Interventions</p>
-                  </button>
-                  <button onClick={triggerAvailabilityFeature} className="relative overflow-hidden text-center p-3 sm:p-4 backdrop-blur-sm bg-white/15 rounded-xl border border-white/30 hover:border-mylli-quaternary/50 transition-all duration-300 hover:scale-105 cursor-pointer group">
-                    <span className="pointer-events-none absolute inset-0 z-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                      <span className="absolute inset-0 animate-gradient-x bg-gradient-to-r from-mylli-quaternary via-mylli-accent to-mylli-primary blur-lg opacity-40"></span>
-                    </span>
-                    <p className="relative z-10 text-xl sm:text-2xl md:text-3xl font-bold text-white group-hover:text-mylli-quaternary">{isVisible ? '24/7' : '0'}</p>
-                    <p className="relative z-10 text-xs sm:text-sm text-white leading-tight">disponibilité</p>
-                  </button>
-                </div>
-              </div>
-              
-              <aside className="relative flex justify-center items-center mt-8 lg:mt-0">
-                <div className="absolute -top-10 -left-10 w-40 h-40 bg-mylli-quaternary/30 rounded-full filter blur-3xl"></div>
-                <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-mylli-secondary/30 rounded-full filter blur-3xl"></div>
-                
-                <article className="relative max-w-sm sm:max-w-md w-full mx-4 sm:mx-0">
-                  <div className="relative backdrop-blur-lg bg-white/15 border border-white/20 rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden transform transition-all duration-500 hover:scale-[1.02] hover:shadow-3xl group">
-                    
-                    <div className="relative h-48 sm:h-56 md:h-64 overflow-hidden">
-                      <div className="absolute inset-0 w-full h-full bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-110" style={{
-                      backgroundImage: `url(${careImages[activeImage]})`,
-                      backgroundSize: 'cover',
-                      backgroundPosition: 'center'
-                    }} />
-                      
-                      <div className="absolute inset-0 bg-gradient-to-t from-mylli-dark/90 via-mylli-dark/30 to-transparent"></div>
-                      
-                      <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6">
-                        <h3 className="text-white text-lg sm:text-xl md:text-2xl font-bold mb-1 sm:mb-2 drop-shadow-lg">Soins professionnels</h3>
-                        <p className="text-white/95 text-sm font-medium drop-shadow-md">Accompagnement personnalisé à domicile</p>
-                      </div>
-                      
-                      <div className="absolute top-3 sm:top-4 right-3 sm:right-4 flex space-x-2">
-                        {careImages.map((_, index) => <button key={index} onClick={() => setActiveImage(index)} className={`w-2.5 sm:w-3 h-2.5 sm:h-3 rounded-full transition-all duration-300 border border-white/50 ${activeImage === index ? 'bg-mylli-secondary scale-110 shadow-lg' : 'bg-white/30 hover:bg-white/50'}`} aria-label={`Image ${index + 1}`} />)}
-                      </div>
-                    </div>
-                    
-                    <div className="p-4 sm:p-6 bg-white/10 backdrop-blur-sm">
-                      <div className="text-white mb-4 sm:mb-6">
-                        <p className="leading-relaxed text-sm sm:text-base mb-4 sm:mb-6 text-white/90">
-                          Nous sommes spécialement formés pour garantir des services de qualité aux personnes atteintes de maladies chroniques handicapantes comme la maladie de Parkinson, d'Alzheimer, hémiplégie, paraplégie, SEP, SLA, ainsi que les soins palliatifs.
-                        </p>
-                      </div>
-                      
-                      <Button asChild variant="outline" className="w-full border-white/30 text-black bg-white hover:bg-white/90 hover:text-black backdrop-blur-sm transition-all duration-300 hover:scale-[1.02] hover:shadow-lg text-sm sm:text-base py-3 sm:py-4 font-medium">
-                        <Link to="/mot-du-president" className="flex items-center justify-center">
-                          Mot du Fondateur
-                          <ArrowRight size={16} className="ml-2 transition-transform group-hover:translate-x-1" />
-                        </Link>
-                      </Button>
-                    </div>
-                  </div>
-                </article>
-              </aside>
-            </div>
-          </div>
-          
-          <div className="absolute bottom-0 left-0 w-full">
-            <svg viewBox="0 0 1200 120" preserveAspectRatio="none" className="w-full h-16 sm:h-20 text-white">
-              <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V100C69,91.27,141.43,76.12,213.33,66.11Z" fill="currentColor"></path>
-            </svg>
-          </div>
-          
-          <div className="absolute bottom-8 sm:bottom-12 left-1/2 transform -translate-x-1/2 hidden md:flex flex-col items-center animate-fade-in delay-[1500ms]">
-            <p className="text-sm text-white/80 mb-2">Découvrir</p>
-            <div className="w-6 h-10 rounded-full border-2 border-white/40 flex justify-center">
-              <div className="w-1.5 h-1.5 rounded-full bg-white/80 mt-2 animate-[float_1.5s_ease-in-out_infinite]"></div>
-            </div>
-          </div>
-        </section>
+        <LazyHeroSection />
         
         {/* Feature Section */}
         <section className="py-12 md:py-20 relative overflow-hidden bg-gradient-to-b from-white to-mylli-light/30" aria-labelledby="features-heading">
@@ -565,99 +380,7 @@ const services = [{
           <div className="absolute bottom-0 left-0 -ml-16 -mb-16 w-64 h-64 bg-mylli-secondary/5 rounded-full blur-3xl"></div>
         </section>
         
-        {/* Services Section */}
-        <section className="py-20 md:py-32 bg-gradient-to-br from-gray-50 via-white to-mylli-light/20 relative overflow-hidden" aria-labelledby="services-heading">
-          <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <div className="absolute -top-40 -right-40 w-96 h-96 rounded-full bg-gradient-to-br from-mylli-primary/8 to-mylli-secondary/4 blur-3xl animate-pulse-soft"></div>
-            <div className="absolute -bottom-40 -left-40 w-80 h-80 rounded-full bg-gradient-to-tl from-mylli-quaternary/8 to-mylli-accent/4 blur-3xl animate-pulse-soft" style={{
-            animationDelay: '2s'
-          }}></div>
-            
-            <div className="absolute top-32 left-1/4 w-32 h-32 border border-mylli-primary/10 rounded-3xl rotate-12 animate-pulse-soft"></div>
-            <div className="absolute bottom-40 right-1/3 w-24 h-24 border-2 border-mylli-secondary/15 rounded-full animate-pulse-soft" style={{
-            animationDelay: '1s'
-          }}></div>
-            <div className="absolute top-2/3 right-20 w-16 h-16 bg-mylli-quaternary/10 rounded-2xl -rotate-12 animate-pulse-soft" style={{
-            animationDelay: '3s'
-          }}></div>
-          </div>
-
-          <div className="container-custom relative z-10 px-4 md:px-6">
-            <header className="text-center mb-20">
-              <SectionHeading title="Nos Services" variant="gradient" id="services-heading" />
-            </header>
-            
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 max-w-7xl mx-auto">
-              {services.map((service, index) => <div key={index} className="group relative transform transition-all duration-700 hover:-translate-y-6 hover:scale-[1.02]" style={{
-              animationDelay: `${index * 300}ms`
-            }}>
-                  <div className={`absolute -inset-2 bg-gradient-to-r ${service.gradient} rounded-3xl blur-xl opacity-0 group-hover:opacity-25 transition-all duration-500`}></div>
-                  
-                  <div className="relative bg-white rounded-3xl shadow-2xl border border-gray-100/50 overflow-hidden min-h-[600px] flex flex-col">
-                    
-                    
-                    <div className="p-10 relative flex-1 flex flex-col">
-                      <div className="flex justify-center mb-8 relative z-10">
-                        <div className="relative group-hover:scale-110 transition-transform duration-500">
-                          {service.icon}
-                          <div className="absolute inset-0 bg-mylli-primary/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-50 transition-opacity duration-500"></div>
-                        </div>
-                      </div>
-                      
-                      <div className="flex-1 mb-8">
-                        <h3 className="text-2xl md:text-3xl font-bold mb-6 text-center text-mylli-dark group-hover:text-mylli-primary transition-colors duration-300">
-                          {service.title}
-                        </h3>
-                        
-                        <p className="text-mylli-gray text-center mb-8 leading-relaxed text-lg group-hover:text-mylli-dark transition-colors duration-300">
-                          {service.description}
-                        </p>
-                        
-                        <div className="mb-8">
-                          <h4 className="text-lg font-semibold text-mylli-dark mb-4 text-center">Nos prestations :</h4>
-                          <div className="grid grid-cols-2 gap-3">
-                            {service.features.map((feature, idx) => <div key={idx} className="flex items-center p-3 rounded-xl bg-gray-50 hover:bg-mylli-primary/5 transition-colors duration-300">
-                                <div className="w-2 h-2 bg-mylli-primary rounded-full mr-3 flex-shrink-0"></div>
-                                <span className="text-sm font-medium text-mylli-gray">{feature}</span>
-                              </div>)}
-                          </div>
-                        </div>
-                      </div>
-                      
-                      <div className="mt-auto">
-                        <Link to={service.link} className={`group/btn relative w-full flex items-center justify-center px-8 py-4 bg-gradient-to-r ${service.gradient} text-white font-semibold rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 overflow-hidden text-lg`}>
-                          <div className="absolute inset-0 bg-white/20 transform scale-x-0 group-hover/btn:scale-x-100 transition-transform duration-300 origin-left"></div>
-                          <span className="relative z-10 mr-3">Découvrir le service</span>
-                          <ArrowUpRight size={20} className="relative z-10 transform group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform duration-300" />
-                        </Link>
-                      </div>
-                      
-                      <div className={`absolute bottom-0 left-0 w-full h-2 bg-gradient-to-r ${service.gradient} transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700 origin-left rounded-b-3xl`}></div>
-                    </div>
-                    
-                    <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-white/10 to-transparent rounded-bl-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  </div>
-                </div>)}
-            </div>
-            
-            <div className="text-center mt-20">
-              <div className="relative inline-block group">
-                <div className="absolute -inset-1 bg-gradient-to-r from-mylli-primary via-mylli-secondary to-mylli-quaternary rounded-full blur-lg opacity-30 group-hover:opacity-50 transition-opacity duration-500"></div>
-                
-                <Button asChild className="relative bg-gradient-to-r from-mylli-primary to-mylli-quaternary hover:from-mylli-primary hover:to-mylli-primary-dark shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 rounded-full px-10 py-5 text-lg font-semibold">
-                  <Link to="/services" className="flex items-center gap-3">
-                    <span>Voir tous nos services</span>
-                    <ArrowRight size={20} className="transition-transform duration-300 group-hover:translate-x-1" />
-                  </Link>
-                </Button>
-              </div>
-              
-              <p className="mt-6 text-mylli-gray text-lg">
-                Des solutions adaptées à chaque situation
-              </p>
-            </div>
-          </div>
-        </section>
+        <LazyServiceSection services={services} />
         
         {/* How It Works Section */}
         <section className="section-padding bg-gradient-to-br from-mylli-light/30 via-white to-mylli-primary/5 relative overflow-hidden" aria-labelledby="how-it-works-heading">
@@ -811,144 +534,7 @@ const services = [{
         {/* Service Locations Section */}
         <ServiceLocations locations={serviceLocations} title="Nos Zones d'Intervention" subtitle="Mylli Services propose des soins à domicile professionnels dans toute la région de Casablanca. Découvrez si votre quartier est couvert." />
         
-        {/* Testimonial Section */}
-        <section className="py-20 md:py-32 bg-gradient-to-br from-mylli-primary/5 to-mylli-light relative overflow-hidden" aria-labelledby="testimonials-heading">
-          <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-            <div className="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-gradient-to-br from-mylli-secondary/10 to-mylli-primary/5 blur-3xl"></div>
-            <div className="absolute bottom-20 -left-20 w-80 h-80 rounded-full bg-gradient-to-tl from-mylli-quaternary/10 to-mylli-primary/5 blur-3xl"></div>
-            
-            <div className="absolute top-20 left-1/4 w-32 h-32 border border-mylli-primary/10 rounded-3xl rotate-12 animate-pulse-soft"></div>
-            <div className="absolute bottom-40 right-1/3 w-24 h-24 border-2 border-mylli-secondary/15 rounded-full animate-pulse-soft" style={{
-            animationDelay: '1s'
-          }}></div>
-            <div className="absolute top-1/3 right-20 w-16 h-16 bg-mylli-quaternary/10 rounded-2xl -rotate-12 animate-pulse-soft" style={{
-            animationDelay: '2s'
-          }}></div>
-            
-            <div className="absolute top-32 left-10 text-mylli-primary/10 animate-pulse-soft">
-              <Quote size={40} />
-            </div>
-            <div className="absolute bottom-40 right-16 text-mylli-secondary/15 animate-pulse-soft" style={{
-            animationDelay: '1.5s'
-          }}>
-              <Quote size={32} />
-            </div>
-          </div>
-
-          <div className="container-custom relative z-10 px-4 md:px-6">
-            <header className="max-w-3xl mx-auto text-center mb-20">
-              <SectionHeading title="Ce que disent nos clients" subtitle="Découvrez les témoignages authentiques de nos bénéficiaires, de leurs familles et de nos professionnels qui font la différence chaque jour." variant="gradient" id="testimonials-heading" />
-            </header>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 max-w-8xl mx-auto">
-              {testimonials.map((testimonial, index) => {
-              const gradients = ['from-mylli-primary to-mylli-quaternary', 'from-mylli-secondary to-mylli-tertiary', 'from-mylli-quaternary to-mylli-accent', 'from-mylli-accent to-mylli-primary'];
-              const gradient = gradients[index % gradients.length];
-              return <div key={index} className="group relative transform transition-all duration-700 hover:-translate-y-4 hover:scale-[1.02]" style={{
-                animationDelay: `${index * 150}ms`
-              }}>
-                    <div className={`absolute -inset-1 bg-gradient-to-r ${gradient} rounded-2xl blur-lg opacity-0 group-hover:opacity-25 transition-all duration-500`}></div>
-                    
-                    <div className="relative bg-white rounded-2xl shadow-lg border border-gray-50 overflow-hidden transform group-hover:shadow-2xl transition-all duration-500 h-full min-h-[320px] flex flex-col">
-                      <div className={`relative h-16 bg-gradient-to-r ${gradient} overflow-hidden flex-shrink-0`}>
-                        <div className="absolute inset-0 opacity-10">
-                          <div className="absolute top-2 left-3 w-6 h-6 border border-white rounded-full"></div>
-                          <div className="absolute top-3 right-4 w-4 h-4 border border-white rounded-lg rotate-12"></div>
-                          <div className="absolute bottom-2 left-8 w-3 h-3 bg-white rounded-full"></div>
-                        </div>
-                        
-                        <div className="absolute bottom-2 right-4 text-white/20">
-                          <Quote size={20} className="transform rotate-12" />
-                        </div>
-                        
-                        {testimonial.verified && <div className="absolute bottom-2 left-4 flex items-center">
-                            <div className="w-2 h-2 bg-white rounded-full mr-2 animate-pulse"></div>
-                            <span className="text-white text-xs font-medium opacity-90">Vérifié</span>
-                          </div>}
-                      </div>
-                      
-                      <div className="p-6 relative flex-1 flex flex-col">
-                        <div className="flex-1 mb-6">
-                          <div className="relative">
-                            <blockquote className="relative z-10">
-                              <p className="text-mylli-gray text-sm leading-relaxed italic font-light mb-4 min-h-[80px] flex items-center">
-                                "{testimonial.text}"
-                              </p>
-                            </blockquote>
-                          </div>
-                        </div>
-                        
-                        <div className="flex justify-center mb-4">
-                          <div className="flex gap-1">
-                            {[...Array(testimonial.rating)].map((_, i) => <Star key={i} size={14} className="text-yellow-400 transform hover:scale-125 transition-transform duration-200" fill="currentColor" style={{
-                          animationDelay: `${i * 100}ms`
-                        }} />)}
-                          </div>
-                        </div>
-                        
-                        <div className="flex items-center mt-auto">
-                          <div className="relative">
-                            <div className={`absolute -inset-1 rounded-full bg-gradient-to-r ${gradient} blur-sm opacity-70`}></div>
-                            <div className={`relative w-12 h-12 rounded-full bg-gradient-to-br ${gradient} text-white flex items-center justify-center font-bold text-lg shadow-lg border-2 border-white`}>
-                              {testimonial.avatar}
-                            </div>
-                            {testimonial.verified && <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-400 rounded-full border-2 border-white shadow-lg flex items-center justify-center">
-                                <div className="w-1.5 h-1.5 bg-white rounded-full"></div>
-                              </div>}
-                          </div>
-                          
-                          <div className="ml-4 min-w-0">
-                            <h4 className="font-bold text-mylli-dark text-sm mb-1 truncate">{testimonial.name}</h4>
-                            <p className="text-xs text-mylli-gray font-medium truncate">{testimonial.service}</p>
-                          </div>
-                        </div>
-                        
-                        <div className={`absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r ${gradient} transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700 origin-left rounded-b-2xl`}></div>
-                      </div>
-                    </div>
-                  </div>;
-            })}
-            </div>
-            
-            <div className="mt-20 relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-mylli-primary/5 via-mylli-secondary/5 to-mylli-quaternary/5 rounded-3xl blur-xl"></div>
-              
-              <div className="relative bg-white rounded-3xl p-10 shadow-2xl border border-mylli-primary/10 transform transition-all hover:shadow-3xl hover:border-mylli-primary/20 overflow-hidden">
-                <div className="absolute top-0 right-0 w-80 h-80 bg-gradient-to-bl from-mylli-primary/5 to-transparent rounded-full -translate-y-1/2 translate-x-1/2"></div>
-                <div className="absolute bottom-0 left-0 w-60 h-60 bg-gradient-to-tr from-mylli-secondary/5 to-transparent rounded-full translate-y-1/2 -translate-x-1/2"></div>
-                
-                <div className="relative z-10 text-center max-w-4xl mx-auto">
-                  <div className="mb-6">
-                    <h3 className="text-3xl font-bold text-mylli-dark mb-4">
-                      <span className="bg-gradient-to-r from-mylli-primary via-mylli-secondary to-mylli-quaternary bg-clip-text text-transparent">
-                        Faites partie de nos témoignages
-                      </span>
-                    </h3>
-                    <p className="text-mylli-gray text-lg leading-relaxed max-w-2xl mx-auto">
-                      Rejoignez des centaines de familles qui nous font confiance pour accompagner leurs proches avec professionnalisme et bienveillance.
-                    </p>
-                  </div>
-                  
-                  <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                    <Button asChild className="rounded-full bg-gradient-to-r from-mylli-primary to-mylli-quaternary hover:from-mylli-primary hover:to-mylli-primary-dark shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 px-8 py-4">
-                      <Link to="/contact" className="flex items-center gap-3">
-                        <Phone size={18} />
-                        <span className="font-medium">Rejoignez-nous</span>
-                        <ArrowRight size={18} className="transition-transform duration-300 group-hover:translate-x-1" />
-                      </Link>
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none" className="w-full h-16 text-white">
-              <path d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z" fill="currentColor"></path>
-            </svg>
-          </div>
-        </section>
+        <LazyTestimonialSection testimonials={testimonials} />
       </div>
 
       {/* Feature Details Modal */}
