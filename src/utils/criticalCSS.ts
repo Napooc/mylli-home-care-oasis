@@ -1,3 +1,4 @@
+
 // Critical CSS extraction and inlining system
 export const criticalStyles = `
 /* Ultra-critical above-the-fold styles */
@@ -58,28 +59,6 @@ body {
   transform: translateZ(0);
   backface-visibility: hidden;
   will-change: transform;
-}
-
-/* Flash animation for hero text */
-.flash-white-strong {
-  animation: flashWhiteStrong 6s ease-in-out infinite;
-}
-
-@keyframes flashWhiteStrong {
-  0%, 85%, 100% { 
-    color: white; 
-    text-shadow: none;
-  }
-  42.5% { 
-    color: #ffffff;
-    text-shadow: 0 0 30px rgba(255, 255, 255, 0.9), 0 0 60px rgba(255, 255, 255, 0.4);
-  }
-}
-
-/* Float animation for scroll indicator */
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
 }
 `;
 
