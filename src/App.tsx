@@ -6,7 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import MainLayout from "./components/layout/MainLayout";
-import HomePage from "./pages/Home";
+import OptimizedHome from "./pages/OptimizedHome";
 import ServicesPage from "./pages/Services";
 import FonctionnementPage from "./pages/Fonctionnement";
 import EquipePage from "./pages/Equipe";
@@ -101,7 +101,7 @@ const App: React.FC = () => {
         <Sonner />
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<MainLayout><HomePage /></MainLayout>} />
+            <Route path="/" element={<MainLayout><OptimizedHome /></MainLayout>} />
             <Route path="/services" element={<MainLayout><ServicesPage /></MainLayout>} />
             <Route path="/services/aide-soignant" element={<MainLayout><AideSoignantPage /></MainLayout>} />
             <Route path="/services/infirmier" element={<MainLayout><InfirmierPage /></MainLayout>} />
