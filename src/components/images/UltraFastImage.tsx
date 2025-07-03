@@ -1,6 +1,7 @@
 
 import React, { useState, useRef, useEffect, memo, useCallback } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
+import { mobileImageOptimizer } from '@/utils/mobileImageOptimizer';
 
 interface UltraFastImageProps {
   src: string;
@@ -14,29 +15,6 @@ interface UltraFastImageProps {
   onLoad?: () => void;
   onError?: () => void;
 }
-
-// Ultra-fast image optimization
-const optimizeImageUrl = (src: string, width?: number, height?: number, quality = 75) => {
-  if (src.includes('unsplash.com')) {
-    const params = new URLSearchParams();
-    params.set('auto', 'format');
-    params.set('fit', 'crop');
-    params.set('q', quality.toString());
-    if (width) params.set('w', width.toString());
-    if (height) params.set('h', height.toString());
-    return `${src}?${params.toString()}`;
-  }
-  
-  if (src.includes('lovable-uploads')) {
-    const params = new URLSearchParams();
-    if (width) params.set('w', width.toString());
-    if (height) params.set('h', height.toString());
-    params.set('q', quality.toString());
-    return `${src}?${params.toString()}`;
-  }
-  
-  return src;
-};
 
 const UltraFastImage: React.FC<UltraFastImageProps> = memo(({
   src,
@@ -53,12 +31,14 @@ const UltraFastImage: React.FC<UltraFastImageProps> = memo(({
   const [isLoaded, setIsLoaded] = useState(false);
   const [isInView, setIsInView] = useState(priority);
   const [hasError, setHasError] = useState(false);
+  const [placeholder, setPlaceholder] = useState<string>('');
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Ultra-fast intersection observer
+  // Mobile-optimized intersection observer
   useEffect(() => {
     if (priority) return;
 
+    const config = mobileImageOptimizer.getMobileIntersectionConfig();
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -66,7 +46,7 @@ const UltraFastImage: React.FC<UltraFastImageProps> = memo(({
           observer.disconnect();
         }
       },
-      { threshold: 0.1, rootMargin: '100px' }
+      config
     );
 
     if (containerRef.current) {
@@ -75,6 +55,14 @@ const UltraFastImage: React.FC<UltraFastImageProps> = memo(({
 
     return () => observer.disconnect();
   }, [priority]);
+
+  // Generate mobile placeholder
+  useEffect(() => {
+    if (!priority && width && height) {
+      const mobilePlaceholder = mobileImageOptimizer.generateMobilePlaceholder(width, height);
+      setPlaceholder(mobilePlaceholder);
+    }
+  }, [width, height, priority]);
 
   const handleLoad = useCallback(() => {
     setIsLoaded(true);
@@ -97,11 +85,26 @@ const UltraFastImage: React.FC<UltraFastImageProps> = memo(({
     );
   }
 
-  const optimizedSrc = optimizeImageUrl(src, width, height, quality);
+  // Use mobile-optimized URL
+  const optimizedSrc = mobileImageOptimizer.optimizeImageUrl(
+    src, 
+    width, 
+    height, 
+    priority ? 'high' : 'medium'
+  );
 
   return (
     <div ref={containerRef} className={`relative overflow-hidden ${className}`}>
-      {!isLoaded && (
+      {!isLoaded && placeholder && (
+        <img
+          src={placeholder}
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover blur-sm opacity-50"
+          style={{ width: width || '100%', height: height || '100%' }}
+        />
+      )}
+      
+      {!isLoaded && !placeholder && (
         <Skeleton 
           className="absolute inset-0 w-full h-full rounded"
           style={{ width: width || '100%', height: height || '100%' }}
