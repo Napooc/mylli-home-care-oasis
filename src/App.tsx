@@ -70,6 +70,12 @@ const App: React.FC = () => {
     intelligentImageCache; // Initialize intelligent cache
     imagePerformanceMonitor; // Initialize performance monitoring
     
+    // Emergency Mobile Performance Tracking
+    import('./utils/mobilePerformanceTracker').then(({ mobilePerformanceTracker }) => {
+      mobilePerformanceTracker; // Initialize mobile performance tracking
+      console.log('📱 Mobile performance tracking initialized');
+    });
+    
     // Phase 4: Service Worker (Minimal)
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/sw.js').catch(() => {

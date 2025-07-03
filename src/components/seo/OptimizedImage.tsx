@@ -1,6 +1,6 @@
 
 import React from 'react';
-import UltraFastImage from '../images/UltraFastImage';
+import MobileOptimizedImage from '../images/MobileOptimizedImage';
 
 interface OptimizedImageProps {
   src: string;
@@ -14,7 +14,7 @@ interface OptimizedImageProps {
 }
 
 const OptimizedImage: React.FC<OptimizedImageProps> = (props) => {
-  return <UltraFastImage {...props} />;
+  return <MobileOptimizedImage {...props} />;
 };
 
 export default OptimizedImage;
