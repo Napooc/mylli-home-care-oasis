@@ -50,7 +50,7 @@ export const articles: Article[] = [
       
       <p>Si vous ou un proche êtes concernés par la maladie d'Alzheimer, n'hésitez pas à nous contacter pour un accompagnement professionnel et bienveillant.</p>
     `,
-    imageSrc: "https://www.lalibre.be/resizer/v2/PQRT2MHTR5BTBMTKDXKMXSLE5U.jpg?auth=3d4748cd5fcdf81821cf29d5f1bd03bb1e011ff39abbdfdbe5b95ad06e311aff&width=1200&height=800&quality=85&focal=3968%2C2645",
+    imageSrc: "https://cdn.pixabay.com/photo/2023/12/01/11/45/alzheimers-disease-8423553_640.png",
     imageAlt: "Accompagnement d'une personne âgée atteinte d'Alzheimer",
     category: "Maladies neurodégénératives",
     publishedDate: "2023-11-15",
