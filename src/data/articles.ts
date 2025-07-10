@@ -450,7 +450,7 @@ export const articles: Article[] = [
       
       <p>Vivre avec la maladie de Parkinson représente un défi, mais avec un accompagnement adapté et des stratégies appropriées, il est possible de maintenir une bonne qualité de vie pendant de nombreuses années. N'hésitez pas à nous contacter pour mettre en place un plan d'accompagnement personnalisé.</p>
     `,
-    imageSrc: "https://www.retraiteplus.fr/docs/upload/users/10/dossier%20sans%20nom/parkinson.jpg",
+    imageSrc: "https://img.freepik.com/free-vector/parkinson-disease-abstract-concept-vector-illustration-parkinson-cause-treatment-age-depression-problem-disease-symptoms-progressive-nervous-system-disorder-tremor-abstract-metaphor_335657-1560.jpg?semt=ais_hybrid&w=740",
     imageAlt: "Accompagnement de personne atteinte de Parkinson",
     category: "Maladies neurodégénératives",
     publishedDate: "2023-12-18",
