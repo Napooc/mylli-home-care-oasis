@@ -116,7 +116,7 @@ export const articles: Article[] = [
       
       <p>La prévention des chutes est un élément essentiel du maintien à domicile des personnes âgées dans de bonnes conditions. N'hésitez pas à nous contacter pour bénéficier de notre expertise dans ce domaine.</p>
     `,
-    imageSrc: "https://static.wixstatic.com/media/cb85dc_9d99e7a9389c491cbbf438bd4ab2f92a~mv2.jpg/v1/fill/w_850,h_550,al_c/cb85dc_9d99e7a9389c491cbbf438bd4ab2f92a~mv2.jpg",
+    imageSrc: "https://www.infosante.be/storage/guides/9728113f-92b5-4c68-ae5f-640ab1666a4f/IlJCgq8DoA332DiT52cW60rQpWhvWRzspHWkasXC_main.jpg",
     imageAlt: "Aménagement sécurisé pour prévenir les chutes",
     category: "Prévention et sécurité",
     publishedDate: "2023-09-22",
