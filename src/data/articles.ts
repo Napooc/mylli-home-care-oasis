@@ -364,7 +364,7 @@ export const articles: Article[] = [
       
       <p>Face à un AVC, chaque minute compte. Savoir reconnaître les signes et agir rapidement peut sauver une vie et limiter les séquelles. N'hésitez pas à nous contacter pour toute question sur l'accompagnement post-AVC.</p>
     `,
-    imageSrc: "https://ensemble.aesio.fr/sites/default/files/styles/510x/public/2021-04/alerte-avc-light.jpg?itok=6dZYlX8K",
+    imageSrc: "https://img.freepik.com/photos-gratuite/femme-agee-s-inquiete-epidemie-coronavirus_53876-153461.jpg?semt=ais_items_boosted&w=740",
     imageAlt: "Urgence médicale AVC",
     category: "Urgences médicales",
     publishedDate: "2023-10-29",
