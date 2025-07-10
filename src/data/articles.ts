@@ -751,7 +751,7 @@ export const articles: Article[] = [
       
       <p>La maladie de Charcot représente l'un des défis les plus difficiles en neurologie. Notre engagement est d'accompagner chaque patient et sa famille avec le maximum de compétence, de compassion et de respect, en préservant la dignité et la qualité de vie à chaque étape de cette épreuve.</p>
     `,
-    imageSrc: "https://lejournal.cnrs.fr/sites/default/files/styles/social/public/blog/visuels/adobestock_403910273_72dpi.jpg?itok=mJpfzJXc",
+    imageSrc: "https://cdn.prod.website-files.com/67339337c86ebb786697e68c/6839a2881b88b0792ccdcf15_image%20(4)%20(1).png",
     imageAlt: "Accompagnement neurologique spécialisé",
     category: "Maladies neurodégénératives",
     publishedDate: "2024-01-25",
