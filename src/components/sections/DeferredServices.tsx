@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 import OptimizedImage from '@/components/seo/OptimizedImage';
@@ -14,95 +15,83 @@ const DeferredServices: React.FC = () => {
 
   if (!isLoaded) return null;
 
-  const services = [{
-    title: "Aide-soignant(e) à domicile",
-    description: "Préservation de l'autonomie tout en accomplissant des actes de la vie quotidienne.",
-    detailedDescription: "Notre service d'aide-soignant à domicile garantit un accompagnement personnalisé pour préserver votre autonomie et votre dignité. Nos professionnels qualifiés vous assistent dans les gestes du quotidien tout en respectant vos habitudes et votre rythme de vie.",
-    icon: <div className="w-80 h-80 rounded-[3rem] overflow-hidden shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] border-8 border-white/40 bg-gradient-to-br from-mylli-primary/10 via-white/5 to-mylli-quaternary/10 p-8 group-hover:scale-102 group-hover:shadow-[0_45px_80px_-15px_rgba(0,0,0,0.35)] transition-all duration-1000 relative backdrop-blur-sm">
-      <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/20 to-transparent opacity-50 rounded-[2.5rem]"></div>
-      <div className="absolute inset-4 rounded-[2rem] bg-gradient-to-br from-white/30 to-white/10 backdrop-blur-md"></div>
-      <div className="w-full h-full rounded-[2rem] overflow-hidden bg-white shadow-[inset_0_8px_16px_rgba(0,0,0,0.1)] relative z-10 border-4 border-white/60">
-        <div className="absolute inset-0 bg-gradient-to-br from-mylli-primary/3 via-transparent to-mylli-quaternary/5"></div>
-        <OptimizedImage src="/lovable-uploads/a19bc553-aa29-42f9-b4dc-c1b200faa0f8.png" alt="Aide-soignant à domicile - Soins personnalisés" width={300} height={300} className="w-full h-full object-cover hover:scale-105 transition-transform duration-1500 filter brightness-110 contrast-110 saturate-120 relative z-20 hover:filter hover:brightness-115 hover:contrast-115" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/5 via-transparent to-white/10 pointer-events-none"></div>
-      </div>
-      <div className="absolute -top-4 -right-4 w-12 h-12 bg-gradient-to-br from-mylli-primary/80 to-mylli-secondary/80 rounded-full shadow-xl backdrop-blur-sm border-2 border-white/30 group-hover:scale-125 group-hover:rotate-180 transition-all duration-1000"></div>
-      <div className="absolute -bottom-3 -left-3 w-8 h-8 bg-gradient-to-br from-mylli-quaternary/70 to-mylli-accent/70 rounded-full shadow-lg backdrop-blur-sm border border-white/40 group-hover:scale-110 group-hover:-rotate-90 transition-all duration-1200"></div>
-      <div className="absolute top-6 left-6 w-4 h-4 bg-gradient-to-br from-white/60 to-white/30 rounded-full shadow-md group-hover:scale-150 transition-all duration-800"></div>
-    </div>,
-    features: ["Assiste à l'hygiène corporelle", "Aide à la mobilité", "Aide à l'alimentation", "Aide à la prise de médicaments"],
-    link: "/services/aide-soignant",
-    gradient: "from-mylli-primary via-mylli-secondary to-mylli-quaternary"
-  }, {
-    title: "Infirmier(ère) à domicile",
-    description: "Soins médicaux à domicile comme alternative à l'hospitalisation.",
-    detailedDescription: "Nos infirmiers diplômés d'État interviennent à votre domicile pour tous types de soins médicaux. Une alternative sécurisée à l'hospitalisation qui vous permet de rester dans votre environnement familier.",
-    icon: <div className="w-80 h-80 rounded-[3rem] overflow-hidden shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] border-8 border-white/40 bg-gradient-to-br from-mylli-secondary/10 via-white/5 to-mylli-accent/10 p-8 group-hover:scale-102 group-hover:shadow-[0_45px_80px_-15px_rgba(0,0,0,0.35)] transition-all duration-1000 relative backdrop-blur-sm">
-      <div className="absolute inset-0 bg-gradient-to-bl from-transparent via-white/20 to-transparent opacity-50 rounded-[2.5rem]"></div>
-      <div className="absolute inset-4 rounded-[2rem] bg-gradient-to-bl from-white/30 to-white/10 backdrop-blur-md"></div>
-      <div className="w-full h-full rounded-[2rem] overflow-hidden bg-white shadow-[inset_0_8px_16px_rgba(0,0,0,0.1)] relative z-10 border-4 border-white/60">
-        <div className="absolute inset-0 bg-gradient-to-bl from-mylli-secondary/3 via-transparent to-mylli-accent/5"></div>
-        <OptimizedImage src="/lovable-uploads/50a817cb-5544-420a-88d1-793d11dc6290.png" alt="Infirmier à domicile - Soins médicaux professionnels" width={300} height={300} className="w-full h-full object-cover hover:scale-105 transition-transform duration-1500 filter brightness-110 contrast-110 saturate-120 relative z-20 hover:filter hover:brightness-115 hover:contrast-115" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/5 via-transparent to-white/10 pointer-events-none"></div>
-      </div>
-      <div className="absolute -top-4 -left-4 w-12 h-12 bg-gradient-to-bl from-mylli-secondary/80 to-mylli-tertiary/80 rounded-full shadow-xl backdrop-blur-sm border-2 border-white/30 group-hover:scale-125 group-hover:-rotate-180 transition-all duration-1000"></div>
-      <div className="absolute -bottom-3 -right-3 w-8 h-8 bg-gradient-to-bl from-mylli-accent/70 to-mylli-primary/70 rounded-full shadow-lg backdrop-blur-sm border border-white/40 group-hover:scale-110 group-hover:rotate-90 transition-all duration-1200"></div>
-      <div className="absolute top-6 right-6 w-4 h-4 bg-gradient-to-bl from-white/60 to-white/30 rounded-full shadow-md group-hover:scale-150 transition-all duration-800"></div>
-    </div>,
-    features: ["Pose et surveillance de perfusions", "Pansements et injections", "Pose et surveillance de sondes nasogastrique et urinaire", "Traitement Des escarres"],
-    link: "/services/infirmier",
-    gradient: "from-mylli-secondary via-mylli-tertiary to-mylli-accent"
-  }];
+  const services = [
+    {
+      title: "Aide-soignant(e) à domicile",
+      description: "Préservation de l'autonomie tout en accomplissant des actes de la vie quotidienne.",
+      image: "/lovable-uploads/a19bc553-aa29-42f9-b4dc-c1b200faa0f8.png",
+      features: [
+        "Assiste à l'hygiène corporelle",
+        "Aide à la mobilité", 
+        "Aide à l'alimentation",
+        "Aide à la prise de médicaments"
+      ],
+      link: "/services/aide-soignant",
+      buttonGradient: "from-blue-500 to-purple-600"
+    },
+    {
+      title: "Infirmier(ère) à domicile", 
+      description: "Soins médicaux à domicile comme alternative à l'hospitalisation.",
+      image: "/lovable-uploads/50a817cb-5544-420a-88d1-793d11dc6290.png",
+      features: [
+        "Pose et surveillance de perfusions",
+        "Pansements et injections",
+        "Pose et surveillance de sondes nasogastrique et urinaire", 
+        "Traitement Des escarres"
+      ],
+      link: "/services/infirmier",
+      buttonGradient: "from-red-500 to-blue-600"
+    }
+  ];
 
   return (
-    <div className="absolute inset-0 grid lg:grid-cols-2 gap-16 max-w-7xl mx-auto mt-16 fade-in-fast">
-      {services.map((service, index) => (
-        <div key={index} className="bg-white rounded-2xl shadow-lg p-8 flex flex-col h-[600px]">
-          {/* Image Container */}
-          <div className="flex justify-center mb-6">
-            <div className="w-48 h-48 rounded-2xl overflow-hidden shadow-md bg-gradient-to-br from-mylli-primary/5 to-mylli-quaternary/5 p-4">
-              <OptimizedImage 
-                src={index === 0 ? "/lovable-uploads/a19bc553-aa29-42f9-b4dc-c1b200faa0f8.png" : "/lovable-uploads/50a817cb-5544-420a-88d1-793d11dc6290.png"}
-                alt={service.title}
-                width={200}
-                height={200}
-                className="w-full h-full object-cover rounded-lg"
-              />
-            </div>
-          </div>
-          
-          {/* Title */}
-          <h3 className="text-xl font-bold mb-3 text-mylli-primary text-center">{service.title}</h3>
-          
-          {/* Description */}
-          <p className="text-mylli-gray text-center mb-6 text-sm leading-relaxed">{service.description}</p>
-          
-          {/* Services List */}
-          <div className="mb-6 flex-grow">
-            <h4 className="text-mylli-primary font-semibold mb-3 text-center">Nos prestations :</h4>
-            <div className="grid grid-cols-2 gap-2">
-              {service.features.map((feature, featureIndex) => (
-                <div key={featureIndex} className="flex items-start text-xs text-mylli-gray">
-                  <div className="w-1.5 h-1.5 bg-mylli-primary rounded-full mr-2 mt-1.5 flex-shrink-0"></div>
-                  <span className="leading-tight">{feature}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-          
-          {/* Button */}
-          <button 
-            onClick={() => window.location.href = service.link}
-            className={`w-full py-3 rounded-full text-white font-semibold transition-all duration-300 hover:scale-105 ${
-              index === 0 
-                ? 'bg-gradient-to-r from-blue-500 to-purple-600' 
-                : 'bg-gradient-to-r from-red-500 to-blue-600'
-            }`}
+    <div className="absolute inset-0 max-w-7xl mx-auto mt-16 fade-in-fast">
+      <div className="grid lg:grid-cols-2 gap-8 h-full">
+        {services.map((service, index) => (
+          <div 
+            key={index} 
+            className="bg-white rounded-3xl shadow-xl p-8 flex flex-col justify-between min-h-[600px] max-w-[500px] mx-auto w-full"
           >
-            Découvrir le service <ArrowRight size={16} className="inline ml-1" />
-          </button>
-        </div>
-      ))}
+            {/* Header Section - Fixed Height */}
+            <div className="text-center mb-6">
+              <h3 className="text-2xl font-bold text-mylli-primary mb-4">
+                {service.title}
+              </h3>
+              <p className="text-mylli-gray text-base leading-relaxed">
+                {service.description}
+              </p>
+            </div>
+
+            {/* Features Section - Flexible Height */}
+            <div className="flex-grow mb-8">
+              <h4 className="text-lg font-semibold text-mylli-primary text-center mb-6">
+                Nos prestations :
+              </h4>
+              <div className="space-y-3">
+                {service.features.map((feature, featureIndex) => (
+                  <div key={featureIndex} className="flex items-start">
+                    <div className="w-2 h-2 bg-mylli-primary rounded-full mr-3 mt-2 flex-shrink-0"></div>
+                    <span className="text-mylli-gray text-sm leading-relaxed flex-1">
+                      {feature}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Button Section - Fixed Height */}
+            <div className="mt-auto">
+              <button 
+                onClick={() => window.location.href = service.link}
+                className={`w-full py-4 rounded-full text-white font-semibold text-lg transition-all duration-300 hover:scale-105 hover:shadow-lg bg-gradient-to-r ${service.buttonGradient} flex items-center justify-center gap-2`}
+              >
+                Découvrir le service 
+                <ArrowRight size={20} className="transition-transform group-hover:translate-x-1" />
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
