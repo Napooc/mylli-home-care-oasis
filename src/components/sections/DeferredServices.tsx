@@ -55,36 +55,52 @@ const DeferredServices: React.FC = () => {
   }];
 
   return (
-    <div className="absolute inset-0 flex flex-col lg:flex-row gap-16 max-w-7xl mx-auto mt-16 fade-in-fast">
+    <div className="absolute inset-0 grid lg:grid-cols-2 gap-16 max-w-7xl mx-auto mt-16 fade-in-fast">
       {services.map((service, index) => (
-        <div key={index} className="flex-1 flex flex-col min-h-[700px]">
-          <div className="backdrop-blur-md bg-white/60 rounded-2xl border border-white/30 shadow-glass p-8 transition-all duration-300 hover:shadow-lg h-full group flex flex-col">
-            <div className="absolute -inset-0.5 bg-gradient-to-br from-mylli-primary/20 to-mylli-quaternary/20 rounded-2xl blur opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            <div className="relative flex flex-col h-full z-10">
-              <div className="flex justify-center mb-6 h-80 items-center">
-                {service.icon}
-              </div>
-              <h3 className="text-2xl font-bold mb-4 text-mylli-dark text-center">{service.title}</h3>
-              <p className="text-mylli-gray mb-6 text-center leading-relaxed flex-grow">{service.description}</p>
-              <div className="mb-6">
-                <h4 className="text-lg font-semibold mb-3 text-mylli-primary text-center">Nos prestations :</h4>
-                <div className="grid grid-cols-2 gap-2">
-                  {service.features.map((feature, featureIndex) => (
-                    <div key={featureIndex} className="flex items-center text-sm text-mylli-gray">
-                      <div className="w-2 h-2 bg-mylli-primary rounded-full mr-2 flex-shrink-0"></div>
-                      {feature}
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <button 
-                onClick={() => window.location.href = service.link}
-                className="mt-auto inline-flex items-center justify-center px-6 py-3 rounded-full bg-gradient-to-r from-mylli-primary to-mylli-quaternary text-white font-semibold transform transition-all duration-300 group-hover:scale-105 shadow-lg"
-              >
-                Découvrir le service <ArrowRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
-              </button>
+        <div key={index} className="bg-white rounded-2xl shadow-lg p-8 flex flex-col h-[600px]">
+          {/* Image Container */}
+          <div className="flex justify-center mb-6">
+            <div className="w-48 h-48 rounded-2xl overflow-hidden shadow-md bg-gradient-to-br from-mylli-primary/5 to-mylli-quaternary/5 p-4">
+              <OptimizedImage 
+                src={index === 0 ? "/lovable-uploads/a19bc553-aa29-42f9-b4dc-c1b200faa0f8.png" : "/lovable-uploads/50a817cb-5544-420a-88d1-793d11dc6290.png"}
+                alt={service.title}
+                width={200}
+                height={200}
+                className="w-full h-full object-cover rounded-lg"
+              />
             </div>
           </div>
+          
+          {/* Title */}
+          <h3 className="text-xl font-bold mb-3 text-mylli-primary text-center">{service.title}</h3>
+          
+          {/* Description */}
+          <p className="text-mylli-gray text-center mb-6 text-sm leading-relaxed">{service.description}</p>
+          
+          {/* Services List */}
+          <div className="mb-6 flex-grow">
+            <h4 className="text-mylli-primary font-semibold mb-3 text-center">Nos prestations :</h4>
+            <div className="grid grid-cols-2 gap-2">
+              {service.features.map((feature, featureIndex) => (
+                <div key={featureIndex} className="flex items-start text-xs text-mylli-gray">
+                  <div className="w-1.5 h-1.5 bg-mylli-primary rounded-full mr-2 mt-1.5 flex-shrink-0"></div>
+                  <span className="leading-tight">{feature}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          
+          {/* Button */}
+          <button 
+            onClick={() => window.location.href = service.link}
+            className={`w-full py-3 rounded-full text-white font-semibold transition-all duration-300 hover:scale-105 ${
+              index === 0 
+                ? 'bg-gradient-to-r from-blue-500 to-purple-600' 
+                : 'bg-gradient-to-r from-red-500 to-blue-600'
+            }`}
+          >
+            Découvrir le service <ArrowRight size={16} className="inline ml-1" />
+          </button>
         </div>
       ))}
     </div>
