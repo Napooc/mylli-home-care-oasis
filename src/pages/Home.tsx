@@ -565,7 +565,6 @@ const services = [{
           <div className="absolute bottom-0 left-0 -ml-16 -mb-16 w-64 h-64 bg-mylli-secondary/5 rounded-full blur-3xl"></div>
         </section>
         
-        {/* Services Section */}
         <section className="py-20 md:py-32 bg-gradient-to-br from-gray-50 via-white to-mylli-light/20 relative overflow-hidden" aria-labelledby="services-heading">
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
             <div className="absolute -top-40 -right-40 w-96 h-96 rounded-full bg-gradient-to-br from-mylli-primary/8 to-mylli-secondary/4 blur-3xl animate-pulse-soft"></div>
@@ -586,44 +585,37 @@ const services = [{
             <header className="text-center mb-20">
               <SectionHeading title="Nos Services" variant="gradient" id="services-heading" />
             </header>
-            
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 max-w-7xl mx-auto">
-              {services.map((service, index) => <div key={index} className="group relative transform transition-all duration-700 hover:-translate-y-6 hover:scale-[1.02]" style={{
-              animationDelay: `${index * 300}ms`
-            }}>
+              {services.map((service, index) => (
+                <div key={index} className="group relative transform transition-all duration-700 hover:-translate-y-6 hover:scale-[1.02] h-full" style={{ animationDelay: `${index * 300}ms` }}>
                   <div className={`absolute -inset-2 bg-gradient-to-r ${service.gradient} rounded-3xl blur-xl opacity-0 group-hover:opacity-25 transition-all duration-500`}></div>
-                  
-                  <div className="relative bg-white rounded-3xl shadow-2xl border border-gray-100/50 overflow-hidden min-h-[600px] flex flex-col">
-                    
-                    
-                    <div className="p-10 relative flex-1 flex flex-col">
-                      <div className="flex justify-center mb-8 relative z-10">
-                        <div className="relative group-hover:scale-110 transition-transform duration-500">
-                          {service.icon}
-                          <div className="absolute inset-0 bg-mylli-primary/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-50 transition-opacity duration-500"></div>
+                  <div className="relative bg-white rounded-3xl shadow-2xl border border-gray-100/50 overflow-hidden min-h-[600px] flex flex-col h-full">
+                    <div className="p-10 relative flex flex-col flex-1 justify-between">
+                      <div>
+                        <div className="flex justify-center mb-8 relative z-10">
+                          <div className="relative group-hover:scale-110 transition-transform duration-500">
+                            {service.icon}
+                            <div className="absolute inset-0 bg-mylli-primary/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-50 transition-opacity duration-500"></div>
+                          </div>
                         </div>
-                      </div>
-                      
-                      <div className="flex-1 mb-8">
                         <h3 className="text-2xl md:text-3xl font-bold mb-6 text-center text-mylli-dark group-hover:text-mylli-primary transition-colors duration-300">
                           {service.title}
                         </h3>
-                        
                         <p className="text-mylli-gray text-center mb-8 leading-relaxed text-lg group-hover:text-mylli-dark transition-colors duration-300">
                           {service.description}
                         </p>
-                        
                         <div className="mb-8">
                           <h4 className="text-lg font-semibold text-mylli-dark mb-4 text-center">Nos prestations :</h4>
                           <div className="grid grid-cols-2 gap-3">
-                            {service.features.map((feature, idx) => <div key={idx} className="flex items-center p-3 rounded-xl bg-gray-50 hover:bg-mylli-primary/5 transition-colors duration-300">
+                            {service.features.map((feature, idx) => (
+                              <div key={idx} className="flex items-center p-3 rounded-xl bg-gray-50 hover:bg-mylli-primary/5 transition-colors duration-300">
                                 <div className="w-2 h-2 bg-mylli-primary rounded-full mr-3 flex-shrink-0"></div>
                                 <span className="text-sm font-medium text-mylli-gray">{feature}</span>
-                              </div>)}
+                              </div>
+                            ))}
                           </div>
                         </div>
                       </div>
-                      
                       <div className="mt-auto">
                         <Link to={service.link} className={`group/btn relative w-full flex items-center justify-center px-8 py-4 bg-gradient-to-r ${service.gradient} text-white font-semibold rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 overflow-hidden text-lg`}>
                           <div className="absolute inset-0 bg-white/20 transform scale-x-0 group-hover/btn:scale-x-100 transition-transform duration-300 origin-left"></div>
@@ -631,15 +623,13 @@ const services = [{
                           <ArrowUpRight size={20} className="relative z-10 transform group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform duration-300" />
                         </Link>
                       </div>
-                      
                       <div className={`absolute bottom-0 left-0 w-full h-2 bg-gradient-to-r ${service.gradient} transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700 origin-left rounded-b-3xl`}></div>
                     </div>
-                    
                     <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-white/10 to-transparent rounded-bl-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   </div>
-                </div>)}
+                </div>
+              ))}
             </div>
-            
             <div className="text-center mt-20">
               <div className="relative inline-block group">
                 <div className="absolute -inset-1 bg-gradient-to-r from-mylli-primary via-mylli-secondary to-mylli-quaternary rounded-full blur-lg opacity-30 group-hover:opacity-50 transition-opacity duration-500"></div>
