@@ -55,12 +55,13 @@ const DeferredServices: React.FC = () => {
   }];
 
   return (
-    <div className="absolute inset-0 grid lg:grid-cols-2 gap-16 max-w-7xl mx-auto mt-16 fade-in-fast">
+    <div className="absolute inset-0 grid lg:grid-cols-2 gap-16 max-w-7xl mx-auto mt-16 fade-in-fast items-stretch">
       {services.map((service, index) => (
-        <div key={index} className="h-full">
+        <div key={index} className="flex">
           <ServiceCard
             {...service}
-            className="h-full"
+            className="flex-1 flex flex-col"
+            style="glass"
           />
         </div>
       ))}
