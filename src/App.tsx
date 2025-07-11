@@ -33,6 +33,7 @@ import { ultraFastImageLoader } from "./utils/ultraFastImageLoader";
 import { intelligentImageCache } from "./utils/intelligentImageCache";
 import { imagePerformanceMonitor } from "./utils/imagePerformanceMonitor";
 import "./styles/global.css";
+import "./styles/scroll-animations.css";
 
 // Ultra-optimized QueryClient
 const queryClient = new QueryClient({

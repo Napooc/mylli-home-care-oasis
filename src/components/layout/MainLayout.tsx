@@ -6,6 +6,7 @@ import Header from './Header';
 import Footer from './Footer';
 import BreadcrumbNav from '../seo/BreadcrumbNav';
 import WhatsAppButton from '../common/WhatsAppButton';
+import ScrollProgressBar from '../animations/ScrollProgressBar';
 import { preloadCriticalResources, measureCoreWebVitals } from '@/utils/seoUtils';
 import { usePerformanceOptimization } from '@/hooks/usePerformanceOptimization';
 import '../../styles/whatsapp-button.css';
@@ -20,7 +21,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
   // Initialize performance optimizations
   usePerformanceOptimization();
   
-  // Scroll to top when route changes
+  // Smooth scroll to top when route changes
   useEffect(() => {
     window.scrollTo({
       top: 0,
@@ -41,6 +42,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
   return (
     <HelmetProvider>
       <div className={`flex flex-col min-h-screen ${!isHomePage ? 'bg-gradient-to-br from-white to-mylli-light/30' : ''}`}>
+        <ScrollProgressBar />
         <Header />
         {showBreadcrumbs && <BreadcrumbNav />}
         <main className="flex-grow" role="main" style={{ marginTop: '64px' }}>

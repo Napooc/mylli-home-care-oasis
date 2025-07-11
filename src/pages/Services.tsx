@@ -1,9 +1,12 @@
+
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import PageBanner from '@/components/common/PageBanner';
 import UltraFastImage from '@/components/images/UltraFastImage';
 import SEOHead from '@/components/seo/SEOHead';
+import ModernScrollReveal from '@/components/animations/ModernScrollReveal';
+import StaggeredReveal from '@/components/animations/StaggeredReveal';
 import { generateServicePageStructuredData } from '@/utils/structuredData';
 
 const ServicesPage = () => {
@@ -37,11 +40,13 @@ const ServicesPage = () => {
         structuredData={structuredData}
       />
       
-      <PageBanner 
-        title="Nos Services" 
-        subtitle="Des gardes-malades professionnels et attentifs pour répondre à tous vos besoins d'accompagnement à domicile." 
-        variant="fast" 
-      />
+      <ModernScrollReveal direction="fade" duration={0.8}>
+        <PageBanner 
+          title="Nos Services" 
+          subtitle="Des gardes-malades professionnels et attentifs pour répondre à tous vos besoins d'accompagnement à domicile." 
+          variant="fast" 
+        />
+      </ModernScrollReveal>
       
       {/* Main Services with optimized images */}
       <section className="section-padding bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
@@ -52,7 +57,10 @@ const ServicesPage = () => {
         </div>
         
         <div className="container-custom relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 max-w-7xl mx-auto">
+          <StaggeredReveal 
+            staggerDelay={0.3}
+            className="grid grid-cols-1 lg:grid-cols-2 gap-20 max-w-7xl mx-auto"
+          >
             {mainServices.map((service, index) => (
               <div key={index} className="group relative h-full">
                 {/* Simplified background glow */}
@@ -125,31 +133,39 @@ const ServicesPage = () => {
                 </div>
               </div>
             ))}
-          </div>
+          </StaggeredReveal>
         </div>
       </section>
       
       {/* Call to Action */}
-      <section className="section-padding bg-gradient-to-r from-mylli-primary to-mylli-dark text-white">
-        <div className="container-custom text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6 animate-fade-in">Besoin de nos services ?</h2>
-          <p className="text-xl opacity-90 mb-8 max-w-2xl mx-auto animate-fade-in">
-            Contactez-nous dès aujourd'hui pour une consultation gratuite et découvrez comment nous pouvons vous aider.
-          </p>
-          <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4 animate-fade-in">
-            <Button asChild className="btn-accent">
-              <Link to="/contact">
-                Contactez-nous
-              </Link>
-            </Button>
-            <Button variant="outline" asChild className="bg-transparent border-white hover:bg-white/10">
-              <Link to="/fonctionnement">
-                Notre fonctionnement
-              </Link>
-            </Button>
+      <ModernScrollReveal direction="up" duration={1.0}>
+        <section className="section-padding bg-gradient-to-r from-mylli-primary to-mylli-dark text-white">
+          <div className="container-custom text-center">
+            <ModernScrollReveal direction="fade" delay={0.2}>
+              <h2 className="text-3xl md:text-4xl font-bold mb-6 animate-fade-in">Besoin de nos services ?</h2>
+            </ModernScrollReveal>
+            <ModernScrollReveal direction="fade" delay={0.4}>
+              <p className="text-xl opacity-90 mb-8 max-w-2xl mx-auto animate-fade-in">
+                Contactez-nous dès aujourd'hui pour une consultation gratuite et découvrez comment nous pouvons vous aider.
+              </p>
+            </ModernScrollReveal>
+            <ModernScrollReveal direction="up" delay={0.6}>
+              <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4 animate-fade-in">
+                <Button asChild className="btn-accent">
+                  <Link to="/contact">
+                    Contactez-nous
+                  </Link>
+                </Button>
+                <Button variant="outline" asChild className="bg-transparent border-white hover:bg-white/10">
+                  <Link to="/fonctionnement">
+                    Notre fonctionnement
+                  </Link>
+                </Button>
+              </div>
+            </ModernScrollReveal>
           </div>
-        </div>
-      </section>
+        </section>
+      </ModernScrollReveal>
     </div>
   );
 };

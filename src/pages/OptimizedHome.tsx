@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Heart, User, Home as HomeIcon, Clock, Shield, CheckCircle, Star, ArrowUpRight, Phone, Share, X, Quote, Syringe } from 'lucide-react';
@@ -8,6 +9,8 @@ import ContactForm from '@/components/common/ContactForm';
 import ServiceLocations from '@/components/common/ServiceLocations';
 import SEOHead from '@/components/seo/SEOHead';
 import OptimizedImage from '@/components/seo/OptimizedImage';
+import ModernScrollReveal from '@/components/animations/ModernScrollReveal';
+import StaggeredReveal from '@/components/animations/StaggeredReveal';
 import { generateHomepageStructuredData } from '@/utils/structuredData';
 import LazyHeroSection from '@/components/sections/LazyHeroSection';
 import LazyServiceSection from '@/components/sections/LazyServiceSection';
@@ -131,106 +134,131 @@ const OptimizedHome = () => {
         <LazyHeroSection />
 
         {/* Statistics Section - Critical for trust */}
-        <section ref={heroRef} className="py-16 bg-gradient-to-r from-mylli-primary to-mylli-secondary">
-          <div className="container mx-auto px-4">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center text-white">
-              <div className="fade-in-fast">
-                <div className="text-4xl md:text-5xl font-bold mb-2">{count}+</div>
-                <div className="text-sm md:text-base opacity-90">Années d'expérience</div>
-              </div>
-              <div className="fade-in-fast">
-                <div className="text-4xl md:text-5xl font-bold mb-2">24/7</div>
-                <div className="text-sm md:text-base opacity-90">Disponibilité</div>
-              </div>
-              <div className="fade-in-fast">
-                <div className="text-4xl md:text-5xl font-bold mb-2">100%</div>
-                <div className="text-sm md:text-base opacity-90">Diplômés d'État</div>
-              </div>
-              <div className="fade-in-fast">
-                <div className="text-4xl md:text-5xl font-bold mb-2">N°1</div>
-                <div className="text-sm md:text-base opacity-90">Au Maroc</div>
-              </div>
+        <ModernScrollReveal direction="up" duration={1.2}>
+          <section ref={heroRef} className="py-16 bg-gradient-to-r from-mylli-primary to-mylli-secondary">
+            <div className="container mx-auto px-4">
+              <StaggeredReveal staggerDelay={0.15} className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center text-white">
+                <div>
+                  <div className="text-4xl md:text-5xl font-bold mb-2">{count}+</div>
+                  <div className="text-sm md:text-base opacity-90">Années d'expérience</div>
+                </div>
+                <div>
+                  <div className="text-4xl md:text-5xl font-bold mb-2">24/7</div>
+                  <div className="text-sm md:text-base opacity-90">Disponibilité</div>
+                </div>
+                <div>
+                  <div className="text-4xl md:text-5xl font-bold mb-2">100%</div>
+                  <div className="text-sm md:text-base opacity-90">Diplômés d'État</div>
+                </div>
+                <div>
+                  <div className="text-4xl md:text-5xl font-bold mb-2">N°1</div>
+                  <div className="text-sm md:text-base opacity-90">Au Maroc</div>
+                </div>
+              </StaggeredReveal>
             </div>
-          </div>
-        </section>
+          </section>
+        </ModernScrollReveal>
 
         {/* Lazy-loaded sections */}
         <LazyServiceSection />
 
         {/* How it works section - Essential for conversion */}
-        <section className="py-24 bg-gray-50" aria-labelledby="how-it-works-heading">
-          <div className="container mx-auto px-4">
-            <SectionHeading 
-              title="Comment ça marche ?" 
-              id="how-it-works-heading"
-            >
-              <p className="text-mylli-gray text-lg mt-4">Un processus simple et transparent pour vous accompagner</p>
-            </SectionHeading>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto mt-16">
-              {howItWorks.map((step, index) => (
-                <div key={index} className="text-center group">
-                  <div className={`w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-mylli-${step.color} to-mylli-${step.color}/80 flex items-center justify-center text-white font-bold text-xl shadow-lg group-hover:shadow-xl transition-all duration-300 transform group-hover:scale-105`}>
-                    {step.step}
+        <ModernScrollReveal direction="up" duration={1.0}>
+          <section className="py-24 bg-gray-50" aria-labelledby="how-it-works-heading">
+            <div className="container mx-auto px-4">
+              <ModernScrollReveal direction="fade" duration={0.8}>
+                <SectionHeading 
+                  title="Comment ça marche ?" 
+                  id="how-it-works-heading"
+                >
+                  <p className="text-mylli-gray text-lg mt-4">Un processus simple et transparent pour vous accompagner</p>
+                </SectionHeading>
+              </ModernScrollReveal>
+              <StaggeredReveal 
+                staggerDelay={0.2} 
+                className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto mt-16"
+              >
+                {howItWorks.map((step, index) => (
+                  <div key={index} className="text-center group">
+                    <div className={`w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-mylli-${step.color} to-mylli-${step.color}/80 flex items-center justify-center text-white font-bold text-xl shadow-lg group-hover:shadow-xl transition-all duration-300 transform group-hover:scale-105`}>
+                      {step.step}
+                    </div>
+                    <div className="mb-4">
+                      {step.icon}
+                    </div>
+                    <h3 className="text-xl font-semibold text-mylli-dark mb-3">{step.title}</h3>
+                    <p className="text-mylli-gray leading-relaxed">{step.description}</p>
                   </div>
-                  <div className="mb-4">
-                    {step.icon}
-                  </div>
-                  <h3 className="text-xl font-semibold text-mylli-dark mb-3">{step.title}</h3>
-                  <p className="text-mylli-gray leading-relaxed">{step.description}</p>
-                </div>
-              ))}
+                ))}
+              </StaggeredReveal>
             </div>
-          </div>
-        </section>
+          </section>
+        </ModernScrollReveal>
 
         <LazyFeatureSection />
         <LazyTestimonialSection />
 
         {/* Service locations - Critical for local SEO */}
-        <ServiceLocations locations={serviceLocations} />
+        <ModernScrollReveal direction="up" duration={1.0}>
+          <ServiceLocations locations={serviceLocations} />
+        </ModernScrollReveal>
 
         {/* CTA section - Critical for conversion */}
-        <section className="py-24 bg-gradient-to-br from-mylli-primary to-mylli-secondary text-white">
-          <div className="container mx-auto px-4 text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              Besoin d'aide ? Nous sommes là pour vous
-            </h2>
-            <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
-              Contactez-nous dès maintenant pour un devis gratuit et personnalisé
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <a 
-                href="tel:+212661377438" 
-                className="bg-white text-mylli-primary px-8 py-4 rounded-full font-semibold text-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
-              >
-                📞 Appel gratuit: +212 661 37 74 38
-              </a>
-              <Button 
-                onClick={() => scrollToSection('contact')} 
-                variant="outline" 
-                size="lg"
-                className="border-white text-white hover:bg-white hover:text-mylli-primary"
-              >
-                Devis gratuit
-                <ArrowRight className="ml-2" size={20} />
-              </Button>
+        <ModernScrollReveal direction="scale" duration={1.2}>
+          <section className="py-24 bg-gradient-to-br from-mylli-primary to-mylli-secondary text-white">
+            <div className="container mx-auto px-4 text-center">
+              <ModernScrollReveal direction="fade" delay={0.3}>
+                <h2 className="text-3xl md:text-4xl font-bold mb-6">
+                  Besoin d'aide ? Nous sommes là pour vous
+                </h2>
+              </ModernScrollReveal>
+              <ModernScrollReveal direction="fade" delay={0.5}>
+                <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
+                  Contactez-nous dès maintenant pour un devis gratuit et personnalisé
+                </p>
+              </ModernScrollReveal>
+              <ModernScrollReveal direction="up" delay={0.7}>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                  <a 
+                    href="tel:+212661377438" 
+                    className="bg-white text-mylli-primary px-8 py-4 rounded-full font-semibold text-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                  >
+                    📞 Appel gratuit: +212 661 37 74 38
+                  </a>
+                  <Button 
+                    onClick={() => scrollToSection('contact')} 
+                    variant="outline" 
+                    size="lg"
+                    className="border-white text-white hover:bg-white hover:text-mylli-primary"
+                  >
+                    Devis gratuit
+                    <ArrowRight className="ml-2" size={20} />
+                  </Button>
+                </div>
+              </ModernScrollReveal>
             </div>
-          </div>
-        </section>
+          </section>
+        </ModernScrollReveal>
 
         {/* Contact form */}
-        <section id="contact" className="py-24 bg-white">
-          <div className="container mx-auto px-4">
-            <SectionHeading 
-              title="Contactez-nous"
-            >
-              <p className="text-mylli-gray text-lg mt-4">Demandez votre devis gratuit et personnalisé</p>
-            </SectionHeading>
-            <div className="max-w-2xl mx-auto mt-16">
-              <ContactForm />
+        <ModernScrollReveal direction="up" duration={1.0}>
+          <section id="contact" className="py-24 bg-white">
+            <div className="container mx-auto px-4">
+              <ModernScrollReveal direction="fade" duration={0.8}>
+                <SectionHeading 
+                  title="Contactez-nous"
+                >
+                  <p className="text-mylli-gray text-lg mt-4">Demandez votre devis gratuit et personnalisé</p>
+                </SectionHeading>
+              </ModernScrollReveal>
+              <ModernScrollReveal direction="up" delay={0.3}>
+                <div className="max-w-2xl mx-auto mt-16">
+                  <ContactForm />
+                </div>
+              </ModernScrollReveal>
             </div>
-          </div>
-        </section>
+          </section>
+        </ModernScrollReveal>
       </div>
     </>
   );
