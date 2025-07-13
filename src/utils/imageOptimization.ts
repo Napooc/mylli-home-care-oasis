@@ -28,16 +28,26 @@ export const optimizeImageUrl = (src: string, options: ImageOptimizationOptions 
   );
 };
 
-// Critical images only (logo) with mobile optimization
+// Critical images only (logo) with ultra-fast preloading
 export const preloadCriticalImages = (): void => {
-  const criticalImages = ['/lovable-uploads/554676d0-4988-4b83-864c-15c32ee349a2.png'];
+  const criticalImages = [
+    '/lovable-uploads/554676d0-4988-4b83-864c-15c32ee349a2.png',
+    '/lovable-uploads/21a6c87c-23d4-42e3-a542-44f2e834616d.png',
+    '/lovable-uploads/609a7402-4f73-4888-bedd-2256c3fbd997.png'
+  ];
   
+  // Immediate preload with highest priority
   criticalImages.forEach(src => {
     const link = document.createElement('link');
     link.rel = 'preload';
     link.as = 'image';
-    link.href = mobileImageOptimizer.optimizeImageUrl(src, 200, undefined, 'high');
+    link.fetchPriority = 'high';
+    link.href = mobileImageOptimizer.optimizeImageUrl(src, 800, undefined, 'high');
     document.head.appendChild(link);
+    
+    // Also create image object for instant browser cache
+    const img = new Image();
+    img.src = link.href;
   });
 };
 
