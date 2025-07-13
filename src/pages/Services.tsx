@@ -1,5 +1,4 @@
 
-import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { Button } from "@/components/ui/button";
@@ -9,16 +8,10 @@ import SEOHead from '@/components/seo/SEOHead';
 import ModernScrollReveal from '@/components/animations/ModernScrollReveal';
 import StaggeredReveal from '@/components/animations/StaggeredReveal';
 import { generateServicePageStructuredData } from '@/utils/structuredData';
-import { smartPreload } from '@/utils/pageImagePreloader';
 
 const ServicesPage = () => {
   // Generate structured data for services
   const structuredData = generateServicePageStructuredData();
-
-  // Smart preload service detail pages
-  useEffect(() => {
-    smartPreload('services');
-  }, []);
 
   // Main services with optimized image loading
   const mainServices = [{
