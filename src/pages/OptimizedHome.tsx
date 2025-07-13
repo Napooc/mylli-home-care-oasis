@@ -12,6 +12,7 @@ import OptimizedImage from '@/components/seo/OptimizedImage';
 import ModernScrollReveal from '@/components/animations/ModernScrollReveal';
 import StaggeredReveal from '@/components/animations/StaggeredReveal';
 import { generateHomepageStructuredData } from '@/utils/structuredData';
+import { smartPreload } from '@/utils/pageImagePreloader';
 import LazyHeroSection from '@/components/sections/LazyHeroSection';
 import LazyServiceSection from '@/components/sections/LazyServiceSection';
 import LazyTestimonialSection from '@/components/sections/LazyTestimonialSection';
@@ -109,6 +110,11 @@ const OptimizedHome = () => {
   }];
 
   const structuredData = generateHomepageStructuredData();
+
+  // Smart preload next likely pages
+  useEffect(() => {
+    smartPreload('home');
+  }, []);
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);

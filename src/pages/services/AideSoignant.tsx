@@ -1,12 +1,19 @@
 
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Heart, User, Clock, Shield, CheckCircle, Star, Phone } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import PageBanner from '@/components/common/PageBanner';
 import SectionHeading from '@/components/common/SectionHeading';
-import OptimizedImage from '@/components/seo/OptimizedImage';
+import UltraFastImage from '@/components/images/UltraFastImage';
+import { smartPreload } from '@/utils/pageImagePreloader';
 
 const AideSoignantPage = () => {
+  // Smart preload related pages
+  useEffect(() => {
+    smartPreload('aide-soignant');
+  }, []);
+
   // Roles of caregiver with specific healthcare icons
   const roles = [{
     title: "Assister à l'hygiène corporelle",
@@ -90,11 +97,13 @@ const AideSoignantPage = () => {
                   <div className="relative bg-white rounded-3xl shadow-2xl overflow-hidden border border-mylli-primary/10">
                     <div className="absolute inset-0 bg-gradient-to-br from-mylli-primary/5 to-mylli-secondary/5"></div>
                     <div className="relative p-8">
-                      <OptimizedImage 
+                      <UltraFastImage 
                         src="/lovable-uploads/faf36ebb-3182-48d2-bee8-b230c9b182eb.png" 
                         alt="Aide-soignant avec patient âgé" 
                         width={600} 
                         height={400} 
+                        priority={true}
+                        quality={80}
                         className="w-full h-auto rounded-2xl shadow-lg transform hover:scale-105 transition-transform duration-500" 
                       />
                     </div>
@@ -148,7 +157,7 @@ const AideSoignantPage = () => {
                         
                         {/* Main image container - much larger size */}
                         <div className="relative w-40 h-40 mx-auto rounded-3xl bg-gradient-to-br from-white to-mylli-light/30 flex items-center justify-center shadow-xl transform transition-all duration-500 group-hover:scale-110 group-hover:shadow-2xl border border-mylli-primary/10">
-                          <OptimizedImage src={role.iconImage} alt={role.title} width={120} height={120} className="w-32 h-32 object-contain filter group-hover:brightness-110 transition-all duration-500" />
+                          <UltraFastImage src={role.iconImage} alt={role.title} width={120} height={120} priority={index < 3} className="w-32 h-32 object-contain filter group-hover:brightness-110 transition-all duration-500" />
                         </div>
                         
                         {/* Additional decorative elements */}
