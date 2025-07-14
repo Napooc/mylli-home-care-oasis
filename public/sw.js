@@ -1,18 +1,19 @@
-// High-performance service worker with smart caching strategies
-const CACHE_NAME = 'mylli-services-v1';
-const STATIC_CACHE = 'mylli-static-v1';
-const IMAGE_CACHE = 'mylli-images-v1';
-const API_CACHE = 'mylli-api-v1';
-const FAVICON_CACHE = 'mylli-favicon-v1'; // New favicon-specific cache
+// Ultra-fast service worker with aggressive caching and task scheduling
+const CACHE_NAME = 'mylli-ultra-v2';
+const STATIC_CACHE = 'mylli-static-v2';
+const IMAGE_CACHE = 'mylli-images-v2';
+const API_CACHE = 'mylli-api-v2';
+const FAVICON_CACHE = 'mylli-favicon-v2';
 
-// Critical resources to cache immediately
+// Critical resources to cache immediately for instant loading
 const CRITICAL_RESOURCES = [
   '/',
   '/index.html',
   '/src/main.tsx',
   '/src/App.tsx',
-  '/src/styles/global.css',
-  '/lovable-uploads/f8839c98-c2b6-4a1b-86d6-d6858f3f38df.png', // New Home Care Logo
+  '/lovable-uploads/554676d0-4988-4b83-864c-15c32ee349a2.png',
+  '/lovable-uploads/21a6c87c-23d4-42e3-a542-44f2e834616d.png',
+  '/lovable-uploads/609a7402-4f73-4888-bedd-2256c3fbd997.png'
 ];
 
 // Simplified favicon resources with cache busting
