@@ -1,18 +1,9 @@
 
-import React, { Suspense } from 'react';
-import InstantHero from '../hero/InstantHero';
-
-const DeferredEnhancements = React.lazy(() => import('../hero/DeferredEnhancements'));
+import React from 'react';
+import UltraFastHero from '../hero/UltraFastHero';
 
 const LazyHeroSection: React.FC = () => {
-  return (
-    <div className="relative">
-      <InstantHero />
-      <Suspense fallback={null}>
-        <DeferredEnhancements />
-      </Suspense>
-    </div>
-  );
+  return <UltraFastHero />;
 };
 
 export default LazyHeroSection;
