@@ -1,7 +1,7 @@
 
 import React, { useState, useRef, useEffect, memo, useCallback } from 'react';
-import { Skeleton } from '@/components/ui/skeleton';
-import { mobileImageOptimizer } from '@/utils/mobileImageOptimizer';
+import { hyperFastImageCache } from '@/utils/hyperFastImageCache';
+import { mobilePerformanceOptimizer } from '@/utils/mobilePerformanceOptimizer';
 
 interface UltraFastImageProps {
   src: string;
@@ -31,14 +31,19 @@ const UltraFastImage: React.FC<UltraFastImageProps> = memo(({
   const [isLoaded, setIsLoaded] = useState(false);
   const [isInView, setIsInView] = useState(priority);
   const [hasError, setHasError] = useState(false);
-  const [placeholder, setPlaceholder] = useState<string>('');
   const containerRef = useRef<HTMLDivElement>(null);
+  
+  // Check if image is already cached for instant loading
+  const isCached = hyperFastImageCache.isImageCached(src);
 
-  // Mobile-optimized intersection observer
+  // Ultra-aggressive mobile intersection observer
   useEffect(() => {
-    if (priority) return;
+    if (priority || isCached) {
+      setIsInView(true);
+      return;
+    }
 
-    const config = mobileImageOptimizer.getMobileIntersectionConfig();
+    const threshold = mobilePerformanceOptimizer.shouldDeferNonCritical() ? '50px' : '200px';
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -46,7 +51,7 @@ const UltraFastImage: React.FC<UltraFastImageProps> = memo(({
           observer.disconnect();
         }
       },
-      config
+      { threshold: 0.01, rootMargin: threshold }
     );
 
     if (containerRef.current) {
@@ -54,25 +59,49 @@ const UltraFastImage: React.FC<UltraFastImageProps> = memo(({
     }
 
     return () => observer.disconnect();
-  }, [priority]);
+  }, [priority, isCached]);
 
-  // Generate mobile placeholder
+  // Instant placeholder for immediate visual feedback
+  const placeholder = `data:image/svg+xml;base64,${btoa(
+    `<svg width="${width || 400}" height="${height || 300}" xmlns="http://www.w3.org/2000/svg">
+      <rect width="100%" height="100%" fill="#e5e5e5"/>
+      <rect x="20%" y="40%" width="60%" height="20%" fill="#d4d4d4" rx="4"/>
+    </svg>`
+  )}`;
+
+  // Preload image in cache when in view
   useEffect(() => {
-    if (!priority && width && height) {
-      const mobilePlaceholder = mobileImageOptimizer.generateMobilePlaceholder(width, height);
-      setPlaceholder(mobilePlaceholder);
+    if (isInView && !isCached) {
+      const optimizedSrc = getOptimizedSrc();
+      hyperFastImageCache.preloadImage(optimizedSrc).then(() => {
+        setIsLoaded(true);
+        onLoad?.();
+      }).catch(() => {
+        setHasError(true);
+        onError?.();
+      });
+    } else if (isCached) {
+      setIsLoaded(true);
+      onLoad?.();
     }
-  }, [width, height, priority]);
+  }, [isInView, isCached]);
 
-  const handleLoad = useCallback(() => {
-    setIsLoaded(true);
-    onLoad?.();
-  }, [onLoad]);
+  // Ultra-fast URL optimization
+  const getOptimizedSrc = useCallback(() => {
+    const quality = mobilePerformanceOptimizer.getOptimalImageQuality();
+    const targetWidth = Math.min(width || 800, window.innerWidth);
+    const targetHeight = Math.min(height || 600, window.innerHeight);
 
-  const handleError = useCallback(() => {
-    setHasError(true);
-    onError?.();
-  }, [onError]);
+    if (src.includes('lovable-uploads')) {
+      return `${src}?q=${quality}&w=${targetWidth}&h=${targetHeight}&fm=webp&fit=crop`;
+    }
+    
+    if (src.includes('unsplash.com')) {
+      return `${src}&q=${quality}&w=${targetWidth}&h=${targetHeight}&fm=webp&fit=crop&auto=format`;
+    }
+    
+    return src;
+  }, [src, width, height]);
 
   if (hasError) {
     return (
@@ -85,51 +114,36 @@ const UltraFastImage: React.FC<UltraFastImageProps> = memo(({
     );
   }
 
-  // Use mobile-optimized URL
-  const optimizedSrc = mobileImageOptimizer.optimizeImageUrl(
-    src, 
-    width, 
-    height, 
-    priority ? 'high' : 'medium'
-  );
+  const optimizedSrc = getOptimizedSrc();
 
   return (
-    <div ref={containerRef} className={`relative overflow-hidden ${className}`}>
-      {!isLoaded && placeholder && (
-        <img
-          src={placeholder}
-          alt=""
-          className="absolute inset-0 w-full h-full object-cover blur-sm opacity-50"
-          style={{ width: width || '100%', height: height || '100%' }}
-        />
-      )}
+    <div 
+      ref={containerRef} 
+      className={`relative overflow-hidden bg-muted ${className}`}
+      style={{ width: width || 'auto', height: height || 'auto' }}
+    >
+      {/* Instant placeholder - always visible until real image loads */}
+      <img
+        src={placeholder}
+        alt=""
+        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-150 ${
+          isLoaded ? 'opacity-0' : 'opacity-100'
+        }`}
+        style={{ width: '100%', height: '100%' }}
+      />
       
-      {!isLoaded && !placeholder && (
-        <Skeleton 
-          className="absolute inset-0 w-full h-full rounded"
-          style={{ width: width || '100%', height: height || '100%' }}
-        />
-      )}
-      
-      {isInView && (
+      {/* Real image - fades in when loaded */}
+      {(isInView || isCached) && (
         <img
           src={optimizedSrc}
           alt={alt}
-          width={width}
-          height={height}
-          sizes={sizes}
+          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-150 ${
+            isLoaded ? 'opacity-100' : 'opacity-0'
+          }`}
+          style={{ width: '100%', height: '100%' }}
           loading={priority ? 'eager' : 'lazy'}
           decoding="async"
           fetchPriority={priority ? 'high' : 'auto'}
-          onLoad={handleLoad}
-          onError={handleError}
-          className={`transition-opacity duration-300 ${
-            isLoaded ? 'opacity-100' : 'opacity-0'
-          } ${className}`}
-          style={{
-            width: width ? `${width}px` : 'auto',
-            height: height ? `${height}px` : 'auto'
-          }}
         />
       )}
     </div>
