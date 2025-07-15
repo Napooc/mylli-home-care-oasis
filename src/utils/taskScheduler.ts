@@ -3,7 +3,7 @@ export class TaskScheduler {
   private static instance: TaskScheduler | null = null;
   private taskQueue: Array<() => void> = [];
   private isProcessing = false;
-  private readonly MAX_TASK_TIME = 5; // 5ms per frame to avoid blocking
+  private readonly MAX_TASK_TIME = 3; // 3ms per frame for mobile optimization
 
   static getInstance(): TaskScheduler {
     if (!TaskScheduler.instance) {
@@ -20,8 +20,8 @@ export class TaskScheduler {
     }
   }
 
-  // Schedule multiple tasks with automatic chunking
-  scheduleChunked(tasks: Array<() => void>, chunkSize = 3): void {
+  // Schedule multiple tasks with automatic chunking (mobile optimized)
+  scheduleChunked(tasks: Array<() => void>, chunkSize = 2): void {
     const chunks = this.chunkArray(tasks, chunkSize);
     chunks.forEach((chunk, index) => {
       this.schedule(() => {
@@ -44,7 +44,7 @@ export class TaskScheduler {
     while (this.taskQueue.length > 0) {
       const startTime = performance.now();
       
-      // Process tasks for max 5ms per frame
+      // Process tasks for max 3ms per frame (mobile optimized)
       while (this.taskQueue.length > 0 && (performance.now() - startTime) < this.MAX_TASK_TIME) {
         const task = this.taskQueue.shift();
         task?.();

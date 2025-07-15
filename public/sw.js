@@ -1,19 +1,15 @@
-// Ultra-fast service worker with aggressive caching and task scheduling
-const CACHE_NAME = 'mylli-ultra-v2';
-const STATIC_CACHE = 'mylli-static-v2';
-const IMAGE_CACHE = 'mylli-images-v2';
-const API_CACHE = 'mylli-api-v2';
-const FAVICON_CACHE = 'mylli-favicon-v2';
+// Mobile-optimized service worker with ultra-light caching
+const CACHE_NAME = 'mylli-mobile-v3';
+const STATIC_CACHE = 'mylli-static-v3';
+const IMAGE_CACHE = 'mylli-images-v3';
+const API_CACHE = 'mylli-api-v3';
+const FAVICON_CACHE = 'mylli-favicon-v3';
 
-// Critical resources to cache immediately for instant loading
+// Mobile-critical resources only (reduced for performance)
 const CRITICAL_RESOURCES = [
   '/',
   '/index.html',
-  '/src/main.tsx',
-  '/src/App.tsx',
-  '/lovable-uploads/554676d0-4988-4b83-864c-15c32ee349a2.png',
-  '/lovable-uploads/21a6c87c-23d4-42e3-a542-44f2e834616d.png',
-  '/lovable-uploads/609a7402-4f73-4888-bedd-2256c3fbd997.png'
+  '/lovable-uploads/554676d0-4988-4b83-864c-15c32ee349a2.png'
 ];
 
 // Simplified favicon resources with cache busting
@@ -149,8 +145,8 @@ self.addEventListener('fetch', (event) => {
   }
 });
 
-// Cache First strategy - for static assets
-async function cacheFirst(request, cacheName, maxAge = 24 * 60 * 60 * 1000) {
+// Mobile-optimized Cache First strategy
+async function cacheFirst(request, cacheName, maxAge = 12 * 60 * 60 * 1000) { // Reduced to 12 hours
   try {
     const cache = await caches.open(cacheName);
     const cachedResponse = await cache.match(request);

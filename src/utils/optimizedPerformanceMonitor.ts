@@ -7,7 +7,7 @@ export class OptimizedPerformanceMonitor {
   private metrics: Map<string, number> = new Map();
   private isEnabled: boolean = false;
   private lastLogTime = 0;
-  private readonly LOG_THROTTLE = 5000; // Only log every 5 seconds
+  private readonly LOG_THROTTLE = 60000; // Only log every 60 seconds (mobile optimized)
 
   static getInstance(): OptimizedPerformanceMonitor {
     if (!OptimizedPerformanceMonitor.instance) {
@@ -17,7 +17,8 @@ export class OptimizedPerformanceMonitor {
   }
 
   initialize(): void {
-    if (process.env.NODE_ENV !== 'development') return;
+    // Disable in production to reduce mobile overhead
+    if (process.env.NODE_ENV === 'production') return;
     
     this.isEnabled = true;
     
@@ -41,7 +42,10 @@ export class OptimizedPerformanceMonitor {
         
         if (longTasks.length > 0) {
           this.lastLogTime = now;
-          console.warn(`⚡ ${longTasks.length} long tasks detected (${longTasks[0].duration.toFixed(0)}ms+)`);
+          // Reduced logging for mobile performance
+          if (process.env.NODE_ENV === 'development') {
+            console.warn(`⚡ ${longTasks.length} long tasks detected (${longTasks[0].duration.toFixed(0)}ms+)`);
+          }
           this.metrics.set('longTasks', (this.metrics.get('longTasks') || 0) + longTasks.length);
         }
       });
@@ -61,7 +65,8 @@ export class OptimizedPerformanceMonitor {
         const memory = (performance as any).memory;
         const usedMB = Math.round(memory.usedJSHeapSize / 1048576);
         
-        if (usedMB > 50) {
+        // Only warn if memory usage is critically high on mobile
+        if (usedMB > 25 && process.env.NODE_ENV === 'development') {
           console.warn(`⚡ Memory: ${usedMB}MB`);
         }
         
