@@ -10,7 +10,7 @@ const CallButton = () => {
   };
 
   return (
-    <div className="fixed bottom-24 right-6 z-50 transition-all duration-500">
+    <div className="fixed bottom-20 right-4 md:bottom-24 md:right-6 z-50 transition-all duration-500">
       <div className="relative call-float">
         {/* Pulse animation background */}
         <div className="absolute inset-0 bg-blue-500 rounded-full call-pulse"></div>

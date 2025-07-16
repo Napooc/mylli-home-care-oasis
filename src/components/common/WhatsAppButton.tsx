@@ -29,7 +29,7 @@ const WhatsAppButton = () => {
   if (!isVisible) return null;
 
   return (
-    <div className={`fixed bottom-6 right-6 z-50 transition-all duration-500 ${
+    <div className={`fixed bottom-4 right-4 md:bottom-6 md:right-6 z-50 transition-all duration-500 ${
       isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
     }`}>
       <div className="relative whatsapp-float">

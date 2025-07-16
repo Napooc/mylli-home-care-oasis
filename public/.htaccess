@@ -6,8 +6,8 @@ Header always set X-XSS-Protection "1; mode=block"
 Header always set Referrer-Policy "strict-origin-when-cross-origin"
 Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
 
-# Content Security Policy - Adjusted for React and external services
-Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.emailjs.com https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https://api.emailjs.com https://www.google-analytics.com; frame-src 'self' https://www.google.com; object-src 'none'; base-uri 'self'; form-action 'self';"
+# Content Security Policy - Relaxed for incognito mode compatibility
+Header always set Content-Security-Policy "default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.emailjs.com https://www.googletagmanager.com https://www.google-analytics.com data: blob:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com data:; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; connect-src 'self' https://api.emailjs.com https://www.google-analytics.com data: blob:; frame-src 'self' https://www.google.com; object-src 'self' data:; base-uri 'self'; form-action 'self';"
 
 # HSTS (HTTP Strict Transport Security)
 Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
@@ -84,10 +84,14 @@ RewriteEngine On
 RewriteCond %{QUERY_STRING} v=ios-fix-2024
 RewriteRule ^lovable-uploads/f8839c98-c2b6-4a1b-86d6-d6858f3f38df\.png$ /lovable-uploads/f8839c98-c2b6-4a1b-86d6-d6858f3f38df.png? [L]
 
-# SPA routing
+# SPA routing - Handle all routes that don't exist as files
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule . /index.html [L]
+RewriteCond %{REQUEST_URI} !^/api/
+RewriteRule ^(.*)$ /index.html [QSA,L]
+
+# Alternative fallback for OVH
+ErrorDocument 404 /index.html
 
 # Prevent hotlinking
 RewriteCond %{HTTP_REFERER} !^$
