@@ -12,7 +12,7 @@ const WhatsAppButton = () => {
   };
 
   return (
-    <div className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-50 transition-all duration-500">
+    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 md:bottom-6 md:right-6 z-50 transition-all duration-500">
       <div className="relative whatsapp-float">
         {/* Pulse animation background */}
         <div className="absolute inset-0 bg-green-500 rounded-full whatsapp-pulse"></div>
