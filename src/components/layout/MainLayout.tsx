@@ -6,10 +6,12 @@ import Header from './Header';
 import Footer from './Footer';
 import BreadcrumbNav from '../seo/BreadcrumbNav';
 import WhatsAppButton from '../common/WhatsAppButton';
+import CallButton from '../common/CallButton';
 import ScrollProgressBar from '../animations/ScrollProgressBar';
 import { preloadCriticalResources, measureCoreWebVitals } from '@/utils/seoUtils';
 import { usePerformanceOptimization } from '@/hooks/usePerformanceOptimization';
 import '../../styles/whatsapp-button.css';
+import '../../styles/call-button.css';
 
 interface MainLayoutProps {
   children: ReactNode;
@@ -50,6 +52,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
         </main>
         <Footer />
         <WhatsAppButton />
+        <CallButton />
       </div>
     </HelmetProvider>
   );

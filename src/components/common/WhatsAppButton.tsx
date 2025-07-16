@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { MessageCircle } from 'lucide-react';
 
@@ -45,16 +44,14 @@ const WhatsAppButton = () => {
           className="whatsapp-button relative flex items-center justify-center w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-green-400 via-green-500 to-green-600 hover:from-green-500 hover:via-green-600 hover:to-green-700 rounded-full shadow-2xl backdrop-blur-sm border border-white/30 transition-all duration-300 transform hover:scale-110 active:scale-95 group whatsapp-shimmer"
           aria-label="Contactez-nous sur WhatsApp"
         >
-          {/* Glassmorphism overlay */}
+          {/* ... keep existing code (glassmorphism overlay, icon, notification dot) */}
           <div className="absolute inset-0 bg-white/20 rounded-full backdrop-blur-md"></div>
           
-          {/* Icon */}
           <MessageCircle 
             size={28} 
             className="text-white z-10 transition-all duration-300 group-hover:rotate-12 group-hover:scale-110" 
           />
           
-          {/* Notification dot */}
           <div className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-br from-red-400 to-red-600 rounded-full animate-bounce shadow-lg border-2 border-white">
             <div className="absolute inset-0 bg-red-500 rounded-full animate-ping opacity-40"></div>
           </div>
