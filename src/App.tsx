@@ -54,6 +54,13 @@ const App: React.FC = () => {
   useEffect(() => {
     console.log('🚀 Ultra-Fast Loading Initialization...');
     
+    // Handle redirect from 404.html
+    const urlParams = new URLSearchParams(window.location.search);
+    const redirectPath = urlParams.get('redirect');
+    if (redirectPath) {
+      window.history.replaceState({}, '', redirectPath);
+    }
+    
     // Phase 1: Critical Rendering Path
     injectCriticalCSS();
     preloadCriticalResources();
