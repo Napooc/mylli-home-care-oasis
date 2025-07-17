@@ -62,9 +62,9 @@
   box-shadow: 0 20px 40px rgba(59, 130, 246, 0.4);
 }
 
-/* Responsive adjustments */
+/* Responsive adjustments - removed conflicting mobile styles */
 @media (max-width: 768px) {
   .call-float {
-    bottom: 140px !important;
+    /* Removed bottom override to use component positioning */
   }
 }
