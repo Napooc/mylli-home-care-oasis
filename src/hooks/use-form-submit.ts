@@ -1,7 +1,7 @@
 
 import { useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
-import { sendFormDataToEmail } from '@/utils/emailjs';
+// EmailJS removed - no longer needed
 
 type SubmitOptions = {
   formName: string;
@@ -51,33 +51,25 @@ export const useFormSubmit = () => {
         }
       });
 
-      console.log('Submitting with sanitized data:', sanitizedFormData);
+      console.log('Form data prepared:', sanitizedFormData);
       
-      const result = await sendFormDataToEmail(
-        sanitizedFormData,
-        options.formName,
-        options.templateId
-      );
+      // EmailJS has been removed - form data is just logged
+      console.log('EmailJS removed - form would have been sent with:', {
+        data: sanitizedFormData,
+        formName: options.formName,
+        templateId: options.templateId
+      });
 
-      if (result.success) {
-        toast({
-          title: options.successMessage?.title || "Formulaire envoyé",
-          description: options.successMessage?.description || "Votre demande a été envoyée avec succès.",
-        });
+      // Simulate successful submission since EmailJS is removed
+      toast({
+        title: options.successMessage?.title || "Formulaire préparé",
+        description: options.successMessage?.description || "Les données du formulaire ont été traitées (EmailJS supprimé).",
+      });
 
-        if (options.resetForm && onReset) {
-          onReset();
-        }
-        return true;
-      } else {
-        console.error('Email submission failed:', result.error);
-        toast({
-          title: options.errorMessage?.title || "Erreur",
-          description: options.errorMessage?.description || "Une erreur est survenue lors de l'envoi du formulaire.",
-          variant: "destructive",
-        });
-        return false;
+      if (options.resetForm && onReset) {
+        onReset();
       }
+      return true;
     } catch (error) {
       console.error('Form submission error:', error);
       toast({

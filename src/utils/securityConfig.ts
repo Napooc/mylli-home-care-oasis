@@ -10,11 +10,11 @@ export const SECURITY_CONFIG = {
   // Content Security Policy
   CSP_POLICIES: {
     'default-src': ["'self'"],
-    'script-src': ["'self'", "'unsafe-inline'", "'unsafe-eval'", "https://cdn.emailjs.com", "https://www.googletagmanager.com"],
+    'script-src': ["'self'", "'unsafe-inline'", "'unsafe-eval'", "https://www.googletagmanager.com"],
     'style-src': ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
     'font-src': ["'self'", "https://fonts.gstatic.com"],
     'img-src': ["'self'", "data:", "https:", "blob:"],
-    'connect-src': ["'self'", "https://api.emailjs.com", "https://www.google-analytics.com"],
+    'connect-src': ["'self'", "https://www.google-analytics.com"],
     'frame-src': ["'self'", "https://www.google.com"],
     'object-src': ["'none'"],
     'base-uri': ["'self'"],

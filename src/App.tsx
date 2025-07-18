@@ -20,7 +20,7 @@ import CookiePolicy from "./pages/CookiePolicy";
 import PolitiqueConfidentialite from "./pages/PolitiqueConfidentialite";
 import MotDuPresident from "./pages/MotDuPresident";
 import NotFound from "./pages/NotFound";
-import { initEmailJS } from "./utils/emailjs";
+
 
 import CookieConsentManager from "./components/cookies/CookieConsentManager";
 import SecurityDashboard from "./components/security/SecurityDashboard";
@@ -91,13 +91,6 @@ const App: React.FC = () => {
       });
     }
     
-    // EmailJS Initialization
-    try {
-      initEmailJS();
-      console.log("✅ EmailJS initialized");
-    } catch (error) {
-      console.error("❌ EmailJS initialization failed:", error);
-    }
 
     console.log('✅ Ultra-fast initialization complete');
 

@@ -1,7 +1,7 @@
 
 import { useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
-import { sendFormDataToEmail } from '@/utils/emailjs';
+// EmailJS removed - no longer needed
 import { securityValidator } from '@/utils/securityValidator';
 import { securitySession } from '@/utils/securitySession';
 import { securityMonitor } from '@/utils/securityMonitor';
@@ -79,38 +79,28 @@ export const useSecureFormSubmit = () => {
       // Remove CSRF token from submission data
       const { csrf_token, ...submissionData } = validation.sanitized;
 
-      console.log('Submitting secure form data:', submissionData);
+      console.log('Secure form data prepared:', submissionData);
       
-      const result = await sendFormDataToEmail(
-        submissionData,
-        options.formName,
-        options.templateId
-      );
+      // EmailJS has been removed - form data is just logged securely
+      console.log('EmailJS removed - secure form would have been sent with:', {
+        data: submissionData,
+        formName: options.formName,
+        templateId: options.templateId
+      });
 
-      if (result.success) {
-        securityMonitor.logFormSubmission(options.formName, true);
-        securitySession.updateLastActivity();
-        
-        toast({
-          title: options.successMessage?.title || "Formulaire envoyé",
-          description: options.successMessage?.description || "Votre demande a été envoyée avec succès.",
-        });
+      // Log successful processing since EmailJS is removed
+      securityMonitor.logFormSubmission(options.formName, true);
+      securitySession.updateLastActivity();
+      
+      toast({
+        title: options.successMessage?.title || "Formulaire traité",
+        description: options.successMessage?.description || "Les données du formulaire ont été traitées de manière sécurisée (EmailJS supprimé).",
+      });
 
-        if (options.resetForm && onReset) {
-          onReset();
-        }
-        return true;
-      } else {
-        console.error('Email submission failed:', result.error);
-        securityMonitor.logFormSubmission(options.formName, false, ['Email submission failed']);
-        
-        toast({
-          title: options.errorMessage?.title || "Erreur",
-          description: options.errorMessage?.description || "Une erreur est survenue lors de l'envoi du formulaire.",
-          variant: "destructive",
-        });
-        return false;
+      if (options.resetForm && onReset) {
+        onReset();
       }
+      return true;
     } catch (error) {
       console.error('Form submission error:', error);
       securityMonitor.logFormSubmission(options.formName, false, [String(error)]);
