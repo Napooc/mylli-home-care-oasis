@@ -60,9 +60,11 @@ export default defineConfig(({ mode }) => ({
     include: [
       'react',
       'react-dom',
+      'react/jsx-runtime',
       'react-router-dom',
       '@tanstack/react-query',
-      'lucide-react'
+      'lucide-react',
+      '@radix-ui/react-tooltip'
     ],
     exclude: ['@vite/client', '@vite/env'],
   },
