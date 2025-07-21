@@ -2,7 +2,6 @@
 import React, { useEffect } from 'react';
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import MainLayout from "./components/layout/MainLayout";
@@ -59,9 +58,8 @@ const App: React.FC = () => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
+      <Toaster />
+      <Sonner />
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<MainLayout><HomePage /></MainLayout>} />
@@ -79,10 +77,9 @@ const App: React.FC = () => {
             <Route path="/mot-du-president" element={<MainLayout><MotDuPresident /></MainLayout>} />
             <Route path="*" element={<MainLayout><NotFound /></MainLayout>} />
           </Routes>
-          <CookieConsentManager />
-          <SecurityDashboard />
-        </BrowserRouter>
-      </TooltipProvider>
+        <CookieConsentManager />
+        <SecurityDashboard />
+      </BrowserRouter>
     </QueryClientProvider>
   );
 };
