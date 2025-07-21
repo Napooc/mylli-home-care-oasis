@@ -1,30 +1,37 @@
 
+# Apache Configuration for React SPA
+Options -MultiViews
+RewriteEngine On
+
 # Security Headers
 Header always set X-Content-Type-Options nosniff
 Header always set X-Frame-Options DENY
 Header always set X-XSS-Protection "1; mode=block"
 Header always set Referrer-Policy "strict-origin-when-cross-origin"
-Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
 
-# Content Security Policy - Relaxed for incognito mode compatibility
-Header always set Content-Security-Policy "default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.emailjs.com https://www.googletagmanager.com https://www.google-analytics.com data: blob:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com data:; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; connect-src 'self' https://api.emailjs.com https://www.google-analytics.com data: blob:; frame-src 'self' https://www.google.com; object-src 'self' data:; base-uri 'self'; form-action 'self';"
+# HTTPS Redirect (uncomment if you have SSL)
+# RewriteCond %{HTTPS} off
+# RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
-# HSTS (HTTP Strict Transport Security)
-Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+# Handle Angular and React Router
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.html [L]
 
-# Prevent access to sensitive files
-<FilesMatch "\.(env|log|md)$">
-  Order allow,deny
-  Deny from all
-</FilesMatch>
+# Cache static assets
+<IfModule mod_expires.c>
+  ExpiresActive on
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/jpg "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/gif "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+</IfModule>
 
-# Prevent access to configuration files
-<FilesMatch "^(package\.json|tsconfig\.json|vite\.config\.ts)$">
-  Order allow,deny
-  Deny from all
-</FilesMatch>
-
-# Enable compression for better performance
+# Gzip compression
 <IfModule mod_deflate.c>
   AddOutputFilterByType DEFLATE text/plain
   AddOutputFilterByType DEFLATE text/html
@@ -36,77 +43,3 @@ Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains
   AddOutputFilterByType DEFLATE application/javascript
   AddOutputFilterByType DEFLATE application/x-javascript
 </IfModule>
-
-# iOS-Optimized Browser Caching
-<IfModule mod_expires.c>
-  ExpiresActive on
-  ExpiresByType text/css "access plus 1 year"
-  ExpiresByType application/javascript "access plus 1 year"
-  ExpiresByType image/jpg "access plus 1 year"
-  ExpiresByType image/jpeg "access plus 1 year"
-  ExpiresByType image/gif "access plus 1 year"
-  ExpiresByType image/svg+xml "access plus 1 year"
-  ExpiresByType image/webp "access plus 1 year"
-  
-  # Special handling for favicon PNG - shorter cache for iOS
-  ExpiresByType image/png "access plus 1 day"
-</IfModule>
-
-# iOS-Specific Favicon Headers
-<IfModule mod_headers.c>
-  # Cache favicon with iOS-specific handling
-  <FilesMatch "f8839c98-c2b6-4a1b-86d6-d6858f3f38df\.png">
-    Header set Vary "User-Agent"
-    
-    # iOS devices get shorter cache
-    <If "%{HTTP_USER_AGENT} =~ /iPad|iPhone|iPod|Macintosh.*Safari/"*>
-      Header set Cache-Control "public, max-age=86400, must-revalidate"
-      Header set Pragma "no-cache"
-    </If>
-    
-    # Non-iOS devices get longer cache
-    <If "%{HTTP_USER_AGENT} !~ /iPad|iPhone|iPod|Macintosh.*Safari/"*>
-      Header set Cache-Control "public, max-age=31536000, immutable"
-    </If>
-  </FilesMatch>
-  
-  # CORS for favicon
-  <FilesMatch "\.(ico|png)$">
-    Header set Access-Control-Allow-Origin "*"
-    Header set Access-Control-Allow-Methods "GET, OPTIONS"
-  </FilesMatch>
-</IfModule>
-
-# URL Rewriting for SPA + Cache Busting
-RewriteEngine On
-
-# Handle cache-busted favicon requests
-RewriteCond %{QUERY_STRING} v=ios-fix-2024
-RewriteRule ^lovable-uploads/f8839c98-c2b6-4a1b-86d6-d6858f3f38df\.png$ /lovable-uploads/f8839c98-c2b6-4a1b-86d6-d6858f3f38df.png? [L]
-
-# Enhanced SPA routing - Handle all routes that don't exist as files
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_URI} !^/api/
-RewriteCond %{REQUEST_URI} !^/assets/
-RewriteCond %{REQUEST_URI} !^/lovable-uploads/
-RewriteCond %{REQUEST_URI} !\.(css|js|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$
-RewriteRule ^(.*)$ /index.html [QSA,L]
-
-# Multiple fallback options for different hosting environments
-ErrorDocument 404 /index.html
-ErrorDocument 403 /index.html
-
-# Ensure index.html is always accessible
-<Files "index.html">
-  Order allow,deny
-  Allow from all
-  Header always set Cache-Control "no-cache, no-store, must-revalidate"
-  Header always set Pragma "no-cache"
-  Header always set Expires "0"
-</Files>
-
-# Prevent hotlinking
-RewriteCond %{HTTP_REFERER} !^$
-RewriteCond %{HTTP_REFERER} !^https://(www\.)?mylliservices\.com/ [NC]
-RewriteRule \.(gif|jpg|jpeg|png|svg|webp)$ - [F,L]

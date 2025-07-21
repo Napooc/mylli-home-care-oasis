@@ -20,22 +20,13 @@ import CookiePolicy from "./pages/CookiePolicy";
 import PolitiqueConfidentialite from "./pages/PolitiqueConfidentialite";
 import MotDuPresident from "./pages/MotDuPresident";
 import NotFound from "./pages/NotFound";
-
-
 import CookieConsentManager from "./components/cookies/CookieConsentManager";
 import SecurityDashboard from "./components/security/SecurityDashboard";
 import { securitySession } from "./utils/securitySession";
-import { injectCriticalCSS } from "./utils/criticalCSS";
-import { preloadCriticalResources, addResourceHints } from "./utils/resourcePriority";
-import { MemoryOptimizer } from "./utils/memoryOptimizer";
-import { SpeedOptimizer } from "./utils/speedOptimizer";
-import { ultraFastImageLoader } from "./utils/ultraFastImageLoader";
-import { intelligentImageCache } from "./utils/intelligentImageCache";
-import { imagePerformanceMonitor } from "./utils/imagePerformanceMonitor";
 import "./styles/global.css";
 import "./styles/scroll-animations.css";
 
-// Ultra-optimized QueryClient
+// Production-optimized QueryClient
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -52,8 +43,6 @@ const queryClient = new QueryClient({
 
 const App: React.FC = () => {
   useEffect(() => {
-    console.log('🚀 Ultra-Fast Loading Initialization...');
-    
     // Handle redirect from 404.html
     const urlParams = new URLSearchParams(window.location.search);
     const redirectPath = urlParams.get('redirect');
@@ -61,44 +50,15 @@ const App: React.FC = () => {
       window.history.replaceState({}, '', redirectPath);
     }
     
-    // Phase 1: Critical Rendering Path
-    injectCriticalCSS();
-    preloadCriticalResources();
-    addResourceHints();
-    
-    // Phase 2: Essential Services
+    // Initialize security session
     securitySession.initializeSession();
     
-    // Phase 3: Bundle + Image Optimization
-    MemoryOptimizer.startMemoryOptimization();
-    SpeedOptimizer.initialize();
-    
-    // Phase 3.5: Ultra-Fast Image System (Silent Integration)
-    ultraFastImageLoader; // Initialize image loader
-    intelligentImageCache; // Initialize intelligent cache
-    imagePerformanceMonitor; // Initialize performance monitoring
-    
-    // Emergency Mobile Performance Tracking
-    import('./utils/mobilePerformanceTracker').then(({ mobilePerformanceTracker }) => {
-      mobilePerformanceTracker; // Initialize mobile performance tracking
-      console.log('📱 Mobile performance tracking initialized');
-    });
-    
-    // Phase 4: Service Worker (Minimal)
-    if ('serviceWorker' in navigator) {
+    // Register service worker in production
+    if (import.meta.env.PROD && 'serviceWorker' in navigator) {
       navigator.serviceWorker.register('/sw.js').catch(() => {
         console.warn('Service Worker registration failed');
       });
     }
-    
-
-    console.log('✅ Ultra-fast initialization complete');
-
-    // Cleanup on unmount
-    return () => {
-      MemoryOptimizer.cleanup();
-      SpeedOptimizer.cleanup();
-    };
   }, []);
 
   return (
