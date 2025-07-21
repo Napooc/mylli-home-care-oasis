@@ -5,7 +5,6 @@ import path from "path";
 import { componentTagger } from "lovable-tagger";
 
 export default defineConfig(({ mode }) => ({
-  base: './', // Relative paths for FileZilla deployment
   server: {
     host: "::",
     port: 8080,
@@ -60,11 +59,9 @@ export default defineConfig(({ mode }) => ({
     include: [
       'react',
       'react-dom',
-      'react/jsx-runtime',
       'react-router-dom',
       '@tanstack/react-query',
-      'lucide-react',
-      '@radix-ui/react-tooltip'
+      'lucide-react'
     ],
     exclude: ['@vite/client', '@vite/env'],
   },
