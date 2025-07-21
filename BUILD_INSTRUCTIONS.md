@@ -38,8 +38,8 @@ VITE_API_URL=https://your-api-url.com
 # Development build
 npm run dev
 
-# Production build (recommended)
-npm run build:prod
+# Production build
+npm run build
 
 # Preview production build locally
 npm run preview
