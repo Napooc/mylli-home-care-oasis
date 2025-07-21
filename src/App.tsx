@@ -22,7 +22,6 @@ import MotDuPresident from "./pages/MotDuPresident";
 import NotFound from "./pages/NotFound";
 import CookieConsentManager from "./components/cookies/CookieConsentManager";
 import SecurityDashboard from "./components/security/SecurityDashboard";
-import { securitySession } from "./utils/securitySession";
 import "./styles/global.css";
 import "./styles/scroll-animations.css";
 
@@ -49,9 +48,6 @@ const App: React.FC = () => {
     if (redirectPath) {
       window.history.replaceState({}, '', redirectPath);
     }
-    
-    // Initialize security session
-    securitySession.initializeSession();
     
     // Register service worker in production
     if (import.meta.env.PROD && 'serviceWorker' in navigator) {
