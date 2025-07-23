@@ -5,6 +5,8 @@ import path from "path";
 import { componentTagger } from "lovable-tagger";
 
 export default defineConfig(({ mode }) => ({
+  // Add base configuration for different deployment scenarios
+  base: "./",
   server: {
     host: "::",
     port: 8080,
@@ -31,16 +33,16 @@ export default defineConfig(({ mode }) => ({
           'icons': ['lucide-react'],
           'utils': ['clsx', 'tailwind-merge'],
         },
-        chunkFileNames: 'js/[name]-[hash:8].js',
-        entryFileNames: 'js/[name]-[hash:8].js',
+        chunkFileNames: 'assets/js/[name]-[hash:8].js',
+        entryFileNames: 'assets/js/[name]-[hash:8].js',
         assetFileNames: (assetInfo) => {
           const info = assetInfo.name?.split('.') ?? [];
           const extType = info[info.length - 1];
           if (/\.(css)$/.test(assetInfo.name ?? '')) {
-            return 'css/[name]-[hash:8][extname]';
+            return 'assets/css/[name]-[hash:8][extname]';
           }
           if (/\.(png|jpe?g|svg|gif|webp|avif)$/.test(assetInfo.name ?? '')) {
-            return 'img/[name]-[hash:8][extname]';
+            return 'assets/img/[name]-[hash:8][extname]';
           }
           return 'assets/[name]-[hash:8][extname]';
         }
@@ -54,7 +56,15 @@ export default defineConfig(({ mode }) => ({
     cssMinify: 'esbuild',
     assetsInlineLimit: 1024,
     reportCompressedSize: false,
+    // Ensure public directory is properly copied
+    copyPublicDir: true,
+    // Fix asset handling for deployment
+    assetsDir: 'assets',
+    outDir: 'dist',
+    emptyOutDir: true,
   },
+  // Ensure public files are accessible
+  publicDir: 'public',
   optimizeDeps: {
     include: [
       'react',
