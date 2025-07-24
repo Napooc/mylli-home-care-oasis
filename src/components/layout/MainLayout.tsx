@@ -17,14 +17,7 @@ interface MainLayoutProps {
 }
 
 const MainLayout = ({ children }: MainLayoutProps) => {
-  let location;
-  try {
-    location = useLocation();
-  } catch (error) {
-    console.error('MainLayout: useLocation() called outside router context:', error);
-    // Fallback location object
-    location = { pathname: '/' };
-  }
+  const location = useLocation();
   
   // Initialize performance optimizations
   usePerformanceOptimization();

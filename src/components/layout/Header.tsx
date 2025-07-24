@@ -9,13 +9,7 @@ const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   
-  let location;
-  try {
-    location = useLocation();
-  } catch (error) {
-    console.error('Header: useLocation() called outside router context:', error);
-    location = { pathname: '/' };
-  }
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
