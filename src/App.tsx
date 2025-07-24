@@ -67,24 +67,22 @@ const App: React.FC = () => {
         <Toaster />
         <Sonner />
         <BrowserRouter>
-          <MainLayout>
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/services" element={<ServicesPage />} />
-              <Route path="/services/aide-soignant" element={<AideSoignantPage />} />
-              <Route path="/services/infirmier" element={<InfirmierPage />} />
-              <Route path="/fonctionnement" element={<FonctionnementPage />} />
-              <Route path="/outils" element={<EquipePage />} />
-              <Route path="/apropos" element={<AProposPage />} />
-              <Route path="/contact" element={<ContactPage />} />
-              <Route path="/articles" element={<ArticlesPage />} />
-              <Route path="/articles/:slug" element={<ArticleDetail />} />
-              <Route path="/politique-cookies" element={<CookiePolicy />} />
-              <Route path="/politique-confidentialite" element={<PolitiqueConfidentialite />} />
-              <Route path="/mot-du-president" element={<MotDuPresident />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </MainLayout>
+          <Routes>
+            <Route path="/" element={<MainLayout><HomePage /></MainLayout>} />
+            <Route path="/services" element={<MainLayout><ServicesPage /></MainLayout>} />
+            <Route path="/services/aide-soignant" element={<MainLayout><AideSoignantPage /></MainLayout>} />
+            <Route path="/services/infirmier" element={<MainLayout><InfirmierPage /></MainLayout>} />
+            <Route path="/fonctionnement" element={<MainLayout><FonctionnementPage /></MainLayout>} />
+            <Route path="/outils" element={<MainLayout><EquipePage /></MainLayout>} />
+            <Route path="/apropos" element={<MainLayout><AProposPage /></MainLayout>} />
+            <Route path="/contact" element={<MainLayout><ContactPage /></MainLayout>} />
+            <Route path="/articles" element={<MainLayout><ArticlesPage /></MainLayout>} />
+            <Route path="/articles/:slug" element={<MainLayout><ArticleDetail /></MainLayout>} />
+            <Route path="/politique-cookies" element={<MainLayout><CookiePolicy /></MainLayout>} />
+            <Route path="/politique-confidentialite" element={<MainLayout><PolitiqueConfidentialite /></MainLayout>} />
+            <Route path="/mot-du-president" element={<MainLayout><MotDuPresident /></MainLayout>} />
+            <Route path="*" element={<MainLayout><NotFound /></MainLayout>} />
+          </Routes>
           <CookieConsentManager />
           <SecurityDashboard />
         </BrowserRouter>
