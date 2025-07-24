@@ -15,7 +15,13 @@ interface BreadcrumbNavProps {
 }
 
 const BreadcrumbNav: React.FC<BreadcrumbNavProps> = ({ items, className = '' }) => {
-  const location = useLocation();
+  let location;
+  try {
+    location = useLocation();
+  } catch (error) {
+    console.error('BreadcrumbNav: useLocation() called outside router context:', error);
+    location = { pathname: '/' };
+  }
   
   // Auto-generate breadcrumbs if not provided
   const generateBreadcrumbs = (): BreadcrumbItem[] => {

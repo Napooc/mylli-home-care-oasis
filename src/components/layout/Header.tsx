@@ -8,7 +8,14 @@ import BrandName from '../common/BrandName';
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const location = useLocation();
+  
+  let location;
+  try {
+    location = useLocation();
+  } catch (error) {
+    console.error('Header: useLocation() called outside router context:', error);
+    location = { pathname: '/' };
+  }
 
   useEffect(() => {
     const handleScroll = () => {

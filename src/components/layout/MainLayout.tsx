@@ -1,4 +1,3 @@
-
 import { ReactNode, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
@@ -18,7 +17,14 @@ interface MainLayoutProps {
 }
 
 const MainLayout = ({ children }: MainLayoutProps) => {
-  const location = useLocation();
+  let location;
+  try {
+    location = useLocation();
+  } catch (error) {
+    console.error('MainLayout: useLocation() called outside router context:', error);
+    // Fallback location object
+    location = { pathname: '/' };
+  }
   
   // Initialize performance optimizations
   usePerformanceOptimization();
